@@ -1310,6 +1310,11 @@ namespace CarRental.CarRentalServiceReference
     [global::System.Data.Services.Common.DataServiceKeyAttribute("FahrzeugID")]
     public partial class Fahrzeug : global::System.ComponentModel.INotifyPropertyChanged
     {
+        public override string ToString()
+        {
+            return Bezeichnung;
+        }
+
         /// <summary>
         /// Erstellt ein neues Fahrzeug-Objekt.
         /// </summary>
