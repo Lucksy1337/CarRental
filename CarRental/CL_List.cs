@@ -13,6 +13,7 @@ namespace CarRental
         // Singleton
         private static volatile CL_List instance;
         private static object syncRoot = new Object();
+        //COMMIT
 
 
         //Main lists
