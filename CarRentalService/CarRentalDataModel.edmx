@@ -1,0 +1,666 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="peterson_infrastrukturDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adresse">
+          <Key>
+            <PropertyRef Name="AdresseID" />
+          </Key>
+          <Property Name="AdresseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Strasse" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Hausnummer" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PLZ" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ort" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Anmeldung">
+          <Key>
+            <PropertyRef Name="AnmeldungID" />
+          </Key>
+          <Property Name="AnmeldungID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Benutzername" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Passwort" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Auftrag">
+          <Key>
+            <PropertyRef Name="AuftragID" />
+          </Key>
+          <Property Name="AuftragID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KundeID" Type="int" Nullable="false" />
+          <Property Name="FahrzeugID" Type="int" Nullable="false" />
+          <Property Name="Auftragsdatum" Type="date" Nullable="false" />
+          <Property Name="Rückgabedatum" Type="date" Nullable="false" />
+          <Property Name="Gesamtpreis" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Benutzer">
+          <Key>
+            <PropertyRef Name="BenutzerID" />
+          </Key>
+          <Property Name="BenutzerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnmeldeID" Type="int" />
+          <Property Name="BenutzerartID" Type="int" />
+          <Property Name="Benutzernamen" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Benutzerart">
+          <Key>
+            <PropertyRef Name="BenutzerartID" />
+          </Key>
+          <Property Name="BenutzerartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bezeichnung" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fahrzeug">
+          <Key>
+            <PropertyRef Name="FahrzeugID" />
+          </Key>
+          <Property Name="FahrzeugID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FahrzeugtypID" Type="int" Nullable="false" />
+          <Property Name="VersicherungspaketID" Type="int" Nullable="false" />
+          <Property Name="Bezeichnung" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Marke" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Baujahr" Type="int" Nullable="false" />
+          <Property Name="Kilometerstand" Type="float" Nullable="false" />
+          <Property Name="Schaltung" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sitze" Type="int" Nullable="false" />
+          <Property Name="Türe" Type="int" Nullable="false" />
+          <Property Name="Naviagationssystem" Type="bit" Nullable="false" />
+          <Property Name="Klimaanlage" Type="bit" Nullable="false" />
+          <Property Name="MietpreisProTag" Type="float" Nullable="false" />
+          <Property Name="Verfügbar" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fahrzeugtyp">
+          <Key>
+            <PropertyRef Name="FahrzeugtypID" />
+          </Key>
+          <Property Name="FahrzeugtypID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bezeichnung" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kontakt">
+          <Key>
+            <PropertyRef Name="KontaktID" />
+          </Key>
+          <Property Name="KontaktID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="E-Mail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefonnummer" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mobilnummer" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Faxnummer" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kunde">
+          <Key>
+            <PropertyRef Name="KundeID" />
+          </Key>
+          <Property Name="KundeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KontaktID" Type="int" Nullable="false" />
+          <Property Name="AdresseID" Type="int" Nullable="false" />
+          <Property Name="Vornamen" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nachnamen" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Alter" Type="int" Nullable="false" />
+          <Property Name="Geschlecht" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Kundennummer" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Versicherungspaket">
+          <Key>
+            <PropertyRef Name="VersicherungspaketID" />
+          </Key>
+          <Property Name="VersicherungspaketID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bezeichnung" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Insassenunfallschutzversicherung" Type="bit" Nullable="false" />
+          <Property Name="Haftpflichtversicherung" Type="bit" Nullable="false" />
+          <Property Name="Feuerversicherung" Type="bit" Nullable="false" />
+          <Property Name="Haftungsbegrenzung" Type="bit" Nullable="false" />
+          <Property Name="Diebstahlschutz" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Auftrag_Fahrzeug">
+          <End Role="Fahrzeug" Type="Self.Fahrzeug" Multiplicity="1" />
+          <End Role="Auftrag" Type="Self.Auftrag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fahrzeug">
+              <PropertyRef Name="FahrzeugID" />
+            </Principal>
+            <Dependent Role="Auftrag">
+              <PropertyRef Name="FahrzeugID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auftrag_Kunde">
+          <End Role="Kunde" Type="Self.Kunde" Multiplicity="1" />
+          <End Role="Auftrag" Type="Self.Auftrag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kunde">
+              <PropertyRef Name="KundeID" />
+            </Principal>
+            <Dependent Role="Auftrag">
+              <PropertyRef Name="KundeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Benutzer_Anmeldung">
+          <End Role="Anmeldung" Type="Self.Anmeldung" Multiplicity="0..1" />
+          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anmeldung">
+              <PropertyRef Name="AnmeldungID" />
+            </Principal>
+            <Dependent Role="Benutzer">
+              <PropertyRef Name="AnmeldeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Benutzer_Benutzerart">
+          <End Role="Benutzerart" Type="Self.Benutzerart" Multiplicity="0..1" />
+          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benutzerart">
+              <PropertyRef Name="BenutzerartID" />
+            </Principal>
+            <Dependent Role="Benutzer">
+              <PropertyRef Name="BenutzerartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fahrzeug_Fahrzeugtyp">
+          <End Role="Fahrzeugtyp" Type="Self.Fahrzeugtyp" Multiplicity="1" />
+          <End Role="Fahrzeug" Type="Self.Fahrzeug" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fahrzeugtyp">
+              <PropertyRef Name="FahrzeugtypID" />
+            </Principal>
+            <Dependent Role="Fahrzeug">
+              <PropertyRef Name="FahrzeugtypID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fahrzeug_Versicherungspaket">
+          <End Role="Versicherungspaket" Type="Self.Versicherungspaket" Multiplicity="1" />
+          <End Role="Fahrzeug" Type="Self.Fahrzeug" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Versicherungspaket">
+              <PropertyRef Name="VersicherungspaketID" />
+            </Principal>
+            <Dependent Role="Fahrzeug">
+              <PropertyRef Name="VersicherungspaketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kunde_Adresse">
+          <End Role="Adresse" Type="Self.Adresse" Multiplicity="1" />
+          <End Role="Kunde" Type="Self.Kunde" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adresse">
+              <PropertyRef Name="AdresseID" />
+            </Principal>
+            <Dependent Role="Kunde">
+              <PropertyRef Name="AdresseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kunde_Kontakt">
+          <End Role="Kontakt" Type="Self.Kontakt" Multiplicity="1" />
+          <End Role="Kunde" Type="Self.Kunde" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kontakt">
+              <PropertyRef Name="KontaktID" />
+            </Principal>
+            <Dependent Role="Kunde">
+              <PropertyRef Name="KontaktID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="peterson_infrastrukturDBModelStoreContainer">
+          <EntitySet Name="Adresse" EntityType="Self.Adresse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Anmeldung" EntityType="Self.Anmeldung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Auftrag" EntityType="Self.Auftrag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Benutzer" EntityType="Self.Benutzer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Benutzerart" EntityType="Self.Benutzerart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fahrzeug" EntityType="Self.Fahrzeug" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fahrzeugtyp" EntityType="Self.Fahrzeugtyp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kontakt" EntityType="Self.Kontakt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kunde" EntityType="Self.Kunde" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Versicherungspaket" EntityType="Self.Versicherungspaket" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Auftrag_Fahrzeug" Association="Self.FK_Auftrag_Fahrzeug">
+            <End Role="Fahrzeug" EntitySet="Fahrzeug" />
+            <End Role="Auftrag" EntitySet="Auftrag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auftrag_Kunde" Association="Self.FK_Auftrag_Kunde">
+            <End Role="Kunde" EntitySet="Kunde" />
+            <End Role="Auftrag" EntitySet="Auftrag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Benutzer_Anmeldung" Association="Self.FK_Benutzer_Anmeldung">
+            <End Role="Anmeldung" EntitySet="Anmeldung" />
+            <End Role="Benutzer" EntitySet="Benutzer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Benutzer_Benutzerart" Association="Self.FK_Benutzer_Benutzerart">
+            <End Role="Benutzerart" EntitySet="Benutzerart" />
+            <End Role="Benutzer" EntitySet="Benutzer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fahrzeug_Fahrzeugtyp" Association="Self.FK_Fahrzeug_Fahrzeugtyp">
+            <End Role="Fahrzeugtyp" EntitySet="Fahrzeugtyp" />
+            <End Role="Fahrzeug" EntitySet="Fahrzeug" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fahrzeug_Versicherungspaket" Association="Self.FK_Fahrzeug_Versicherungspaket">
+            <End Role="Versicherungspaket" EntitySet="Versicherungspaket" />
+            <End Role="Fahrzeug" EntitySet="Fahrzeug" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kunde_Adresse" Association="Self.FK_Kunde_Adresse">
+            <End Role="Adresse" EntitySet="Adresse" />
+            <End Role="Kunde" EntitySet="Kunde" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kunde_Kontakt" Association="Self.FK_Kunde_Kontakt">
+            <End Role="Kontakt" EntitySet="Kontakt" />
+            <End Role="Kunde" EntitySet="Kunde" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="peterson_infrastrukturDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Adresse">
+          <Key>
+            <PropertyRef Name="AdresseID" />
+          </Key>
+          <Property Name="AdresseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Strasse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Hausnummer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PLZ" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ort" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kunde" Relationship="Self.FK_Kunde_Adresse" FromRole="Adresse" ToRole="Kunde" />
+        </EntityType>
+        <EntityType Name="Anmeldung">
+          <Key>
+            <PropertyRef Name="AnmeldungID" />
+          </Key>
+          <Property Name="AnmeldungID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Benutzername" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Passwort" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Benutzer" Relationship="Self.FK_Benutzer_Anmeldung" FromRole="Anmeldung" ToRole="Benutzer" />
+        </EntityType>
+        <EntityType Name="Auftrag">
+          <Key>
+            <PropertyRef Name="AuftragID" />
+          </Key>
+          <Property Name="AuftragID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KundeID" Type="Int32" Nullable="false" />
+          <Property Name="FahrzeugID" Type="Int32" Nullable="false" />
+          <Property Name="Auftragsdatum" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Rückgabedatum" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Gesamtpreis" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Fahrzeug" Relationship="Self.FK_Auftrag_Fahrzeug" FromRole="Auftrag" ToRole="Fahrzeug" />
+          <NavigationProperty Name="Kunde" Relationship="Self.FK_Auftrag_Kunde" FromRole="Auftrag" ToRole="Kunde" />
+        </EntityType>
+        <EntityType Name="Benutzer">
+          <Key>
+            <PropertyRef Name="BenutzerID" />
+          </Key>
+          <Property Name="BenutzerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnmeldeID" Type="Int32" />
+          <Property Name="BenutzerartID" Type="Int32" />
+          <Property Name="Benutzernamen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Anmeldung" Relationship="Self.FK_Benutzer_Anmeldung" FromRole="Benutzer" ToRole="Anmeldung" />
+          <NavigationProperty Name="Benutzerart" Relationship="Self.FK_Benutzer_Benutzerart" FromRole="Benutzer" ToRole="Benutzerart" />
+        </EntityType>
+        <EntityType Name="Benutzerart">
+          <Key>
+            <PropertyRef Name="BenutzerartID" />
+          </Key>
+          <Property Name="BenutzerartID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Benutzer" Relationship="Self.FK_Benutzer_Benutzerart" FromRole="Benutzerart" ToRole="Benutzer" />
+        </EntityType>
+        <EntityType Name="Fahrzeug">
+          <Key>
+            <PropertyRef Name="FahrzeugID" />
+          </Key>
+          <Property Name="FahrzeugID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FahrzeugtypID" Type="Int32" Nullable="false" />
+          <Property Name="VersicherungspaketID" Type="Int32" Nullable="false" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Marke" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Baujahr" Type="Int32" Nullable="false" />
+          <Property Name="Kilometerstand" Type="Double" Nullable="false" />
+          <Property Name="Schaltung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sitze" Type="Int32" Nullable="false" />
+          <Property Name="Türe" Type="Int32" Nullable="false" />
+          <Property Name="Naviagationssystem" Type="Boolean" Nullable="false" />
+          <Property Name="Klimaanlage" Type="Boolean" Nullable="false" />
+          <Property Name="MietpreisProTag" Type="Double" Nullable="false" />
+          <Property Name="Verfügbar" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Auftrag" Relationship="Self.FK_Auftrag_Fahrzeug" FromRole="Fahrzeug" ToRole="Auftrag" />
+          <NavigationProperty Name="Fahrzeugtyp" Relationship="Self.FK_Fahrzeug_Fahrzeugtyp" FromRole="Fahrzeug" ToRole="Fahrzeugtyp" />
+          <NavigationProperty Name="Versicherungspaket" Relationship="Self.FK_Fahrzeug_Versicherungspaket" FromRole="Fahrzeug" ToRole="Versicherungspaket" />
+        </EntityType>
+        <EntityType Name="Fahrzeugtyp">
+          <Key>
+            <PropertyRef Name="FahrzeugtypID" />
+          </Key>
+          <Property Name="FahrzeugtypID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Fahrzeug" Relationship="Self.FK_Fahrzeug_Fahrzeugtyp" FromRole="Fahrzeugtyp" ToRole="Fahrzeug" />
+        </EntityType>
+        <EntityType Name="Kontakt">
+          <Key>
+            <PropertyRef Name="KontaktID" />
+          </Key>
+          <Property Name="KontaktID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="E_Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telefonnummer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mobilnummer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Faxnummer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kunde" Relationship="Self.FK_Kunde_Kontakt" FromRole="Kontakt" ToRole="Kunde" />
+        </EntityType>
+        <EntityType Name="Kunde">
+          <Key>
+            <PropertyRef Name="KundeID" />
+          </Key>
+          <Property Name="KundeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KontaktID" Type="Int32" Nullable="false" />
+          <Property Name="AdresseID" Type="Int32" Nullable="false" />
+          <Property Name="Vornamen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nachnamen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Alter" Type="Int32" Nullable="false" />
+          <Property Name="Geschlecht" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Kundennummer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Adresse" Relationship="Self.FK_Kunde_Adresse" FromRole="Kunde" ToRole="Adresse" />
+          <NavigationProperty Name="Auftrag" Relationship="Self.FK_Auftrag_Kunde" FromRole="Kunde" ToRole="Auftrag" />
+          <NavigationProperty Name="Kontakt" Relationship="Self.FK_Kunde_Kontakt" FromRole="Kunde" ToRole="Kontakt" />
+        </EntityType>
+        <EntityType Name="Versicherungspaket">
+          <Key>
+            <PropertyRef Name="VersicherungspaketID" />
+          </Key>
+          <Property Name="VersicherungspaketID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Insassenunfallschutzversicherung" Type="Boolean" Nullable="false" />
+          <Property Name="Haftpflichtversicherung" Type="Boolean" Nullable="false" />
+          <Property Name="Feuerversicherung" Type="Boolean" Nullable="false" />
+          <Property Name="Haftungsbegrenzung" Type="Boolean" Nullable="false" />
+          <Property Name="Diebstahlschutz" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Fahrzeug" Relationship="Self.FK_Fahrzeug_Versicherungspaket" FromRole="Versicherungspaket" ToRole="Fahrzeug" />
+        </EntityType>
+        <Association Name="FK_Kunde_Adresse">
+          <End Role="Adresse" Type="Self.Adresse" Multiplicity="1" />
+          <End Role="Kunde" Type="Self.Kunde" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adresse">
+              <PropertyRef Name="AdresseID" />
+            </Principal>
+            <Dependent Role="Kunde">
+              <PropertyRef Name="AdresseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Benutzer_Anmeldung">
+          <End Role="Anmeldung" Type="Self.Anmeldung" Multiplicity="0..1" />
+          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anmeldung">
+              <PropertyRef Name="AnmeldungID" />
+            </Principal>
+            <Dependent Role="Benutzer">
+              <PropertyRef Name="AnmeldeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auftrag_Fahrzeug">
+          <End Role="Fahrzeug" Type="Self.Fahrzeug" Multiplicity="1" />
+          <End Role="Auftrag" Type="Self.Auftrag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fahrzeug">
+              <PropertyRef Name="FahrzeugID" />
+            </Principal>
+            <Dependent Role="Auftrag">
+              <PropertyRef Name="FahrzeugID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auftrag_Kunde">
+          <End Role="Kunde" Type="Self.Kunde" Multiplicity="1" />
+          <End Role="Auftrag" Type="Self.Auftrag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kunde">
+              <PropertyRef Name="KundeID" />
+            </Principal>
+            <Dependent Role="Auftrag">
+              <PropertyRef Name="KundeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Benutzer_Benutzerart">
+          <End Role="Benutzerart" Type="Self.Benutzerart" Multiplicity="0..1" />
+          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benutzerart">
+              <PropertyRef Name="BenutzerartID" />
+            </Principal>
+            <Dependent Role="Benutzer">
+              <PropertyRef Name="BenutzerartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fahrzeug_Fahrzeugtyp">
+          <End Role="Fahrzeugtyp" Type="Self.Fahrzeugtyp" Multiplicity="1" />
+          <End Role="Fahrzeug" Type="Self.Fahrzeug" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fahrzeugtyp">
+              <PropertyRef Name="FahrzeugtypID" />
+            </Principal>
+            <Dependent Role="Fahrzeug">
+              <PropertyRef Name="FahrzeugtypID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fahrzeug_Versicherungspaket">
+          <End Role="Versicherungspaket" Type="Self.Versicherungspaket" Multiplicity="1" />
+          <End Role="Fahrzeug" Type="Self.Fahrzeug" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Versicherungspaket">
+              <PropertyRef Name="VersicherungspaketID" />
+            </Principal>
+            <Dependent Role="Fahrzeug">
+              <PropertyRef Name="VersicherungspaketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kunde_Kontakt">
+          <End Role="Kontakt" Type="Self.Kontakt" Multiplicity="1" />
+          <End Role="Kunde" Type="Self.Kunde" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kontakt">
+              <PropertyRef Name="KontaktID" />
+            </Principal>
+            <Dependent Role="Kunde">
+              <PropertyRef Name="KontaktID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="peterson_infrastrukturDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Adresse" EntityType="Self.Adresse" />
+          <EntitySet Name="Anmeldung" EntityType="Self.Anmeldung" />
+          <EntitySet Name="Auftrag" EntityType="Self.Auftrag" />
+          <EntitySet Name="Benutzer" EntityType="Self.Benutzer" />
+          <EntitySet Name="Benutzerart" EntityType="Self.Benutzerart" />
+          <EntitySet Name="Fahrzeug" EntityType="Self.Fahrzeug" />
+          <EntitySet Name="Fahrzeugtyp" EntityType="Self.Fahrzeugtyp" />
+          <EntitySet Name="Kontakt" EntityType="Self.Kontakt" />
+          <EntitySet Name="Kunde" EntityType="Self.Kunde" />
+          <EntitySet Name="Versicherungspaket" EntityType="Self.Versicherungspaket" />
+          <AssociationSet Name="FK_Kunde_Adresse" Association="Self.FK_Kunde_Adresse">
+            <End Role="Adresse" EntitySet="Adresse" />
+            <End Role="Kunde" EntitySet="Kunde" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Benutzer_Anmeldung" Association="Self.FK_Benutzer_Anmeldung">
+            <End Role="Anmeldung" EntitySet="Anmeldung" />
+            <End Role="Benutzer" EntitySet="Benutzer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auftrag_Fahrzeug" Association="Self.FK_Auftrag_Fahrzeug">
+            <End Role="Fahrzeug" EntitySet="Fahrzeug" />
+            <End Role="Auftrag" EntitySet="Auftrag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auftrag_Kunde" Association="Self.FK_Auftrag_Kunde">
+            <End Role="Kunde" EntitySet="Kunde" />
+            <End Role="Auftrag" EntitySet="Auftrag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Benutzer_Benutzerart" Association="Self.FK_Benutzer_Benutzerart">
+            <End Role="Benutzerart" EntitySet="Benutzerart" />
+            <End Role="Benutzer" EntitySet="Benutzer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fahrzeug_Fahrzeugtyp" Association="Self.FK_Fahrzeug_Fahrzeugtyp">
+            <End Role="Fahrzeugtyp" EntitySet="Fahrzeugtyp" />
+            <End Role="Fahrzeug" EntitySet="Fahrzeug" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fahrzeug_Versicherungspaket" Association="Self.FK_Fahrzeug_Versicherungspaket">
+            <End Role="Versicherungspaket" EntitySet="Versicherungspaket" />
+            <End Role="Fahrzeug" EntitySet="Fahrzeug" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kunde_Kontakt" Association="Self.FK_Kunde_Kontakt">
+            <End Role="Kontakt" EntitySet="Kontakt" />
+            <End Role="Kunde" EntitySet="Kunde" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="peterson_infrastrukturDBModelStoreContainer" CdmEntityContainer="peterson_infrastrukturDBEntities">
+          <EntitySetMapping Name="Adresse">
+            <EntityTypeMapping TypeName="peterson_infrastrukturDBModel.Adresse">
+              <MappingFragment StoreEntitySet="Adresse">
+                <ScalarProperty Name="AdresseID" ColumnName="AdresseID" />
+                <ScalarProperty Name="Strasse" ColumnName="Strasse" />
+                <ScalarProperty Name="Hausnummer" ColumnName="Hausnummer" />
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+                <ScalarProperty Name="Ort" ColumnName="Ort" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Anmeldung">
+            <EntityTypeMapping TypeName="peterson_infrastrukturDBModel.Anmeldung">
+              <MappingFragment StoreEntitySet="Anmeldung">
+                <ScalarProperty Name="AnmeldungID" ColumnName="AnmeldungID" />
+                <ScalarProperty Name="Benutzername" ColumnName="Benutzername" />
+                <ScalarProperty Name="Passwort" ColumnName="Passwort" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Auftrag">
+            <EntityTypeMapping TypeName="peterson_infrastrukturDBModel.Auftrag">
+              <MappingFragment StoreEntitySet="Auftrag">
+                <ScalarProperty Name="AuftragID" ColumnName="AuftragID" />
+                <ScalarProperty Name="KundeID" ColumnName="KundeID" />
+                <ScalarProperty Name="FahrzeugID" ColumnName="FahrzeugID" />
+                <ScalarProperty Name="Auftragsdatum" ColumnName="Auftragsdatum" />
+                <ScalarProperty Name="Rückgabedatum" ColumnName="Rückgabedatum" />
+                <ScalarProperty Name="Gesamtpreis" ColumnName="Gesamtpreis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Benutzer">
+            <EntityTypeMapping TypeName="peterson_infrastrukturDBModel.Benutzer">
+              <MappingFragment StoreEntitySet="Benutzer">
+                <ScalarProperty Name="BenutzerID" ColumnName="BenutzerID" />
+                <ScalarProperty Name="AnmeldeID" ColumnName="AnmeldeID" />
+                <ScalarProperty Name="BenutzerartID" ColumnName="BenutzerartID" />
+                <ScalarProperty Name="Benutzernamen" ColumnName="Benutzernamen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Benutzerart">
+            <EntityTypeMapping TypeName="peterson_infrastrukturDBModel.Benutzerart">
+              <MappingFragment StoreEntitySet="Benutzerart">
+                <ScalarProperty Name="BenutzerartID" ColumnName="BenutzerartID" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fahrzeug">
+            <EntityTypeMapping TypeName="peterson_infrastrukturDBModel.Fahrzeug">
+              <MappingFragment StoreEntitySet="Fahrzeug">
+                <ScalarProperty Name="FahrzeugID" ColumnName="FahrzeugID" />
+                <ScalarProperty Name="FahrzeugtypID" ColumnName="FahrzeugtypID" />
+                <ScalarProperty Name="VersicherungspaketID" ColumnName="VersicherungspaketID" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+                <ScalarProperty Name="Marke" ColumnName="Marke" />
+                <ScalarProperty Name="Baujahr" ColumnName="Baujahr" />
+                <ScalarProperty Name="Kilometerstand" ColumnName="Kilometerstand" />
+                <ScalarProperty Name="Schaltung" ColumnName="Schaltung" />
+                <ScalarProperty Name="Sitze" ColumnName="Sitze" />
+                <ScalarProperty Name="Türe" ColumnName="Türe" />
+                <ScalarProperty Name="Naviagationssystem" ColumnName="Naviagationssystem" />
+                <ScalarProperty Name="Klimaanlage" ColumnName="Klimaanlage" />
+                <ScalarProperty Name="MietpreisProTag" ColumnName="MietpreisProTag" />
+                <ScalarProperty Name="Verfügbar" ColumnName="Verfügbar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fahrzeugtyp">
+            <EntityTypeMapping TypeName="peterson_infrastrukturDBModel.Fahrzeugtyp">
+              <MappingFragment StoreEntitySet="Fahrzeugtyp">
+                <ScalarProperty Name="FahrzeugtypID" ColumnName="FahrzeugtypID" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kontakt">
+            <EntityTypeMapping TypeName="peterson_infrastrukturDBModel.Kontakt">
+              <MappingFragment StoreEntitySet="Kontakt">
+                <ScalarProperty Name="KontaktID" ColumnName="KontaktID" />
+                <ScalarProperty Name="E_Mail" ColumnName="E-Mail" />
+                <ScalarProperty Name="Telefonnummer" ColumnName="Telefonnummer" />
+                <ScalarProperty Name="Mobilnummer" ColumnName="Mobilnummer" />
+                <ScalarProperty Name="Faxnummer" ColumnName="Faxnummer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kunde">
+            <EntityTypeMapping TypeName="peterson_infrastrukturDBModel.Kunde">
+              <MappingFragment StoreEntitySet="Kunde">
+                <ScalarProperty Name="KundeID" ColumnName="KundeID" />
+                <ScalarProperty Name="KontaktID" ColumnName="KontaktID" />
+                <ScalarProperty Name="AdresseID" ColumnName="AdresseID" />
+                <ScalarProperty Name="Vornamen" ColumnName="Vornamen" />
+                <ScalarProperty Name="Nachnamen" ColumnName="Nachnamen" />
+                <ScalarProperty Name="Alter" ColumnName="Alter" />
+                <ScalarProperty Name="Geschlecht" ColumnName="Geschlecht" />
+                <ScalarProperty Name="Kundennummer" ColumnName="Kundennummer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Versicherungspaket">
+            <EntityTypeMapping TypeName="peterson_infrastrukturDBModel.Versicherungspaket">
+              <MappingFragment StoreEntitySet="Versicherungspaket">
+                <ScalarProperty Name="VersicherungspaketID" ColumnName="VersicherungspaketID" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+                <ScalarProperty Name="Insassenunfallschutzversicherung" ColumnName="Insassenunfallschutzversicherung" />
+                <ScalarProperty Name="Haftpflichtversicherung" ColumnName="Haftpflichtversicherung" />
+                <ScalarProperty Name="Feuerversicherung" ColumnName="Feuerversicherung" />
+                <ScalarProperty Name="Haftungsbegrenzung" ColumnName="Haftungsbegrenzung" />
+                <ScalarProperty Name="Diebstahlschutz" ColumnName="Diebstahlschutz" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

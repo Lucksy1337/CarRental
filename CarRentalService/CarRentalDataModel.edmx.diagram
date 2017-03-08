@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="137ea98830c34b18b0b9c1fddf63adfc" Name="Diagram1">
+        <EntityTypeShape EntityType="peterson_infrastrukturDBModel.Adresse" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="peterson_infrastrukturDBModel.Anmeldung" Width="1.5" PointX="5.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="peterson_infrastrukturDBModel.Auftrag" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="peterson_infrastrukturDBModel.Benutzer" Width="1.5" PointX="8" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="peterson_infrastrukturDBModel.Benutzerart" Width="1.5" PointX="5.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="peterson_infrastrukturDBModel.Fahrzeug" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="peterson_infrastrukturDBModel.Fahrzeugtyp" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="peterson_infrastrukturDBModel.Kontakt" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="peterson_infrastrukturDBModel.Kunde" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="peterson_infrastrukturDBModel.Versicherungspaket" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <AssociationConnector Association="peterson_infrastrukturDBModel.FK_Kunde_Adresse" ManuallyRouted="false" />
+        <AssociationConnector Association="peterson_infrastrukturDBModel.FK_Benutzer_Anmeldung" ManuallyRouted="false" />
+        <AssociationConnector Association="peterson_infrastrukturDBModel.FK_Auftrag_Fahrzeug" ManuallyRouted="false" />
+        <AssociationConnector Association="peterson_infrastrukturDBModel.FK_Auftrag_Kunde" ManuallyRouted="false" />
+        <AssociationConnector Association="peterson_infrastrukturDBModel.FK_Benutzer_Benutzerart" ManuallyRouted="false" />
+        <AssociationConnector Association="peterson_infrastrukturDBModel.FK_Fahrzeug_Fahrzeugtyp" ManuallyRouted="false" />
+        <AssociationConnector Association="peterson_infrastrukturDBModel.FK_Fahrzeug_Versicherungspaket" ManuallyRouted="false" />
+        <AssociationConnector Association="peterson_infrastrukturDBModel.FK_Kunde_Kontakt" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

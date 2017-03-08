@@ -1,0 +1,270 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="Fi12_peterson_infrastrukturDBModel" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityType Name="Adresse">
+        <Key>
+          <PropertyRef Name="AdresseID" />
+        </Key>
+        <Property Name="AdresseID" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Strasse" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="Hausnummer" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="PLZ" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="Ort" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Kunde" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Kunde_Adresse" ToRole="Kunde" FromRole="Adresse" />
+      </EntityType>
+      <EntityType Name="Anmeldung">
+        <Key>
+          <PropertyRef Name="AnmeldungID" />
+        </Key>
+        <Property Name="AnmeldungID" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Benutzername" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="Passwort" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Benutzer" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Benutzer_Anmeldung" ToRole="Benutzer" FromRole="Anmeldung" />
+      </EntityType>
+      <EntityType Name="Auftrag">
+        <Key>
+          <PropertyRef Name="AuftragID" />
+        </Key>
+        <Property Name="AuftragID" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="KundeID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="FahrzeugID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Auftragsdatum" Type="Edm.DateTime" Nullable="false" Precision="0" />
+        <Property Name="Rückgabedatum" Type="Edm.DateTime" Nullable="false" Precision="0" />
+        <Property Name="Gesamtpreis" Type="Edm.Double" Nullable="false" />
+        <NavigationProperty Name="Fahrzeug" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Auftrag_Fahrzeug" ToRole="Fahrzeug" FromRole="Auftrag" />
+        <NavigationProperty Name="Kunde" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Auftrag_Kunde" ToRole="Kunde" FromRole="Auftrag" />
+      </EntityType>
+      <EntityType Name="Benutzer">
+        <Key>
+          <PropertyRef Name="BenutzerID" />
+        </Key>
+        <Property Name="BenutzerID" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="AnmeldeID" Type="Edm.Int32" />
+        <Property Name="BenutzerartID" Type="Edm.Int32" />
+        <Property Name="Benutzernamen" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Anmeldung" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Benutzer_Anmeldung" ToRole="Anmeldung" FromRole="Benutzer" />
+        <NavigationProperty Name="Benutzerart" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Benutzer_Benutzerart" ToRole="Benutzerart" FromRole="Benutzer" />
+      </EntityType>
+      <EntityType Name="Benutzerart">
+        <Key>
+          <PropertyRef Name="BenutzerartID" />
+        </Key>
+        <Property Name="BenutzerartID" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Bezeichnung" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Benutzer" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Benutzer_Benutzerart" ToRole="Benutzer" FromRole="Benutzerart" />
+      </EntityType>
+      <EntityType Name="Fahrzeug">
+        <Key>
+          <PropertyRef Name="FahrzeugID" />
+        </Key>
+        <Property Name="FahrzeugID" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="FahrzeugtypID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="VersicherungspaketID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Bezeichnung" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="Marke" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="Baujahr" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Kilometerstand" Type="Edm.Double" Nullable="false" />
+        <Property Name="Schaltung" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="Sitze" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Türe" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Naviagationssystem" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Klimaanlage" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="MietpreisProTag" Type="Edm.Double" Nullable="false" />
+        <Property Name="Verfügbar" Type="Edm.Boolean" Nullable="false" />
+        <NavigationProperty Name="Auftrag" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Auftrag_Fahrzeug" ToRole="Auftrag" FromRole="Fahrzeug" />
+        <NavigationProperty Name="Fahrzeugtyp" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Fahrzeug_Fahrzeugtyp" ToRole="Fahrzeugtyp" FromRole="Fahrzeug" />
+        <NavigationProperty Name="Versicherungspaket" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Fahrzeug_Versicherungspaket" ToRole="Versicherungspaket" FromRole="Fahrzeug" />
+      </EntityType>
+      <EntityType Name="Fahrzeugtyp">
+        <Key>
+          <PropertyRef Name="FahrzeugtypID" />
+        </Key>
+        <Property Name="FahrzeugtypID" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Bezeichnung" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Fahrzeug" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Fahrzeug_Fahrzeugtyp" ToRole="Fahrzeug" FromRole="Fahrzeugtyp" />
+      </EntityType>
+      <EntityType Name="Kontakt">
+        <Key>
+          <PropertyRef Name="KontaktID" />
+        </Key>
+        <Property Name="KontaktID" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="E_Mail" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="Telefonnummer" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="Mobilnummer" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="Faxnummer" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Kunde" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Kunde_Kontakt" ToRole="Kunde" FromRole="Kontakt" />
+      </EntityType>
+      <EntityType Name="Kunde">
+        <Key>
+          <PropertyRef Name="KundeID" />
+        </Key>
+        <Property Name="KundeID" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="KontaktID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AdresseID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Vornamen" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="Nachnamen" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="Alter" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Geschlecht" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="Kundennummer" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Adresse" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Kunde_Adresse" ToRole="Adresse" FromRole="Kunde" />
+        <NavigationProperty Name="Auftrag" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Auftrag_Kunde" ToRole="Auftrag" FromRole="Kunde" />
+        <NavigationProperty Name="Kontakt" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Kunde_Kontakt" ToRole="Kontakt" FromRole="Kunde" />
+      </EntityType>
+      <EntityType Name="Versicherungspaket">
+        <Key>
+          <PropertyRef Name="VersicherungspaketID" />
+        </Key>
+        <Property Name="VersicherungspaketID" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Bezeichnung" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="Insassenunfallschutzversicherung" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Haftpflichtversicherung" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Feuerversicherung" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Haftungsbegrenzung" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Diebstahlschutz" Type="Edm.Boolean" Nullable="false" />
+        <NavigationProperty Name="Fahrzeug" Relationship="Fi12_peterson_infrastrukturDBModel.FK_Fahrzeug_Versicherungspaket" ToRole="Fahrzeug" FromRole="Versicherungspaket" />
+      </EntityType>
+      <Association Name="FK_Kunde_Adresse">
+        <End Type="Fi12_peterson_infrastrukturDBModel.Adresse" Role="Adresse" Multiplicity="1" />
+        <End Type="Fi12_peterson_infrastrukturDBModel.Kunde" Role="Kunde" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Adresse">
+            <PropertyRef Name="AdresseID" />
+          </Principal>
+          <Dependent Role="Kunde">
+            <PropertyRef Name="AdresseID" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_Benutzer_Anmeldung">
+        <End Type="Fi12_peterson_infrastrukturDBModel.Anmeldung" Role="Anmeldung" Multiplicity="0..1" />
+        <End Type="Fi12_peterson_infrastrukturDBModel.Benutzer" Role="Benutzer" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Anmeldung">
+            <PropertyRef Name="AnmeldungID" />
+          </Principal>
+          <Dependent Role="Benutzer">
+            <PropertyRef Name="AnmeldeID" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_Auftrag_Fahrzeug">
+        <End Type="Fi12_peterson_infrastrukturDBModel.Fahrzeug" Role="Fahrzeug" Multiplicity="1" />
+        <End Type="Fi12_peterson_infrastrukturDBModel.Auftrag" Role="Auftrag" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Fahrzeug">
+            <PropertyRef Name="FahrzeugID" />
+          </Principal>
+          <Dependent Role="Auftrag">
+            <PropertyRef Name="FahrzeugID" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_Auftrag_Kunde">
+        <End Type="Fi12_peterson_infrastrukturDBModel.Kunde" Role="Kunde" Multiplicity="1" />
+        <End Type="Fi12_peterson_infrastrukturDBModel.Auftrag" Role="Auftrag" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Kunde">
+            <PropertyRef Name="KundeID" />
+          </Principal>
+          <Dependent Role="Auftrag">
+            <PropertyRef Name="KundeID" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_Benutzer_Benutzerart">
+        <End Type="Fi12_peterson_infrastrukturDBModel.Benutzerart" Role="Benutzerart" Multiplicity="0..1" />
+        <End Type="Fi12_peterson_infrastrukturDBModel.Benutzer" Role="Benutzer" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Benutzerart">
+            <PropertyRef Name="BenutzerartID" />
+          </Principal>
+          <Dependent Role="Benutzer">
+            <PropertyRef Name="BenutzerartID" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_Fahrzeug_Fahrzeugtyp">
+        <End Type="Fi12_peterson_infrastrukturDBModel.Fahrzeugtyp" Role="Fahrzeugtyp" Multiplicity="1" />
+        <End Type="Fi12_peterson_infrastrukturDBModel.Fahrzeug" Role="Fahrzeug" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Fahrzeugtyp">
+            <PropertyRef Name="FahrzeugtypID" />
+          </Principal>
+          <Dependent Role="Fahrzeug">
+            <PropertyRef Name="FahrzeugtypID" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_Fahrzeug_Versicherungspaket">
+        <End Type="Fi12_peterson_infrastrukturDBModel.Versicherungspaket" Role="Versicherungspaket" Multiplicity="1" />
+        <End Type="Fi12_peterson_infrastrukturDBModel.Fahrzeug" Role="Fahrzeug" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Versicherungspaket">
+            <PropertyRef Name="VersicherungspaketID" />
+          </Principal>
+          <Dependent Role="Fahrzeug">
+            <PropertyRef Name="VersicherungspaketID" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_Kunde_Kontakt">
+        <End Type="Fi12_peterson_infrastrukturDBModel.Kontakt" Role="Kontakt" Multiplicity="1" />
+        <End Type="Fi12_peterson_infrastrukturDBModel.Kunde" Role="Kunde" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Kontakt">
+            <PropertyRef Name="KontaktID" />
+          </Principal>
+          <Dependent Role="Kunde">
+            <PropertyRef Name="KontaktID" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+    </Schema>
+    <Schema Namespace="CarRentalSchoolService" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityContainer Name="Fi12_peterson_infrastrukturDBEntities" m:IsDefaultEntityContainer="true" p6:LazyLoadingEnabled="true" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntitySet Name="Adresse" EntityType="Fi12_peterson_infrastrukturDBModel.Adresse" />
+        <EntitySet Name="Anmeldung" EntityType="Fi12_peterson_infrastrukturDBModel.Anmeldung" />
+        <EntitySet Name="Auftrag" EntityType="Fi12_peterson_infrastrukturDBModel.Auftrag" />
+        <EntitySet Name="Benutzer" EntityType="Fi12_peterson_infrastrukturDBModel.Benutzer" />
+        <EntitySet Name="Benutzerart" EntityType="Fi12_peterson_infrastrukturDBModel.Benutzerart" />
+        <EntitySet Name="Fahrzeug" EntityType="Fi12_peterson_infrastrukturDBModel.Fahrzeug" />
+        <EntitySet Name="Fahrzeugtyp" EntityType="Fi12_peterson_infrastrukturDBModel.Fahrzeugtyp" />
+        <EntitySet Name="Kontakt" EntityType="Fi12_peterson_infrastrukturDBModel.Kontakt" />
+        <EntitySet Name="Kunde" EntityType="Fi12_peterson_infrastrukturDBModel.Kunde" />
+        <EntitySet Name="Versicherungspaket" EntityType="Fi12_peterson_infrastrukturDBModel.Versicherungspaket" />
+        <AssociationSet Name="FK_Kunde_Adresse" Association="Fi12_peterson_infrastrukturDBModel.FK_Kunde_Adresse">
+          <End Role="Adresse" EntitySet="Adresse" />
+          <End Role="Kunde" EntitySet="Kunde" />
+        </AssociationSet>
+        <AssociationSet Name="FK_Benutzer_Anmeldung" Association="Fi12_peterson_infrastrukturDBModel.FK_Benutzer_Anmeldung">
+          <End Role="Anmeldung" EntitySet="Anmeldung" />
+          <End Role="Benutzer" EntitySet="Benutzer" />
+        </AssociationSet>
+        <AssociationSet Name="FK_Auftrag_Fahrzeug" Association="Fi12_peterson_infrastrukturDBModel.FK_Auftrag_Fahrzeug">
+          <End Role="Auftrag" EntitySet="Auftrag" />
+          <End Role="Fahrzeug" EntitySet="Fahrzeug" />
+        </AssociationSet>
+        <AssociationSet Name="FK_Auftrag_Kunde" Association="Fi12_peterson_infrastrukturDBModel.FK_Auftrag_Kunde">
+          <End Role="Auftrag" EntitySet="Auftrag" />
+          <End Role="Kunde" EntitySet="Kunde" />
+        </AssociationSet>
+        <AssociationSet Name="FK_Benutzer_Benutzerart" Association="Fi12_peterson_infrastrukturDBModel.FK_Benutzer_Benutzerart">
+          <End Role="Benutzer" EntitySet="Benutzer" />
+          <End Role="Benutzerart" EntitySet="Benutzerart" />
+        </AssociationSet>
+        <AssociationSet Name="FK_Fahrzeug_Fahrzeugtyp" Association="Fi12_peterson_infrastrukturDBModel.FK_Fahrzeug_Fahrzeugtyp">
+          <End Role="Fahrzeug" EntitySet="Fahrzeug" />
+          <End Role="Fahrzeugtyp" EntitySet="Fahrzeugtyp" />
+        </AssociationSet>
+        <AssociationSet Name="FK_Fahrzeug_Versicherungspaket" Association="Fi12_peterson_infrastrukturDBModel.FK_Fahrzeug_Versicherungspaket">
+          <End Role="Fahrzeug" EntitySet="Fahrzeug" />
+          <End Role="Versicherungspaket" EntitySet="Versicherungspaket" />
+        </AssociationSet>
+        <AssociationSet Name="FK_Kunde_Kontakt" Association="Fi12_peterson_infrastrukturDBModel.FK_Kunde_Kontakt">
+          <End Role="Kontakt" EntitySet="Kontakt" />
+          <End Role="Kunde" EntitySet="Kunde" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
