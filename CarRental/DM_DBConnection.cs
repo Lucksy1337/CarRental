@@ -39,10 +39,10 @@ namespace CarRental
         {
             aList = CL_List.Instance;
             _carRentalEntities = new peterson_infrastrukturDBEntities(
-            //new Uri("http://localhost:9938/WcfCarRentalDataService.svc"));
+            new Uri("http://localhost:9938/WcfCarRentalDataService.svc"));
 
             //School
-            new Uri("http://localhost:5202/WcfCarRentalSchoolDataService.svc"));
+            //new Uri("http://localhost:5202/WcfCarRentalSchoolDataService.svc"));
 
             DataServiceQuery<Adresse> queryAddress = _carRentalEntities.Adresse;
             addressListEnumerable = queryAddress.Execute();
@@ -154,6 +154,8 @@ namespace CarRental
             }
             aList.OrderComparisonList = new ObservableCollection<Auftrag>(aList.OrderList.ToList());
             aList.VehicleSortedByTypeList = new ObservableCollection<Fahrzeug>();
+            aList.VehicleSortedByOrderList = new ObservableCollection<Fahrzeug>();
+            aList.OrderSortedByCustomerList = new ObservableCollection<Auftrag>();
         }
 
 

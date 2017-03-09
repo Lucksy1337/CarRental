@@ -846,6 +846,11 @@ namespace CarRental.CarRentalServiceReference
     [global::System.Data.Services.Common.DataServiceKeyAttribute("AuftragID")]
     public partial class Auftrag : global::System.ComponentModel.INotifyPropertyChanged
     {
+        public override string ToString()
+        {
+            return "AuftragID: " + AuftragID;
+        }
+
         /// <summary>
         /// Erstellt ein neues Auftrag-Objekt.
         /// </summary>

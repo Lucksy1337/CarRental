@@ -28,6 +28,8 @@ namespace CarRental
         private ObservableCollection<Kunde> customerList;
         private ObservableCollection<Versicherungspaket> insurancePackageList;
         private ObservableCollection<Fahrzeug> vehicleSortedByTypeList;
+        private ObservableCollection<Fahrzeug> vehicleSortedByOrderList;
+        private ObservableCollection<Auftrag> orderSortedByCustomerList;
 
 
         //Comparison lists  
@@ -95,6 +97,16 @@ namespace CarRental
         {
             get { return vehicleSortedByTypeList; }
             set { vehicleSortedByTypeList = value; }
+        }
+        public ObservableCollection<Fahrzeug> VehicleSortedByOrderList
+        {
+            get { return vehicleSortedByOrderList; }
+            set { vehicleSortedByOrderList = value; }
+        }
+        public ObservableCollection<Auftrag> OrderSortedByCustomerList
+        {
+            get { return orderSortedByCustomerList; }
+            set { orderSortedByCustomerList = value; }
         }
 
 
@@ -182,6 +194,18 @@ namespace CarRental
         public void addToCustomerList(Kunde newCustomer)
         {
             customerList.Add(newCustomer);
-        }      
+        }
+        public void addToVehicleSortedByTypeList(Fahrzeug aVehicle)
+        {
+            VehicleSortedByTypeList.Add(aVehicle);
+        }
+        public void addToVehicleSortedByOrderList(Fahrzeug aVehicle)
+        {
+            VehicleSortedByOrderList.Add(aVehicle);
+        }
+        public void addToOrderSortedByCustomerList(Auftrag aOrder)
+        {
+            OrderSortedByCustomerList.Add(aOrder);
+        }
     }
 }
