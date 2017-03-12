@@ -22,7 +22,6 @@ namespace CarRental
         Kunde aCustomer;
         bool customerExists;
         string aCustomerNumber;
-        ToolTip too;
 
         public GUI_CustomerManagement()
         {
@@ -53,9 +52,7 @@ namespace CarRental
             }
 
             if(customerExists)    
-            {
-                EnableComponents();
-
+            {  
                 foreach(Auftrag aOrder in list.OrderList)
                 {
                     if (aOrder.Kunde.Equals(aCustomer))
@@ -72,9 +69,17 @@ namespace CarRental
                     }
                 }
 
-                comboBoxOrder.ItemsSource = list.OrderSortedByCustomerList;
+                comboBoxOrder.Items.Clear();
+                foreach(Auftrag order in list.OrderSortedByCustomerList)
+                {
+                    comboBoxOrder.Items.Add(order);
+                }                
                 comboBoxOrder.SelectedIndex = 0;
-                comboBoxVehicle.ItemsSource = list.VehicleSortedByOrderList;                
+                comboBoxVehicle.Items.Clear();
+                foreach(Fahrzeug vehicle in list.VehicleSortedByOrderList)
+                {
+                    comboBoxVehicle.Items.Add(vehicle);
+                }                           
 
                 textBoxCustomerNumber.Text = aCustomer.Kundennummer;
                 textBoxFirstName.Text = aCustomer.Vornamen;
@@ -91,6 +96,8 @@ namespace CarRental
                 textBoxPhoneNumber.Text = aCustomer.Kontakt.Telefonnummer;
                 textBoxMobileNumber.Text = aCustomer.Kontakt.Mobilnummer;
                 textBoxFaxNumber.Text = aCustomer.Kontakt.Faxnummer;
+
+                EnableComponents();
             }
             else
             {
@@ -98,7 +105,7 @@ namespace CarRental
             }
         }
 
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void comboBoxOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {            
             Auftrag aOrder = (Auftrag)comboBoxOrder.SelectedItem;            
             list.addToVehicleSortedByOrderList(aOrder.Fahrzeug);
@@ -106,10 +113,46 @@ namespace CarRental
             textBoxTotalPrice.Text = Convert.ToString(aOrder.Gesamtpreis);
             datePickerOrderDate.SelectedDate = aOrder.Auftragsdatum;
             datePickerReturnDate.SelectedDate = aOrder.Rückgabedatum; 
+        }       
+
+        private void comboBoxVehicle_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TimeSpan timespan = Convert.ToDateTime(datePickerReturnDate.SelectedDate) - Convert.ToDateTime(datePickerOrderDate.SelectedDate);  
+            Fahrzeug aVehicle = (Fahrzeug)comboBoxVehicle.SelectedItem;
+            double totalPrice = aVehicle.MietpreisProTag * timespan.Days;
+            textBoxTotalPrice.Text = totalPrice.ToString("C");
+        }   
+
+        private void buttonNewCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            GUI_CustomerCreation formCustomerCreation = new GUI_CustomerCreation();
+            formCustomerCreation.Show();
         }
 
-        public void EnableComponents()
-        {  
+        private void textBoxAge_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text != "." && isTextInputTypeOfInteger(e.Text) == false)
+            {
+                e.Handled = true;
+            }
+            else if (e.Text == ".")
+            {
+                if (((TextBox)sender).Text.IndexOf(e.Text) > -1)
+                {
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private bool isTextInputTypeOfInteger(string text)
+        {
+            int number;
+
+            return int.TryParse(text, out number);
+        }
+
+        private void EnableComponents()
+        {
             buttonSave.IsEnabled = true;
             textBoxFirstName.IsEnabled = true;
             textBoxLastName.IsEnabled = true;
@@ -124,14 +167,16 @@ namespace CarRental
             textBoxMail.IsEnabled = true;
             textBoxPhoneNumber.IsEnabled = true;
             textBoxMobileNumber.IsEnabled = true;
-            textBoxFaxNumber.IsEnabled = true;
-
-            buttonCancelOrder.IsEnabled = true;
-            comboBoxOrder.IsEnabled = true;
-            comboBoxVehicle.IsEnabled = true;            
-            datePickerOrderDate.IsEnabled = true;
-            datePickerReturnDate.IsEnabled = true;
+            textBoxFaxNumber.IsEnabled = true;            
+            
+            if(list.OrderSortedByCustomerList.Count!=0)
+            {
+                buttonCancelOrder.IsEnabled = true;
+                comboBoxOrder.IsEnabled = true;
+                comboBoxVehicle.IsEnabled = true;
+                datePickerOrderDate.IsEnabled = true;
+                datePickerReturnDate.IsEnabled = true;
+            }            
         }
     }
 }
-
