@@ -26,6 +26,7 @@ namespace CarRental
         bool newAddress;
         bool newContact;
 
+
         public GUI_CustomerCreation()
         {
             InitializeComponent();
