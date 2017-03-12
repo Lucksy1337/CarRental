@@ -19,6 +19,8 @@ namespace CarRental
     {
         DM_DBConnection dbconnect = DM_DBConnection.Instance;
         CL_List aList = CL_List.Instance;
+        List<Fahrzeug> aFahrzeugList = new List<Fahrzeug>();
+        Fahrzeug aFahrzeug;
 
         public GUI_VehicleManagement()
         {
@@ -34,12 +36,26 @@ namespace CarRental
             {
                 comboBoxVehicleType.Items.Add(aVehicleType);
             }
+            foreach (Versicherungspaket aInsurancePackage in aList.InsurancePackageList)
+            {
+                comboBoxInsurancePackage.Items.Add(aInsurancePackage);
+            }
+        }
+        public void fillListBox()
+        {
+            foreach (Fahrzeug aVehicle in aList.VehicleList)
+            {
+                listBoxCreatedVehicles.Items.Add(aVehicle);
+            }
         }
         
         public void fahrzeugErstellen(object sender, RoutedEventArgs e)
         {
-            //dbconnect.addVehicle();
-            
+            aFahrzeug = new Fahrzeug();
+            aFahrzeug.Bezeichnung = textBoxDescription.Text;
+            aFahrzeug.Marke = textBoxBrand.Text;
+            //aFahrzeug.Baujahr = text
+            //dbconnect.addVehicle(aFahrzeugList);  
         }
         private void fahrzeugAendern(object sender, RoutedEventArgs e)
         {
@@ -47,7 +63,7 @@ namespace CarRental
         }
         private void fahrzeugLoeschen(object sender, RoutedEventArgs e)
         {
-            //dbconnect.deleteVehicle();
+            //dbconnect.deleteVehicle(aFahrzeugList);
         }
     }
 }
