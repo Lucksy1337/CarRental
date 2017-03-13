@@ -15,7 +15,7 @@
         <TextBox x:Name="textBoxUsername" HorizontalAlignment="Left" Height="23" Margin="117,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112"/>
         <PasswordBox x:Name="passwordBoxPassword" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="117,82,0,0" Width="112" Background="White" Height="23"/>
         <ListBox x:Name="listBoxRegistratedUsers" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="141" Margin="239,44,0,0"/>
-        <Button x:Name="buttonRegistration" Content="Registrieren" HorizontalAlignment="Left" Margin="58,119,0,0" VerticalAlignment="Top" Width="122" FontSize="14"/>
-        <Button x:Name="buttonDelete" Content="Löschen" HorizontalAlignment="Left" Margin="248,119,0,0" VerticalAlignment="Top" Width="122" FontSize="14"/>
+        <Button x:Name="buttonRegistration" Content="Registrieren" HorizontalAlignment="Left" Margin="58,119,0,0" VerticalAlignment="Top" Width="122" FontSize="14" Click="buttonRegistration_Click"/>
+        <Button x:Name="buttonDelete" Content="Löschen" HorizontalAlignment="Left" Margin="248,119,0,0" VerticalAlignment="Top" Width="122" FontSize="14" Click="buttonDelete_Click"/>
     </Grid>
 </Window>

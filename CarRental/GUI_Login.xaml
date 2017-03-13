@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Anmeldefenster" Height="150.228" Width="246.113" ResizeMode="NoResize">
     <Grid>
-        <Button x:Name="buttonLogin" Content="Anmelden" HorizontalAlignment="Left" Margin="60,89,0,0" VerticalAlignment="Top" Width="122" FontSize="14"/>
+        <Button x:Name="buttonLogin" Content="Anmelden" HorizontalAlignment="Left" Margin="60,89,0,0" VerticalAlignment="Top" Width="122" FontSize="14" Click="buttonLogin_Click"/>
         <TextBox x:Name="textBoxUsername" HorizontalAlignment="Left" Height="23" Margin="114,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112"/>
         <Label x:Name="labelUsername" Content="Benutzername" HorizontalAlignment="Left" Margin="13,11,0,0" VerticalAlignment="Top" Width="100" FontSize="14"/>
         <Label x:Name="labelPassword" Content="Passwort" HorizontalAlignment="Left" Margin="13,49,0,0" VerticalAlignment="Top" Width="91" FontSize="14"/>

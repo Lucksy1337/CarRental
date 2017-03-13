@@ -21,9 +21,58 @@ namespace CarRental
     /// </summary>
     public partial class GUI_UserManagement : Window
     {
+        DM_DBConnection databaseConnection;
+        private CL_List listobject;
         public GUI_UserManagement()
         {
             InitializeComponent();
+            databaseConnection = DM_DBConnection.Instance;
+            listobject = CL_List.Instance;
+            initialize();
+            
+        }
+
+        private void initialize()
+        {
+            if(listobject.UserTypeList != null)
+            {
+                foreach (Benutzerart aUserType in listobject.UserTypeList)
+                {
+                    comboBoxUserType.Items.Add(aUserType.Bezeichnung);
+                }
+            }
+            if(listobject.UserList != null)
+            {
+                foreach (Benutzer aUser in listobject.UserList)
+                {
+                    comboBoxUserType.Items.Add(aUser.Benutzernamen);
+                }
+            }          
+        }
+
+        private void buttonRegistration_Click(object sender, RoutedEventArgs e)
+        {
+            if(textBoxUsername.Equals("") || passwordBoxPassword.Password.Equals(""))
+            {
+                MessageBox.Show("Füllen Sie bitte zuerst alle Felder aus.");
+            }
+            else
+            {
+                if(passwordBoxPassword.Password.Length<6)
+                {
+                    MessageBox.Show("Das Password muss mindestens 6 Zeichen lang sein");                    
+                }
+                else
+                {
+
+                }
+            }
+            
+        }
+
+        private void buttonDelete_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

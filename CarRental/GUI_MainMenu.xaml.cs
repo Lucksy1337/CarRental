@@ -21,9 +21,59 @@ namespace CarRental
     /// </summary>
     public partial class GUI_MainMenu : Window
     {
+
         public GUI_MainMenu()
         {
             InitializeComponent();
+        }
+
+        public GUI_MainMenu(String usertype, String username)
+        {
+            InitializeComponent();
+            setGuiValues(usertype, username);
+
+        }
+
+        private void setGuiValues(String usertype, String username)
+        {
+            labelActiveUsername.Content = username;
+            labelActiveUsertype.Content = usertype;
+
+            switch (usertype)
+            {
+                 case "Admin":
+                    buttonUserManagement.IsEnabled = true;
+                    buttonVehicleManagement.IsEnabled = true;
+                    break;                                        
+            }
+
+
+               
+        }
+
+        private void buttonCustomerManagement_Click(object sender, RoutedEventArgs e)
+        {
+            new GUI_CustomerManagement().Show();
+        }
+
+        private void buttonOrderManagement_Click(object sender, RoutedEventArgs e)
+        {
+            new GUI_OrderManagement().Show();
+        }
+
+        private void buttonUserManagement_Click(object sender, RoutedEventArgs e)
+        {
+            new GUI_UserManagement().Show();
+        }
+
+        private void buttonVehicleManagement_Click(object sender, RoutedEventArgs e)
+        {
+            new GUI_VehicleManagement().Show();
+        }
+
+        private void buttonSaveToDb_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
