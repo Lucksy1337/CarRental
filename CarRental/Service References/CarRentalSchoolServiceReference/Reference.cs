@@ -1306,6 +1306,10 @@ namespace CarRental.CarRentalSchoolServiceReference
     [global::System.Data.Services.Common.DataServiceKeyAttribute("FahrzeugID")]
     public partial class Fahrzeug : global::System.ComponentModel.INotifyPropertyChanged
     {
+        public override string ToString()
+        {
+            return Bezeichnung;
+        }
         /// <summary>
         /// Erstellt ein neues Fahrzeug-Objekt.
         /// </summary>
@@ -1726,6 +1730,10 @@ namespace CarRental.CarRentalSchoolServiceReference
     [global::System.Data.Services.Common.DataServiceKeyAttribute("FahrzeugtypID")]
     public partial class Fahrzeugtyp : global::System.ComponentModel.INotifyPropertyChanged
     {
+        public override string ToString()
+        {
+            return Bezeichnung;
+        }
         /// <summary>
         /// Erstellt ein neues Fahrzeugtyp-Objekt.
         /// </summary>
@@ -1824,7 +1832,7 @@ namespace CarRental.CarRentalSchoolServiceReference
     {
         public override string ToString()
         {
-            return E_Mail;
+            return E_Mail + " : ";
         }
 
         /// <summary>
@@ -2271,6 +2279,10 @@ namespace CarRental.CarRentalSchoolServiceReference
     [global::System.Data.Services.Common.DataServiceKeyAttribute("VersicherungspaketID")]
     public partial class Versicherungspaket : global::System.ComponentModel.INotifyPropertyChanged
     {
+        public override string ToString()
+        {
+            return Bezeichnung;
+        }
         /// <summary>
         /// Erstellt ein neues Versicherungspaket-Objekt.
         /// </summary>

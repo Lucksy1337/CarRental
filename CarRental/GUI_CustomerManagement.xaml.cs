@@ -130,6 +130,18 @@ namespace CarRental
             formCustomerCreation.Show();
         }
 
+        private void buttonNewAddress_Click(object sender, RoutedEventArgs e)
+        {
+            GUI_AddressManagement formAddressManagement = new GUI_AddressManagement();
+            formAddressManagement.Show();
+        }
+
+        private void buttonNewContact_Click(object sender, RoutedEventArgs e)
+        {
+            GUI_ContactManagement formContactManagement = new GUI_ContactManagement();
+            formContactManagement.Show();
+        }
+
         private void textBoxAge_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (e.Text != "." && isTextInputTypeOfInteger(e.Text) == false)
@@ -178,6 +190,6 @@ namespace CarRental
                 datePickerOrderDate.IsEnabled = true;
                 datePickerReturnDate.IsEnabled = true;
             }            
-        }
+        }  
     }
 }
