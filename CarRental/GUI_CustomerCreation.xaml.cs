@@ -254,7 +254,7 @@ namespace CarRental
 
         private void textBoxAge_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if(e.Text != "." && isTextInputTypeOfInteger(e.Text)==false)
+            if(e.Text == "." && isTextInputTypeOfInteger(e.Text)==false)
             {
                 e.Handled = true;
             }

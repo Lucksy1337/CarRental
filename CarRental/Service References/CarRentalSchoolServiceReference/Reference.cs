@@ -1832,7 +1832,7 @@ namespace CarRental.CarRentalSchoolServiceReference
     {
         public override string ToString()
         {
-            return E_Mail;
+            return E_Mail + " : ";
         }
 
         /// <summary>

@@ -43,7 +43,7 @@
                     <TextBox x:Name="textBoxZipCode" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="123,44,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
                     <TextBox x:Name="textBoxHouseNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="383,16,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
                     <TextBox x:Name="textBoxCity" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="383,44,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
-                    <Button x:Name="buttonNewAddress" Content="Neue Adresse" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Margin="83,-21,0,0"/>
+                    <Button x:Name="buttonNewAddress" Content="Neue Adresse" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Margin="83,-21,0,0" Click="buttonNewAddress_Click"/>
                 </Grid>
             </Expander>
             <Expander x:Name="expanderContact" Header="Kontakt" IsExpanded="True" FontSize="14">
@@ -56,7 +56,7 @@
                     <TextBox x:Name="textBoxMobileNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="122,44,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
                     <TextBox x:Name="textBoxPhoneNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="383,16,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
                     <TextBox x:Name="textBoxFaxNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="383,44,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
-                    <Button x:Name="buttonNewContact" Content="Neuer Kontakt" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Margin="83,-21,0,0"/>
+                    <Button x:Name="buttonNewContact" Content="Neuer Kontakt" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Margin="83,-21,0,0" Click="buttonNewContact_Click"/>
                 </Grid>
             </Expander>
             <Expander x:Name="expanderOrder" Header="Auftrag" IsExpanded="True" FontSize="14" Height="151">

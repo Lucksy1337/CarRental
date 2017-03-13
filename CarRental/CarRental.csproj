@@ -73,6 +73,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GUI_AddressManagement.xaml.cs">
+      <DependentUpon>GUI_AddressManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI_ContactManagement.xaml.cs">
+      <DependentUpon>GUI_ContactManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI_CustomerCreation.xaml.cs">
       <DependentUpon>GUI_CustomerCreation.xaml</DependentUpon>
     </Compile>
@@ -92,6 +98,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.datasvcmap</DependentUpon>
     </Compile>
+    <Page Include="GUI_AddressManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI_ContactManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI_CustomerCreation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
