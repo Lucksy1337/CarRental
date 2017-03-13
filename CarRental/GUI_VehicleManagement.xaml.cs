@@ -20,15 +20,13 @@ namespace CarRental
     {
         DM_DBConnection dbconnect = DM_DBConnection.Instance;
         CL_List aList = CL_List.Instance;
-        List<Fahrzeug> aFahrzeugList = new List<Fahrzeug>();
-        Fahrzeug aFahrzeug;
+        Fahrzeug aVehicle;
+        //Fahrzeugtyp aFahrzeugtyp;
         
         public GUI_VehicleManagement()
         {
             InitializeComponent();
             fillComboBox();
-            //comboBoxVehicleType.Items.Add(aList.VehicleTypeList);
-            //comboBoxInsurancePackage.Items.Add(aList.InsurancePackageList);
         }
         
         public void fillComboBox()
@@ -42,29 +40,78 @@ namespace CarRental
                 comboBoxInsurancePackage.Items.Add(aInsurancePackage);
             }
         }
-        public void fillListBox()
+        public void updateListBox()
         {
+            Fahrzeugtyp aVehicleType = (Fahrzeugtyp)comboBoxVehicleType.SelectedItem;
+            //aList.addToVehicleSortedByTypeList(aFahrzeug);
             foreach (Fahrzeug aVehicle in aList.VehicleList)
+            {
+                if (aVehicleType.Equals(aVehicle.Fahrzeugtyp))
+                {
+                    aList.addToVehicleSortedByTypeList(aVehicle);
+                }
+            }
+            foreach (Fahrzeug aVehicle in aList.VehicleSortedByTypeList)
             {
                 listBoxCreatedVehicles.Items.Add(aVehicle);
             }
         }
+        public void updateTextBoxes(Fahrzeug selectedVehicle)
+        {
+            comboBoxInsurancePackage.SelectedItem = selectedVehicle.Versicherungspaket;
+            textBoxDescription.Text = selectedVehicle.Bezeichnung;
+            textBoxBrand.Text = selectedVehicle.Marke;
+            textBoxVintage.Text = Convert.ToString(selectedVehicle.Baujahr);
+            textBoxMileage.Text = Convert.ToString(selectedVehicle.Kilometerstand);
+            textBoxGearChange.Text = selectedVehicle.Schaltung;
+            textBoxSeats.Text = Convert.ToString(selectedVehicle.Sitze);
+            textDoors.Text = Convert.ToString(selectedVehicle.Türe);
+            checkBoxNavigation.IsChecked = Convert.ToBoolean(selectedVehicle.Naviagationssystem);
+            checkBoxAirConditioning.IsChecked = Convert.ToBoolean(selectedVehicle.Klimaanlage);
+            textBoxRentPerDay.Text = Convert.ToString(selectedVehicle.MietpreisProTag);
+            checkBoxAvailability.IsChecked = Convert.ToBoolean(selectedVehicle.Verfügbar);
+
+        }
+
         
         public void fahrzeugErstellen(object sender, RoutedEventArgs e)
         {
-            aFahrzeug = new Fahrzeug();
-            aFahrzeug.Bezeichnung = textBoxDescription.Text;
-            aFahrzeug.Marke = textBoxBrand.Text;
-            //aFahrzeug.Baujahr = text
-            //dbconnect.addVehicle(aFahrzeugList);  
+            aVehicle = new Fahrzeug();
+            aVehicle.Bezeichnung = textBoxDescription.Text;
+            aVehicle.Marke = textBoxBrand.Text;
+            aVehicle.Baujahr = Convert.ToInt32(textBoxVintage.Text);
+            aVehicle.Kilometerstand = Convert.ToDouble(textBoxMileage.Text);
+            aVehicle.Schaltung = textBoxGearChange.Text;
+            aVehicle.Sitze = Convert.ToInt32(textBoxSeats.Text);
+            aVehicle.Türe = Convert.ToInt32(textDoors.Text);
+            aVehicle.Naviagationssystem = Convert.ToBoolean(checkBoxNavigation.IsChecked);
+            aVehicle.Klimaanlage = Convert.ToBoolean(checkBoxAirConditioning.IsChecked);
+            aVehicle.MietpreisProTag = Convert.ToDouble(textBoxRentPerDay.Text);
+            aVehicle.Verfügbar = Convert.ToBoolean(checkBoxAvailability.IsChecked);
+            aList.addToVehicleList(aVehicle);
         }
         private void fahrzeugAendern(object sender, RoutedEventArgs e)
         {
-            //dbconnect.updateVehicle();
+               
         }
         private void fahrzeugLoeschen(object sender, RoutedEventArgs e)
         {
-            //dbconnect.deleteVehicle(aFahrzeugList);
+            
+        }
+
+        private void comboBoxVehicleType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            updateListBox();
+        }
+
+        private void comboBoxInsurancePackage_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void listBoxCreatedVehicles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            updateTextBoxes((Fahrzeug)listBoxCreatedVehicles.SelectedItem);
         }
     }
 }
