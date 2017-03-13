@@ -4,7 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarRental.CarRentalServiceReference;
+//using CarRental.CarRentalServiceReference;
+using CarRental.CarRentalSchoolServiceReference;
 using System.Data.Services.Client;
 
 namespace CarRental
@@ -17,7 +18,11 @@ namespace CarRental
 
 
         //Entitie
-        peterson_infrastrukturDBEntities _carRentalEntities;
+        //Home
+        //peterson_infrastrukturDBEntities _carRentalEntities;
+
+        //School
+        Fi12_peterson_infrastrukturDBEntities _carRentalEntities;
 
 
         //Lists
@@ -38,11 +43,15 @@ namespace CarRental
         public DM_DBConnection()
         {
             aList = CL_List.Instance;
-            _carRentalEntities = new peterson_infrastrukturDBEntities(
-            new Uri("http://localhost:9938/WcfCarRentalDataService.svc"));
+            //Home
+            //_carRentalEntities = new peterson_infrastrukturDBEntities(
 
             //School
-            //new Uri("http://localhost:5202/WcfCarRentalSchoolDataService.svc"));
+            _carRentalEntities = new Fi12_peterson_infrastrukturDBEntities(
+            //new Uri("http://localhost:9938/WcfCarRentalDataService.svc"));
+
+            //School
+            new Uri("http://localhost:5202/WcfCarRentalSchoolDataService.svc"));
 
             DataServiceQuery<Adresse> queryAddress = _carRentalEntities.Adresse;
             addressListEnumerable = queryAddress.Execute();

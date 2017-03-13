@@ -550,6 +550,10 @@ namespace CarRental.CarRentalSchoolServiceReference
     [global::System.Data.Services.Common.DataServiceKeyAttribute("AdresseID")]
     public partial class Adresse : global::System.ComponentModel.INotifyPropertyChanged
     {
+        public override string ToString()
+        {
+            return Ort + " : " +Strasse + " " + Hausnummer;
+        }
         /// <summary>
         /// Erstellt ein neues Adresse-Objekt.
         /// </summary>
@@ -1818,6 +1822,11 @@ namespace CarRental.CarRentalSchoolServiceReference
     [global::System.Data.Services.Common.DataServiceKeyAttribute("KontaktID")]
     public partial class Kontakt : global::System.ComponentModel.INotifyPropertyChanged
     {
+        public override string ToString()
+        {
+            return E_Mail;
+        }
+
         /// <summary>
         /// Erstellt ein neues Kontakt-Objekt.
         /// </summary>

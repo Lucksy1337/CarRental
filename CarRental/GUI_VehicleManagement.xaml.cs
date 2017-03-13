@@ -1,4 +1,5 @@
-﻿using CarRental.CarRentalServiceReference;
+﻿//using CarRental.CarRentalServiceReference;
+using CarRental.CarRentalSchoolServiceReference;
 using System;
 using System.Collections.Generic;
 using System.Linq;
