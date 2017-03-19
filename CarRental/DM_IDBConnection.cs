@@ -13,8 +13,7 @@ namespace CarRental
     {
         //Address
         bool addAddress(List<Adresse> addressList);
-        bool updateAddress(ObservableCollection<Adresse> addressList);
-        bool deleteAddress(List<Adresse> addressList);
+        bool updateAddress(ObservableCollection<Adresse> addressList);        
 
         //Login
         bool addLogin(List<Anmeldung> loginList);
@@ -22,8 +21,7 @@ namespace CarRental
         bool deleteLogin(List<Anmeldung> loginList);
 
         //Order
-        bool addOrder(List<Auftrag> orderList);
-        bool updateOrder(ObservableCollection<Auftrag> orderList);
+        bool addOrder(List<Auftrag> orderList);        
         bool deleteOrder(List<Auftrag> orderList);
 
         //User
@@ -38,12 +36,10 @@ namespace CarRental
 
         //Contact
         bool addContact(List<Kontakt> contactList);
-        bool updateContact(ObservableCollection<Kontakt> contactList);
-        bool deleteContact(List<Kontakt> contactList);
+        bool updateContact(ObservableCollection<Kontakt> contactList);        
 
         //Customer
         bool addCustomer(List<Kunde> customerList);
-        bool updateCustomer(ObservableCollection<Kunde> customerList);
-        bool deleteCustomer(List<Kunde> customerList);
+        bool updateCustomer(ObservableCollection<Kunde> customerList);        
     }
 }

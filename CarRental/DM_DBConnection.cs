@@ -1,11 +1,11 @@
-﻿using System;
+﻿//using CarRental.CarRentalServiceReference;
+using CarRental.CarRentalSchoolServiceReference;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using CarRental.CarRentalServiceReference;
-using CarRental.CarRentalSchoolServiceReference;
 using System.Data.Services.Client;
 
 namespace CarRental
@@ -18,7 +18,7 @@ namespace CarRental
 
 
         //Entitie
-        //Home
+        //Home Wesley
         //peterson_infrastrukturDBEntities _carRentalEntities;
 
         //School
@@ -43,13 +43,13 @@ namespace CarRental
         public DM_DBConnection()
         {
             aList = CL_List.Instance;
-            //Home
+            //Home Wesley
             //_carRentalEntities = new peterson_infrastrukturDBEntities(
-
             //School
             _carRentalEntities = new Fi12_peterson_infrastrukturDBEntities(
-            //new Uri("http://localhost:9938/WcfCarRentalDataService.svc"));
 
+            //Home Wesley
+            //new Uri("http://localhost:9938/WcfCarRentalDataService.svc"));
             //School
             new Uri("http://localhost:5202/WcfCarRentalSchoolDataService.svc"));
 
@@ -162,8 +162,7 @@ namespace CarRental
                 }
             }
             aList.OrderComparisonList = new ObservableCollection<Auftrag>(aList.OrderList.ToList());
-            aList.VehicleSortedByTypeList = new ObservableCollection<Fahrzeug>();
-            aList.VehicleSortedByOrderList = new ObservableCollection<Fahrzeug>();
+            aList.VehicleSortedByTypeList = new ObservableCollection<Fahrzeug>();            
             aList.OrderSortedByCustomerList = new ObservableCollection<Auftrag>();
         }
 
@@ -207,17 +206,7 @@ namespace CarRental
             }
             _carRentalEntities.SaveChanges();
             return true;
-        }
-
-        public bool deleteAddress(List<Adresse> addressList)
-        {
-            foreach (Adresse aAddress in addressList)
-            {
-                _carRentalEntities.DeleteObject(aAddress);
-            }
-            _carRentalEntities.SaveChanges();
-            return true;
-        }
+        }        
 
 
         //Login
@@ -261,17 +250,7 @@ namespace CarRental
             }
             _carRentalEntities.SaveChanges();
             return true;
-        }
-
-        public bool updateOrder(ObservableCollection<Auftrag> orderList)
-        {
-            foreach (Auftrag aOrder in orderList)
-            {
-                _carRentalEntities.UpdateObject(aOrder);
-            }
-            _carRentalEntities.SaveChanges();
-            return true;
-        }
+        }        
 
         public bool deleteOrder(List<Auftrag> orderList)
         {
@@ -367,17 +346,7 @@ namespace CarRental
             }
             _carRentalEntities.SaveChanges();
             return true;
-        }
-
-        public bool deleteContact(List<Kontakt> contactList)
-        {
-            foreach (Kontakt aContact in contactList)
-            {
-                _carRentalEntities.DeleteObject(aContact);
-            }
-            _carRentalEntities.SaveChanges();
-            return true;
-        }
+        }       
 
 
         //Customer
@@ -399,16 +368,6 @@ namespace CarRental
             }
             _carRentalEntities.SaveChanges();
             return true;
-        }
-
-        public bool deleteCustomer(List<Kunde> customerList)
-        {
-            foreach (Kunde aCustomer in customerList)
-            {
-                _carRentalEntities.DeleteObject(aCustomer);
-            }
-            _carRentalEntities.SaveChanges();
-            return true;
-        }
+        }       
     }
 }

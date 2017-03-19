@@ -2,8 +2,10 @@
 using CarRental.CarRentalSchoolServiceReference;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,6 +28,7 @@ namespace CarRental
         Kontakt placeHolderContact;
         bool newAddress;
         bool newContact;
+        bool customerNumberAvailable;
 
 
         public GUI_CustomerCreation()
@@ -35,21 +38,28 @@ namespace CarRental
         }
 
         public void Initialize()
-        {
+        {            
             databaseConnection = DM_DBConnection.Instance;
             list = CL_List.Instance;
             aAddress = null;
-            placeHolderAddress = null;         
+            placeHolderAddress = null;
             aContact = null;
             placeHolderContact = null;       
             newAddress = false;
             newContact = false;
+            customerNumberAvailable = false;
             loadComboBoxAddress();
-            loadComboBoxContact();
+            loadComboBoxContact();            
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {            
+            list.AddressList.Remove(placeHolderAddress);
+            list.ContactList.Remove(placeHolderContact);
         }
 
         private void comboBoxAddress_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        {     
             aAddress = (Adresse)comboBoxAddress.SelectedItem;
 
             if(aAddress!=null)
@@ -107,69 +117,119 @@ namespace CarRental
         }    
 
         private void buttonCreateCustomer_Click(object sender, RoutedEventArgs e)
-        {  
-            if (!textBoxCustomerNumber.Text.Equals("") || !textBoxFirstName.Text.Equals("") ||
-                !textBoxLastName.Text.Equals("") || !textBoxGender.Text.Equals("") || !textBoxAge.Text.Equals(""))
-            {
-                if (newAddress)
+        { 
+            if(!removeAllSpacesFromText(textBoxCustomerNumber.Text).Equals("") && !removeAllSpacesFromText(textBoxFirstName.Text).Equals("") &&
+               !removeAllSpacesFromText(textBoxLastName.Text).Equals("") && !textBoxGender.Text.Equals("") && !removeAllSpacesFromText(textBoxAge.Text).Equals("") &&
+               !isTextInputGreaterThenOneHundred(textBoxAge.Text))
+            {                                
+                if(newAddress)
                 {
-                    aAddress = new Adresse();
-                    aAddress.AdresseID = 0;
-                    aAddress.Strasse = textBoxStreet.Text;
-                    aAddress.Hausnummer = textBoxHouseNumber.Text;
-                    aAddress.PLZ = textBoxZipCode.Text;
-                    aAddress.Ort = textBoxCity.Text;
-                                        
-                    list.AddressList.Remove(placeHolderAddress);                   
-                    list.addToAddressList(aAddress);
+                    if(!removeFirstAndLastSpacesFromText(textBoxStreet.Text).Equals("") && !removeFirstAndLastSpacesFromText(textBoxHouseNumber.Text).Equals("") &&
+                       !removeFirstAndLastSpacesFromText(textBoxZipCode.Text).Equals("") && !removeFirstAndLastSpacesFromText(textBoxCity.Text).Equals(""))
+                    {
+                        aAddress = new Adresse();
+                        aAddress.AdresseID = 0;
+                        aAddress.Strasse =  removeFirstAndLastSpacesFromText(textBoxStreet.Text);
+                        aAddress.Hausnummer = removeFirstAndLastSpacesFromText(textBoxHouseNumber.Text);
+                        aAddress.PLZ = removeFirstAndLastSpacesFromText(textBoxZipCode.Text);
+                        aAddress.Ort = removeFirstAndLastSpacesFromText(textBoxCity.Text);
+                    }
+                    else
+                    {
+                        aAddress = null;
+                    }
                 }
 
                 if (newContact)
                 {
-                    aContact = new Kontakt();
-                    aContact.KontaktID = 0;                    
-                    aContact.E_Mail = textBoxMail.Text;
-                    aContact.Telefonnummer = textBoxPhoneNumber.Text;
-                    aContact.Mobilnummer = textBoxMobileNumber.Text;
-                    aContact.Faxnummer = textBoxFaxNumber.Text;
-
-                    list.ContactList.Remove(placeHolderContact);
-                    list.addToContactList(aContact);
+                    if(!removeFirstAndLastSpacesFromText(textBoxMail.Text).Equals("") || !removeFirstAndLastSpacesFromText(textBoxPhoneNumber.Text).Equals("") ||
+                       !removeFirstAndLastSpacesFromText(textBoxMobileNumber.Text).Equals("") || !removeFirstAndLastSpacesFromText(textBoxFaxNumber.Text).Equals(""))
+                    {
+                        aContact = new Kontakt();
+                        aContact.KontaktID = 0;
+                        aContact.E_Mail = removeFirstAndLastSpacesFromText(textBoxMail.Text);
+                        aContact.Telefonnummer = removeFirstAndLastSpacesFromText(textBoxPhoneNumber.Text);
+                        aContact.Mobilnummer = removeFirstAndLastSpacesFromText(textBoxMobileNumber.Text);
+                        aContact.Faxnummer = removeFirstAndLastSpacesFromText(textBoxFaxNumber.Text);
+                    }
+                    else
+                    {
+                        aContact = null;
+                    }
+                }
+                
+                foreach(Kunde customer in list.CustomerList)
+                {
+                    if(customer.Kundennummer != removeAllSpacesFromText(textBoxCustomerNumber.Text))
+                    {
+                        customerNumberAvailable = true;
+                    }
+                    else
+                    {
+                        customerNumberAvailable = false;
+                    }
                 }
 
-                var result = MessageBox.Show("Möchten Sie einen neuen Kunden anlegen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                if (result == MessageBoxResult.Yes)
-                {                    
-                    Kunde newCustomer = new Kunde();
-                    newCustomer.KundeID = 0;
-                    newCustomer.Kundennummer = textBoxCustomerNumber.Text;
-                    newCustomer.Vornamen = textBoxFirstName.Text;
-                    newCustomer.Nachnamen = textBoxLastName.Text;
-                    newCustomer.Geschlecht = textBoxGender.Text;
-                    newCustomer.Alter = Convert.ToInt32(textBoxAge.Text);
-                    if (aAddress != null)
+                if(customerNumberAvailable)
+                {
+                    if(aAddress != null && aContact != null)
                     {
-                        newCustomer.Adresse = aAddress;
-                        newCustomer.AdresseID = aAddress.AdresseID;
-                    }                                        
-                    
-                    if(aContact!=null)
+                        var result = MessageBox.Show("Möchten Sie einen neuen Kunden anlegen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                        if(result == MessageBoxResult.Yes)
+                        {
+                            if(newAddress)
+                            {
+                                list.AddressList.Remove(placeHolderAddress);
+                                list.addToAddressList(aAddress);
+                            }
+                            
+                            if(newContact)
+                            {
+                                list.ContactList.Remove(placeHolderContact);
+                                list.addToContactList(aContact);
+                            }
+
+                            Kunde newCustomer = new Kunde();
+                            newCustomer.KundeID = 0;
+                            newCustomer.Kundennummer = removeAllSpacesFromText(textBoxCustomerNumber.Text);
+                            newCustomer.Vornamen = removeAllSpacesFromText(textBoxFirstName.Text);
+                            newCustomer.Nachnamen = removeAllSpacesFromText(textBoxLastName.Text);
+                            newCustomer.Geschlecht = removeAllSpacesFromText(textBoxGender.Text);
+                            newCustomer.Alter = Convert.ToInt32(removeAllSpacesFromText(textBoxAge.Text));
+                            newCustomer.Adresse = aAddress;
+                            newCustomer.AdresseID = aAddress.AdresseID;                            
+                            newCustomer.Kontakt = aContact;
+                            newCustomer.KontaktID = aContact.KontaktID;
+
+                            list.addToCustomerList(newCustomer);
+
+                            loadComboBoxAddress();
+                            loadComboBoxContact();
+                            clearComponents();
+                        }
+                    }
+                    else if (aAddress == null && aContact == null)
                     {
-                        newCustomer.Kontakt = aContact;
-                        newCustomer.KontaktID = aContact.KontaktID;
-                    }                    
-
-                    list.addToCustomerList(newCustomer);
-
-                    loadComboBoxAddress();
-                    loadComboBoxContact();
-                    clearComponents();
+                        MessageBox.Show("Bitte füllen Sie die Adress- und Kontaktdaten korrekt aus.");
+                    }
+                    else if(aAddress == null)
+                    {
+                        MessageBox.Show("Bitte füllen Sie die Adressdaten korrekt aus.");
+                    }
+                    else if(aContact == null)
+                    {
+                        MessageBox.Show("Bitte füllen Sie die Kontaktdaten korrekt aus.");
+                    }                  
                 }
+                else
+                {
+                    MessageBox.Show("Die Kundennummer " + removeAllSpacesFromText(textBoxCustomerNumber.Text) + " ist bereits vergeben.");
+                }                    
             }
             else
             {
-                MessageBox.Show("Bitte füllen Sie die notwendigen Felder aus.");
+                MessageBox.Show("Bitte füllen Sie die persönlichen Kundendaten korrekt aus.");
             }
         }
 
@@ -252,26 +312,55 @@ namespace CarRental
             textBoxAge.Text = null;
         }
 
-        private void textBoxAge_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void comboBoxAddress_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.Text == "." && isTextInputTypeOfInteger(e.Text)==false)
-            {
+            loadComboBoxAddress();
+        }
+
+        private void comboBoxContact_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            loadComboBoxContact();
+        }
+
+        private void textBoxAge_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {            
+            if (!isTextInputTypeOfInteger(e.Text))
+            {              
                 e.Handled = true;
-            }
-            else if(e.Text == ".")
+            }  
+        }
+
+        private bool isTextInputGreaterThenOneHundred(string text)
+        {
+            text = removeAllSpacesFromText(text);            
+            int number; Int32.TryParse(text, out number);
+            bool status;
+                        
+            if (number > 100)
             {
-                if(((TextBox)sender).Text.IndexOf(e.Text) > -1)
-                {
-                    e.Handled = true;
-                }
+                status = true;
             }
+            else
+            {
+                status = false;
+            }
+            return status;
         }
 
         private bool isTextInputTypeOfInteger(string text)
         {
             int number;
-
             return int.TryParse(text, out number);
+        }
+
+        private string removeFirstAndLastSpacesFromText(string text)
+        {    
+            return text.Trim();
+        }
+
+        private string removeAllSpacesFromText(string text)
+        {            
+            return string.Join("", text.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
         }
     }
 }

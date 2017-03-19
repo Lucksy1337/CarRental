@@ -555,7 +555,7 @@ namespace CarRental.CarRentalServiceReference
 
         public override string ToString()
         {
-            return Ort + " : " + Strasse + " " + Hausnummer;
+            return Ort + " : " + Strasse + " " + Hausnummer + " " +AdresseID;
         }
 
         /// <summary>
@@ -1843,7 +1843,7 @@ namespace CarRental.CarRentalServiceReference
     {
         public override string ToString()
         {
-            return E_Mail;
+            return E_Mail + " : ";
         }
 
         /// <summary>
