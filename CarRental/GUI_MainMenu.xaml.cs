@@ -23,7 +23,7 @@ namespace CarRental
 
         public GUI_MainMenu()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         public GUI_MainMenu(string usertype, string username)
@@ -50,10 +50,7 @@ namespace CarRental
                     buttonUserManagement.IsEnabled = true;
                     buttonVehicleManagement.IsEnabled = true;
                     break;                                        
-            }
-
-
-               
+            }               
         }
 
         private void buttonCustomerManagement_Click(object sender, RoutedEventArgs e)
@@ -77,7 +74,10 @@ namespace CarRental
         }
 
         private void buttonSaveToDb_Click(object sender, RoutedEventArgs e)
-        {       
+        {
+            databaseConnection = DM_DBConnection.Instance;
+            list = CL_List.Instance;
+
             List<Adresse> addressList = databaseUpdateAddress();
             List<Kontakt> contactList = databaseUpdateContact();
             databaseUpdateCustomer(addressList, contactList);
