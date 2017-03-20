@@ -15,10 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace CarRental
-{
-    /// <summary>
-    /// Interaktionslogik für GUI_OrderManagement.xaml
-    /// </summary>
+{ 
     public partial class GUI_OrderManagement : Window
     {
         public GUI_OrderManagement()

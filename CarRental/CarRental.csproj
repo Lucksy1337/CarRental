@@ -170,6 +170,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\CarRental.CarRentalSchoolServiceReference.Fi12_peterson_infrastrukturDBEntities.datasource" />
     <None Include="Properties\DataSources\CarRental.CarRentalServiceReference.peterson_infrastrukturDBEntities.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

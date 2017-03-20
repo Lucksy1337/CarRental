@@ -15,9 +15,9 @@
                 <ComboBox x:Name="comboBoxUserType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="104" Margin="104,7,0,0"/>
                 <TextBox x:Name="textBoxUsername" HorizontalAlignment="Left" Height="23" Margin="104,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104"/>
                 <PasswordBox x:Name="passwordBoxPassword" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="104,72,0,0" Width="104" Background="White" Height="23"/>
-                <Label x:Name="labelId" Content="Id:" HorizontalAlignment="Left" Margin="0,36,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="labelLoginId" Content="Anmeldung ID:" HorizontalAlignment="Left" Margin="0,36,0,0" VerticalAlignment="Top" FontSize="14"/>
                 <TextBox x:Name="textBoxId" HorizontalAlignment="Left" Height="23" Margin="104,39,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="104"/>
-                <Button x:Name="buttonRegistration" Content="Registrieren" HorizontalAlignment="Left" Margin="45,133,0,0" Width="122" FontSize="14" Click="buttonRegistration_Click" Height="26" VerticalAlignment="Top"/>
+                <Button x:Name="buttonRegistration" Content="Registrieren" HorizontalAlignment="Left" Margin="47,133,0,0" Width="122" FontSize="14" Click="buttonRegistration_Click" Height="23" VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>
         <GroupBox Header="Benutzer löschen" Margin="239,8,0,10">
@@ -27,6 +27,5 @@
                 <Button x:Name="buttonDelete" Content="Löschen" HorizontalAlignment="Left" Margin="12,0,0,10" Width="122" FontSize="14" Click="buttonDelete_Click" Height="23" VerticalAlignment="Bottom"/>
             </Grid>
         </GroupBox>
-
     </Grid>
 </Window>

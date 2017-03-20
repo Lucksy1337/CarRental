@@ -16,25 +16,27 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CarRental
-{
-    /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
-    /// </summary>
+{ 
     public partial class MainWindow : Window
     {
         private String usertype;
         private String username;
         private int signInId;
         private int usertypeId;
-        DM_DBConnection databaseConnection;
+
+        private DM_DBConnection databaseConnection;
         private CL_List listobject;
 
         public MainWindow()
         {
             InitializeComponent();
+            Initialize();            
+        }
+
+        private void Initialize()
+        {
             databaseConnection = DM_DBConnection.Instance;
             listobject = CL_List.Instance;
-            
         }
 
         private void verifyLogin(String id, String pw)

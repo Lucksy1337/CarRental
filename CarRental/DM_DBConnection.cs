@@ -46,7 +46,7 @@ namespace CarRental
             //Home Wesley
             //_carRentalEntities = new peterson_infrastrukturDBEntities(
             //School
-            _carRentalEntities = new Fi12_peterson_infrastrukturDBEntities(
+            //_carRentalEntities = new Fi12_peterson_infrastrukturDBEntities(
 
             //Home Wesley
             //new Uri("http://localhost:9938/WcfCarRentalDataService.svc"));

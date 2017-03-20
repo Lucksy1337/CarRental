@@ -18,12 +18,25 @@ namespace CarRental
 { 
     public partial class GUI_MainMenu : Window
     {
-        DM_DBConnection databaseConnection;
-        CL_List list;
+        private GUI_CustomerManagement formCustomerManagement;
+        private GUI_OrderManagement formOrderManagement;
+        private GUI_UserManagement formUserManagement;
+        private GUI_VehicleManagement formVehicleManagement;
+        private string closingMessage;        
+
+        private DM_DBConnection databaseConnection;
+        private CL_List list;        
 
         public GUI_MainMenu()
         {
-            InitializeComponent();            
+            InitializeComponent();
+
+            //only for tests
+            //Begin
+            databaseConnection = DM_DBConnection.Instance;
+            list = CL_List.Instance;
+            closingMessage = "?";                 
+            //End
         }
 
         public GUI_MainMenu(string usertype, string username)
@@ -36,7 +49,8 @@ namespace CarRental
         {
             databaseConnection = DM_DBConnection.Instance;
             list = CL_List.Instance;
-            setGuiValues(usertype, username);            
+            closingMessage = "?";
+            setGuiValues(usertype, username);                      
         }
 
         private void setGuiValues(String usertype, String username)
@@ -51,33 +65,146 @@ namespace CarRental
                     buttonVehicleManagement.IsEnabled = true;
                     break;                                        
             }               
-        }
+        }    
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!closingMessage.Contains("?"))
+            {
+                if (closingMessage.Split(':').Contains("Customer"))
+                {
+                    if (formCustomerManagement.IsLoaded)
+                    {
+                        MessageBox.Show("Sie müssen zuerst alle anderen Fenster schließen.");
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        var result = MessageBox.Show("Möchten Sie das Auswahlfenster schließen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            formCustomerManagement.Close();
+                            e.Cancel = false;
+                        }
+                        else
+                        {
+                            e.Cancel = true;
+                        }
+                    }
+                }
+                else if (closingMessage.Split(':').Contains("Order"))
+                {
+                    if (formOrderManagement.IsLoaded)
+                    {
+                        MessageBox.Show("Sie müssen zuerst alle anderen Fenster schließen.");
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        var result = MessageBox.Show("Möchten Sie das Auswahlfenster schließen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            formOrderManagement.Close();
+                            e.Cancel = false;
+                        }
+                        else
+                        {
+                            e.Cancel = true;
+                        }
+                    }
+                }
+                else if (closingMessage.Split(':').Contains("User"))
+                {
+                    if (formUserManagement.IsLoaded)
+                    {
+                        MessageBox.Show("Sie müssen zuerst alle anderen Fenster schließen.");
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        var result = MessageBox.Show("Möchten Sie das Auswahlfenster schließen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            formUserManagement.Close();
+                            e.Cancel = false;
+                        }
+                        else
+                        {
+                            e.Cancel = true;
+                        }
+                    }
+                }
+                else if (closingMessage.Split(':').Contains("Vehicle"))
+                {
+                    if (formVehicleManagement.IsLoaded)
+                    {
+                        MessageBox.Show("Sie müssen zuerst alle anderen Fenster schließen.");
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        var result = MessageBox.Show("Möchten Sie das Auswahlfenster schließen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            formVehicleManagement.Close();
+                            e.Cancel = false;
+                        }
+                        else
+                        {
+                            e.Cancel = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var result = MessageBox.Show("Möchten Sie das Auswahlfenster schließen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {                    
+                    e.Cancel = false;
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+        } 
 
         private void buttonCustomerManagement_Click(object sender, RoutedEventArgs e)
         {
-            new GUI_CustomerManagement().Show();
+            buildClosingMessage("Customer");
+            formCustomerManagement = new GUI_CustomerManagement();
+            formCustomerManagement.Show();
         }
 
         private void buttonOrderManagement_Click(object sender, RoutedEventArgs e)
         {
-            new GUI_OrderManagement().Show();
+            buildClosingMessage("Order");
+            formOrderManagement = new GUI_OrderManagement();
+            formOrderManagement.Show();
         }
 
         private void buttonUserManagement_Click(object sender, RoutedEventArgs e)
         {
-            new GUI_UserManagement().Show();
+            buildClosingMessage("User");
+            formUserManagement = new GUI_UserManagement();
+            formUserManagement.Show();
         }
 
         private void buttonVehicleManagement_Click(object sender, RoutedEventArgs e)
         {
-            new GUI_VehicleManagement().Show();
+            buildClosingMessage("Vehicle");
+            formVehicleManagement = new GUI_VehicleManagement();
+            formVehicleManagement.Show();
         }
 
         private void buttonSaveToDb_Click(object sender, RoutedEventArgs e)
         {
-            databaseConnection = DM_DBConnection.Instance;
-            list = CL_List.Instance;
-
             List<Adresse> addressList = databaseUpdateAddress();
             List<Kontakt> contactList = databaseUpdateContact();
             databaseUpdateCustomer(addressList, contactList);
@@ -373,6 +500,23 @@ namespace CarRental
                     databaseConnection.updateUser(list.UserList);
                 }
             }
+        }
+
+        private void buildClosingMessage(string text)
+        {
+            if (Convert.ToInt32(closingMessage.Split(':').Contains("Customer")) < 1 || Convert.ToInt32(closingMessage.Split(':').Contains("Order")) < 1 ||
+                Convert.ToInt32(closingMessage.Split(':').Contains("User")) < 1 || Convert.ToInt32(closingMessage.Split(':').Contains("Vehicle")) < 1)
+            {
+                if (closingMessage.Contains("?"))
+                {
+                    closingMessage = null;
+                    closingMessage += text;
+                }
+                else
+                {
+                    closingMessage += ":" + text;
+                }
+            }   
         }
     }    
 }

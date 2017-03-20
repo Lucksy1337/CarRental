@@ -15,10 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace CarRental
-{
-    /// <summary>
-    /// Interaktionslogik für GUI_UserManagement.xaml
-    /// </summary>
+{   
     public partial class GUI_UserManagement : Window
     {
         private DM_DBConnection databaseConnection;
