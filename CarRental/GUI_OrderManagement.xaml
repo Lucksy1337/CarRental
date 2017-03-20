@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarRental"
         mc:Ignorable="d"
-        Title="Auftragsverwaltung" Height="424.183" Width="326.686">
+        Title="Auftragsverwaltung" Height="424.183" Width="326.686" ResizeMode="NoResize">
     <Grid>
         <Label x:Name="labelVehicleType" Content="Fahrzeugtyp:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="132" FontSize="14"/>
         <Label x:Name="labelCustomer" Content="Kunde:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,178,0,0" Width="132" FontSize="14"/>

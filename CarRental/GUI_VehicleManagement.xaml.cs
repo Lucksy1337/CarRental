@@ -18,153 +18,85 @@ namespace CarRental
 {  
     public partial class GUI_VehicleManagement : Window
     {
-        DM_DBConnection dbconnect = DM_DBConnection.Instance;
-        CL_List aList = CL_List.Instance;
-        Fahrzeug aVehicle;
-        
-        //Fahrzeugtyp aFahrzeugtyp;
+        private DM_DBConnection databaseConnection;
+        private CL_List list;
         
         public GUI_VehicleManagement()
         {
             InitializeComponent();
-            fillComboBox();
+            Initialize();          
+        }
+
+        private void Initialize()
+        {
+            databaseConnection = DM_DBConnection.Instance;
+            list = CL_List.Instance;
+            loadComboBoxVehicleType();
+            loadComboBoxInsurancePackage();
         }
         
-        public void fillComboBox()
+        private void loadComboBoxVehicleType()
         {
-            foreach (Fahrzeugtyp aVehicleType in aList.VehicleTypeList)
+            comboBoxVehicleType.Items.Clear();
+            foreach (Fahrzeugtyp aVehicleType in list.VehicleTypeList)
             {
                 comboBoxVehicleType.Items.Add(aVehicleType);
-            }
-            foreach (Versicherungspaket aInsurancePackage in aList.InsurancePackageList)
+            }                        
+        }
+
+        private void loadComboBoxInsurancePackage()
+        {
+            comboBoxInsurancePackage.Items.Clear();
+            foreach (Versicherungspaket aInsurancePackage in list.InsurancePackageList)
             {
                 comboBoxInsurancePackage.Items.Add(aInsurancePackage);
             }
         }
-        public void updateListBox()
+
+        private void loadListBoxCreatedVehicles()
         {
             Fahrzeugtyp aVehicleType = (Fahrzeugtyp)comboBoxVehicleType.SelectedItem;
-            listBoxCreatedVehicles.Items.Clear();
-            aList.VehicleSortedByTypeList.Clear();
-            foreach (Fahrzeug aVehicle in aList.VehicleList)
+
+            if (aVehicleType != null)
             {
-                if (aVehicleType.Equals(aVehicle.Fahrzeugtyp))
+                list.VehicleSortedByTypeList.Clear();
+                listBoxCreatedVehicles.Items.Clear();
+                foreach (Fahrzeug vehicle in list.VehicleList)
                 {
-                    aList.addToVehicleSortedByTypeList(aVehicle);
+                    if (aVehicleType.Equals(vehicle.Fahrzeugtyp))
+                    {
+                        list.addToVehicleSortedByTypeList(vehicle);
+                    }
+                }
+
+                foreach (Fahrzeug vehicle in list.VehicleSortedByTypeList)
+                {
+                    listBoxCreatedVehicles.Items.Add(vehicle);
                 }
             }
-            foreach (Fahrzeug aVehicle in aList.VehicleSortedByTypeList)
-            {
-                listBoxCreatedVehicles.Items.Add(aVehicle);
-            }
 
         }
-        public void updateTextBoxes(Fahrzeug selectedVehicle)
-        {
-            if(selectedVehicle != null)
-            {
-                comboBoxInsurancePackage.SelectedItem = selectedVehicle.Versicherungspaket;
-                textBoxDescription.Text = selectedVehicle.Bezeichnung;
-                textBoxBrand.Text = selectedVehicle.Marke;
-                textBoxVintage.Text = Convert.ToString(selectedVehicle.Baujahr);
-                textBoxMileage.Text = Convert.ToString(selectedVehicle.Kilometerstand);
-                textBoxGearChange.Text = selectedVehicle.Schaltung;
-                textBoxSeats.Text = Convert.ToString(selectedVehicle.Sitze);
-                textDoors.Text = Convert.ToString(selectedVehicle.Türe);
-                checkBoxNavigation.IsChecked = Convert.ToBoolean(selectedVehicle.Naviagationssystem);
-                checkBoxAirConditioning.IsChecked = Convert.ToBoolean(selectedVehicle.Klimaanlage);
-                textBoxRentPerDay.Text = Convert.ToString(selectedVehicle.MietpreisProTag);
-                checkBoxAvailability.IsChecked = Convert.ToBoolean(selectedVehicle.Verfügbar);
-            }
-
-        }
-
 
         private void comboBoxVehicleType_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            updateListBox();
-        }
-
-        private void comboBoxInsurancePackage_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+        {            
+            loadListBoxCreatedVehicles();
+        }      
 
         private void listBoxCreatedVehicles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             updateTextBoxes((Fahrzeug)listBoxCreatedVehicles.SelectedItem);
-        }
+        }        
 
-        private void newVehicle(object sender, RoutedEventArgs e)
+        private void buttonNewVehicle_Click(object sender, RoutedEventArgs e)
         {
-            comboBoxInsurancePackage.SelectedItem = null;
-            textBoxDescription.Text = null;
-            textBoxBrand.Text = null;
-            textBoxVintage.Text = null;
-            textBoxMileage.Text = null;
-            textBoxGearChange.Text = null;
-            textBoxSeats.Text = null;
-            textDoors.Text = null;
-            checkBoxNavigation.IsChecked = false;
-            checkBoxAirConditioning.IsChecked = false;
-            textBoxRentPerDay.Text = null;
-            checkBoxAvailability.IsChecked = false;
-
+            enableVehicleComponents(true);
+            buttonDeleteVehicle.IsEnabled = false;
+            buttonModifyVehicle.IsEnabled = false;
             buttonCreateVehicle.IsEnabled = true;
-
-            MessageBox.Show("Bitte Daten angeben");
+            clearComponents();
         }
 
-        private void fahrzeugErstellen_Click(object sender, RoutedEventArgs e)
-        {
-            Versicherungspaket newVersicherungspaket = new Versicherungspaket();
-            Fahrzeugtyp newFahrzeugTyp = new Fahrzeugtyp();
-            aVehicle = new Fahrzeug();
-
-            if (aList.InsurancePackageList != null)
-            {
-                foreach (Versicherungspaket aVersicherungspaket in aList.InsurancePackageList)
-                {
-                    if (comboBoxInsurancePackage.SelectedValue.Equals(aVersicherungspaket.Bezeichnung))
-                    {
-                        newVersicherungspaket = aVersicherungspaket;
-                    }
-                }
-            }
-            if (aList.VehicleTypeList != null)
-            {
-                foreach (Fahrzeugtyp aFahrzeugtyp in aList.VehicleTypeList)
-                {
-                    if (comboBoxVehicleType.SelectedValue.Equals(aFahrzeugtyp.Bezeichnung))
-                    {
-                        newFahrzeugTyp = aFahrzeugtyp;
-                    }
-                }
-            }
-            aVehicle.Versicherungspaket = newVersicherungspaket;
-            aVehicle.VersicherungspaketID = newVersicherungspaket.VersicherungspaketID;
-            aVehicle.Fahrzeugtyp = newFahrzeugTyp;
-            aVehicle.FahrzeugtypID = newFahrzeugTyp.FahrzeugtypID;
-            aVehicle.FahrzeugID = 0;
-            aVehicle.Bezeichnung = textBoxDescription.Text;
-            aVehicle.Marke = textBoxBrand.Text;
-            aVehicle.Baujahr = Convert.ToInt32(textBoxVintage.Text);
-            aVehicle.Kilometerstand = Convert.ToDouble(textBoxMileage.Text);
-            aVehicle.Schaltung = textBoxGearChange.Text;
-            aVehicle.Sitze = Convert.ToInt32(textBoxSeats.Text);
-            aVehicle.Türe = Convert.ToInt32(textDoors.Text);
-            aVehicle.Naviagationssystem = Convert.ToBoolean(checkBoxNavigation.IsChecked);
-            aVehicle.Klimaanlage = Convert.ToBoolean(checkBoxAirConditioning.IsChecked);
-            aVehicle.MietpreisProTag = Convert.ToDouble(textBoxRentPerDay.Text);
-            aVehicle.Verfügbar = Convert.ToBoolean(checkBoxAvailability.IsChecked);           
-            aList.addToVehicleList(aVehicle); 
-
-            updateListBox();
-            MessageBox.Show("Fahrzeug erstellt!");
-            buttonCreateVehicle.IsEnabled = false;
-        }
-
-        private void fahrzeugAendern_Click(object sender, RoutedEventArgs e)
+        private void buttonModifyVehicle_Click(object sender, RoutedEventArgs e)
         {
             Fahrzeug aVehicle = (Fahrzeug)listBoxCreatedVehicles.SelectedItem;
             aVehicle.Bezeichnung = textBoxDescription.Text;
@@ -178,20 +110,114 @@ namespace CarRental
             aVehicle.Klimaanlage = Convert.ToBoolean(checkBoxAirConditioning.IsChecked);
             aVehicle.MietpreisProTag = Convert.ToDouble(textBoxRentPerDay.Text);
             aVehicle.Verfügbar = Convert.ToBoolean(checkBoxAvailability.IsChecked);
-            aList.addToVehicleList(aVehicle);
+            list.addToVehicleList(aVehicle);
             MessageBox.Show("Fahrzeug verändert!");
-
-    }
-
-        private void fahrzeugLoeschen_Click(object sender, RoutedEventArgs e)
-        {
-            Fahrzeug aVehicle = (Fahrzeug)listBoxCreatedVehicles.SelectedItem;
-            aList.VehicleList.Remove(aVehicle);
-            updateListBox();
-            MessageBox.Show("Fahrzeug gelöscht");
         }
 
+        private void buttonCreateVehicle_Click(object sender, RoutedEventArgs e)
+        {
+            Fahrzeugtyp aVehicleType = (Fahrzeugtyp)comboBoxVehicleType.SelectedItem;
+            Versicherungspaket aInsurancePackage = (Versicherungspaket)comboBoxInsurancePackage.SelectedItem;
 
-    
+            Fahrzeug newVehicle = new Fahrzeug();
+            newVehicle.FahrzeugID = 0;
+            newVehicle.Fahrzeugtyp = aVehicleType;
+            newVehicle.FahrzeugtypID = aVehicleType.FahrzeugtypID;
+            newVehicle.Versicherungspaket = aInsurancePackage;
+            newVehicle.VersicherungspaketID = aInsurancePackage.VersicherungspaketID;
+            newVehicle.Bezeichnung = textBoxDescription.Text;
+            newVehicle.Marke = textBoxBrand.Text;
+            newVehicle.Baujahr = Convert.ToInt32(textBoxVintage.Text);
+            newVehicle.Kilometerstand = Convert.ToDouble(textBoxMileage.Text);
+            newVehicle.Schaltung = textBoxGearChange.Text;
+            newVehicle.Sitze = Convert.ToInt32(textBoxSeats.Text);
+            newVehicle.Türe = Convert.ToInt32(textDoors.Text);
+            newVehicle.Naviagationssystem = Convert.ToBoolean(checkBoxNavigation.IsChecked);
+            newVehicle.Klimaanlage = Convert.ToBoolean(checkBoxAirConditioning.IsChecked);
+            newVehicle.MietpreisProTag = Convert.ToDouble(textBoxRentPerDay.Text);
+            newVehicle.Verfügbar = Convert.ToBoolean(checkBoxAvailability.IsChecked);
+
+            clearComponents();
+            list.addToVehicleList(newVehicle);
+            loadListBoxCreatedVehicles();
+        }
+
+        public void updateTextBoxes(Fahrzeug selectedVehicle)
+        {            
+            bool cancelVehicleCreation = false;
+
+            if (buttonCreateVehicle.IsEnabled && listBoxCreatedVehicles.SelectedItem != null)
+            {
+                var result = MessageBox.Show("Möchten Sie die Fahrzeugerstellung verlassen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    cancelVehicleCreation = true;
+                }                
+            }
+
+            if (selectedVehicle != null)
+            {
+                if (cancelVehicleCreation || !buttonCreateVehicle.IsEnabled)
+                {
+                    comboBoxInsurancePackage.SelectedItem = selectedVehicle.Versicherungspaket;
+                    textBoxDescription.Text = selectedVehicle.Bezeichnung;
+                    textBoxBrand.Text = selectedVehicle.Marke;
+                    textBoxVintage.Text = Convert.ToString(selectedVehicle.Baujahr);
+                    textBoxMileage.Text = Convert.ToString(selectedVehicle.Kilometerstand);
+                    textBoxGearChange.Text = selectedVehicle.Schaltung;
+                    textBoxSeats.Text = Convert.ToString(selectedVehicle.Sitze);
+                    textDoors.Text = Convert.ToString(selectedVehicle.Türe);
+                    checkBoxNavigation.IsChecked = Convert.ToBoolean(selectedVehicle.Naviagationssystem);
+                    checkBoxAirConditioning.IsChecked = Convert.ToBoolean(selectedVehicle.Klimaanlage);
+                    textBoxRentPerDay.Text = Convert.ToString(selectedVehicle.MietpreisProTag);
+                    checkBoxAvailability.IsChecked = Convert.ToBoolean(selectedVehicle.Verfügbar);
+
+                    enableVehicleComponents(true);
+                    buttonDeleteVehicle.IsEnabled = true;
+                    buttonModifyVehicle.IsEnabled = true;
+                    buttonCreateVehicle.IsEnabled = false;
+                }
+                else
+                {
+                    listBoxCreatedVehicles.SelectedItem = null;
+                }
+            }
+        }
+
+        private void enableVehicleComponents(bool status)
+        {
+            comboBoxVehicleType.IsEnabled = status;
+            comboBoxInsurancePackage.IsEnabled = status;
+            textBoxDescription.IsEnabled = status;
+            textBoxBrand.IsEnabled = status;
+            textBoxVintage.IsEnabled = status;
+            textBoxMileage.IsEnabled = status;
+            textBoxGearChange.IsEnabled = status;
+            textBoxSeats.IsEnabled = status;
+            textDoors.IsEnabled = status;
+            checkBoxNavigation.IsEnabled = status;
+            checkBoxAirConditioning.IsEnabled = status;
+            textBoxRentPerDay.IsEnabled = status;
+            checkBoxAvailability.IsEnabled = status;                  
+        }        
+
+        private void clearComponents()
+        {
+            listBoxCreatedVehicles.Items.Clear();
+            comboBoxVehicleType.SelectedItem = null;
+            comboBoxInsurancePackage.SelectedItem = null;
+            textBoxDescription.Text = null;
+            textBoxBrand.Text = null;
+            textBoxVintage.Text = null;
+            textBoxMileage.Text = null;
+            textBoxGearChange.Text = null;
+            textBoxSeats.Text = null;
+            textDoors.Text = null;
+            checkBoxNavigation.IsChecked = false;
+            checkBoxAirConditioning.IsChecked = false;
+            textBoxRentPerDay.Text = null;
+            checkBoxAvailability.IsChecked = false;            
+        }        
     }
 }
