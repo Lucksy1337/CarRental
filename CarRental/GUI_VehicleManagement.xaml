@@ -35,8 +35,9 @@
         <TextBox x:Name="textBoxRentPerDay" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" Margin="173,389,0,0"/>
         <CheckBox x:Name="checkBoxAvailability" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="173,428,0,0"/>
         <ListBox x:Name="listBoxCreatedVehicles" HorizontalAlignment="Left" Height="442" VerticalAlignment="Top" Width="450" Margin="327,58,0,0" SelectionChanged="listBoxCreatedVehicles_SelectionChanged"/>
-        <Button x:Name="buttonCreateVehicle" Content="Fahrzeug erstellen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="30,470,0,0" Height="30" FontSize="14" Click="fahrzeugErstellen"/>
-        <Button x:Name="buttonModifyVehicle" Content="Fahrzeug ändern" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="173,470,0,0" Height="30" FontSize="14" Click="fahrzeugAendern"/>
-        <Button x:Name="buttonDeleteVehicle" Content="Fahrzeug löschen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="475,12,0,0" Height="30" RenderTransformOrigin="0.575,-0.033" FontSize="14" Click="fahrzeugLoeschen"/>
+        <Button x:Name="buttonCreateVehicle" Content="Fahrzeug erstellen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="30,470,0,0" Height="30" FontSize="14" IsEnabled="False" Click="fahrzeugErstellen_Click"/>
+        <Button x:Name="buttonModifyVehicle" Content="Fahrzeug ändern" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="173,470,0,0" Height="30" FontSize="14" Click="fahrzeugAendern_Click"/>
+        <Button x:Name="buttonDeleteVehicle" Content="Fahrzeug löschen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="475,12,0,0" Height="30" RenderTransformOrigin="0.575,-0.033" FontSize="14" Click="fahrzeugLoeschen_Click"/>
+        <Button x:Name="buttonNewVehicle" Content="Neues Fahrzeug" HorizontalAlignment="Left" VerticalAlignment="Top" Width="111" Margin="666,12,0,0" Height="30" FontSize="14" Click="newVehicle"/>
     </Grid>
 </Window>

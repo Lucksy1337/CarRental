@@ -44,6 +44,7 @@ namespace CarRental
         {
             Fahrzeugtyp aVehicleType = (Fahrzeugtyp)comboBoxVehicleType.SelectedItem;
             //aList.addToVehicleSortedByTypeList(aFahrzeug);
+            listBoxCreatedVehicles.Items.Clear();
             foreach (Fahrzeug aVehicle in aList.VehicleList)
             {
                 if (aVehicleType.Equals(aVehicle.Fahrzeugtyp))
@@ -73,31 +74,6 @@ namespace CarRental
 
         }
 
-        
-        public void fahrzeugErstellen(object sender, RoutedEventArgs e)
-        {
-            aVehicle = new Fahrzeug();
-            aVehicle.Bezeichnung = textBoxDescription.Text;
-            aVehicle.Marke = textBoxBrand.Text;
-            aVehicle.Baujahr = Convert.ToInt32(textBoxVintage.Text);
-            aVehicle.Kilometerstand = Convert.ToDouble(textBoxMileage.Text);
-            aVehicle.Schaltung = textBoxGearChange.Text;
-            aVehicle.Sitze = Convert.ToInt32(textBoxSeats.Text);
-            aVehicle.Türe = Convert.ToInt32(textDoors.Text);
-            aVehicle.Naviagationssystem = Convert.ToBoolean(checkBoxNavigation.IsChecked);
-            aVehicle.Klimaanlage = Convert.ToBoolean(checkBoxAirConditioning.IsChecked);
-            aVehicle.MietpreisProTag = Convert.ToDouble(textBoxRentPerDay.Text);
-            aVehicle.Verfügbar = Convert.ToBoolean(checkBoxAvailability.IsChecked);
-            aList.addToVehicleList(aVehicle);
-        }
-        private void fahrzeugAendern(object sender, RoutedEventArgs e)
-        {
-               
-        }
-        private void fahrzeugLoeschen(object sender, RoutedEventArgs e)
-        {
-            
-        }
 
         private void comboBoxVehicleType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -113,5 +89,73 @@ namespace CarRental
         {
             updateTextBoxes((Fahrzeug)listBoxCreatedVehicles.SelectedItem);
         }
+
+        private void newVehicle(object sender, RoutedEventArgs e)
+        {
+            comboBoxInsurancePackage.SelectedItem = null;
+            textBoxDescription.Text = null;
+            textBoxBrand.Text = null;
+            textBoxVintage.Text = null;
+            textBoxMileage.Text = null;
+            textBoxGearChange.Text = null;
+            textBoxSeats.Text = null;
+            textDoors.Text = null;
+            checkBoxNavigation.IsChecked = false;
+            checkBoxAirConditioning.IsChecked = false;
+            textBoxRentPerDay.Text = null;
+            checkBoxAvailability.IsChecked = false;
+
+            buttonCreateVehicle.IsEnabled = true;
+
+            MessageBox.Show("Bitte Daten angeben");
+        }
+
+        private void fahrzeugErstellen_Click(object sender, RoutedEventArgs e)
+        {
+            aVehicle = new Fahrzeug();
+            aVehicle.Bezeichnung = textBoxDescription.Text;
+            aVehicle.Marke = textBoxBrand.Text;
+            aVehicle.Baujahr = Convert.ToInt32(textBoxVintage.Text);
+            aVehicle.Kilometerstand = Convert.ToDouble(textBoxMileage.Text);
+            aVehicle.Schaltung = textBoxGearChange.Text;
+            aVehicle.Sitze = Convert.ToInt32(textBoxSeats.Text);
+            aVehicle.Türe = Convert.ToInt32(textDoors.Text);
+            aVehicle.Naviagationssystem = Convert.ToBoolean(checkBoxNavigation.IsChecked);
+            aVehicle.Klimaanlage = Convert.ToBoolean(checkBoxAirConditioning.IsChecked);
+            aVehicle.MietpreisProTag = Convert.ToDouble(textBoxRentPerDay.Text);
+            aVehicle.Verfügbar = Convert.ToBoolean(checkBoxAvailability.IsChecked);
+            aList.addToVehicleList(aVehicle);
+            updateListBox();
+            MessageBox.Show("Fahrzeug erstellt!");
+            buttonCreateVehicle.IsEnabled = false;
+        }
+
+        private void fahrzeugAendern_Click(object sender, RoutedEventArgs e)
+        {
+            Fahrzeug aVehicle = (Fahrzeug)listBoxCreatedVehicles.SelectedItem;
+            aVehicle.Bezeichnung = textBoxDescription.Text;
+            aVehicle.Marke = textBoxBrand.Text;
+            aVehicle.Baujahr = Convert.ToInt32(textBoxVintage.Text);
+            aVehicle.Kilometerstand = Convert.ToDouble(textBoxMileage.Text);
+            aVehicle.Schaltung = textBoxGearChange.Text;
+            aVehicle.Sitze = Convert.ToInt32(textBoxSeats.Text);
+            aVehicle.Türe = Convert.ToInt32(textDoors.Text);
+            aVehicle.Naviagationssystem = Convert.ToBoolean(checkBoxNavigation.IsChecked);
+            aVehicle.Klimaanlage = Convert.ToBoolean(checkBoxAirConditioning.IsChecked);
+            aVehicle.MietpreisProTag = Convert.ToDouble(textBoxRentPerDay.Text);
+            aVehicle.Verfügbar = Convert.ToBoolean(checkBoxAvailability.IsChecked);
+            aList.addToVehicleList(aVehicle);
+
+    }
+
+        private void fahrzeugLoeschen_Click(object sender, RoutedEventArgs e)
+        {
+            Fahrzeug aVehicle = (Fahrzeug)listBoxCreatedVehicles.SelectedItem;
+            aList.VehicleList.Remove(aVehicle);
+            updateListBox();
+        }
+
+
+    
     }
 }
