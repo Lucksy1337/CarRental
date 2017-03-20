@@ -45,15 +45,22 @@ namespace CarRental
 
         private void buttonSearch_Click(object sender, RoutedEventArgs e)
         {
-            aCustomerNumber = removeAllSpacesFromText(textBoxCustomerNumberSearch.Text);
-
-            foreach (Kunde customer in list.CustomerList)
+            if (!textBoxCustomerNumberSearch.Text.Contains(" "))
             {
-                if (customer.Kundennummer.Equals(aCustomerNumber))
+                aCustomerNumber = textBoxCustomerNumberSearch.Text;
+
+                foreach (Kunde customer in list.CustomerList)
                 {
-                    aCustomer = customer;
-                    customerExists = true;
+                    if (customer.Kundennummer.Equals(aCustomerNumber))
+                    {
+                        aCustomer = customer;
+                        customerExists = true;
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Ihre Kundennummer darf keine Leerzeichen enthalten.");
             }
 
             if (customerExists)
@@ -101,48 +108,76 @@ namespace CarRental
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
             errorMessage = null;
+            bool textHasSpace = false;
 
-            if(!removeAllSpacesFromText(textBoxCustomerNumber.Text).Equals("") && !removeAllSpacesFromText(textBoxFirstName.Text).Equals("") &&
-               !removeAllSpacesFromText(textBoxLastName.Text).Equals("") && !textBoxGender.Text.Equals("") && !removeAllSpacesFromText(textBoxAge.Text).Equals("") &&
-               !isTextInputGreaterThenOneHundred(textBoxAge.Text))
-            {                
-                aCustomer.Vornamen = removeAllSpacesFromText(textBoxFirstName.Text);
-                aCustomer.Nachnamen = removeAllSpacesFromText(textBoxLastName.Text);
-                aCustomer.Geschlecht = removeAllSpacesFromText(textBoxGender.Text);
-                aCustomer.Alter = Convert.ToInt32(removeAllSpacesFromText(textBoxAge.Text));
+            if (!textBoxCustomerNumber.Text.Contains(" ") && !textBoxFirstName.Text.Contains(" ") && !(textBoxLastName.Text).Contains(" ") &&
+                !textBoxGender.Text.Contains(" ") && !textBoxAge.Text.Contains(" "))
+            {
+                if (!textBoxCustomerNumber.Text.Equals("") && !textBoxFirstName.Text.Equals("") && !(textBoxLastName.Text).Equals("") &&
+                   !textBoxGender.Text.Equals("") && !textBoxAge.Text.Equals("") && !isTextInputGreaterThenOneHundred(textBoxAge.Text))
+                {
+                    aCustomer.Vornamen = textBoxFirstName.Text;
+                    aCustomer.Nachnamen = textBoxLastName.Text;
+                    aCustomer.Geschlecht = textBoxGender.Text;
+                    aCustomer.Alter = Convert.ToInt32(textBoxAge.Text);
+                }
+                else
+                {
+                    errorMessage += "Customer";
+                }
             }
             else
             {
-                errorMessage += "Customer";                
+                textHasSpace = true;
+                MessageBox.Show("In Ihren persönlichen Kundendaten dürfen keine Leerzeichen enthalten sein.");
             }
 
-            if(!removeFirstAndLastSpacesFromText(textBoxStreet.Text).Equals("") && !removeFirstAndLastSpacesFromText(textBoxHouseNumber.Text).Equals("") &&
-               !removeFirstAndLastSpacesFromText(textBoxZipCode.Text).Equals("") && !removeFirstAndLastSpacesFromText(textBoxCity.Text).Equals(""))
+
+            if (!textBoxStreet.Text.Contains(" ") && !textBoxHouseNumber.Text.Contains(" ") &&
+                !textBoxZipCode.Text.Contains(" ") && !textBoxCity.Text.Contains(" "))
             {
-                aCustomer.Adresse.Strasse = removeFirstAndLastSpacesFromText(textBoxStreet.Text);
-                aCustomer.Adresse.Hausnummer = removeFirstAndLastSpacesFromText(textBoxHouseNumber.Text);
-                aCustomer.Adresse.PLZ = removeFirstAndLastSpacesFromText(textBoxZipCode.Text);
-                aCustomer.Adresse.Ort = removeFirstAndLastSpacesFromText(textBoxCity.Text);
+                if (!textBoxStreet.Text.Equals("") && !textBoxHouseNumber.Text.Equals("") &&
+                   !textBoxZipCode.Text.Equals("") && !textBoxCity.Text.Equals(""))
+                {
+                    aCustomer.Adresse.Strasse = textBoxStreet.Text;
+                    aCustomer.Adresse.Hausnummer = textBoxHouseNumber.Text;
+                    aCustomer.Adresse.PLZ = textBoxZipCode.Text;
+                    aCustomer.Adresse.Ort = textBoxCity.Text;
+                }
+                else
+                {
+                    errorMessage += "Address";
+                }
             }
             else
             {
-                errorMessage += "Address";               
+                textHasSpace = true;
+                MessageBox.Show("In Ihren Adressdaten dürfen keine Leerzeichen enthalten sein.");
             }
 
-            if(!removeFirstAndLastSpacesFromText(textBoxMail.Text).Equals("") || !removeFirstAndLastSpacesFromText(textBoxPhoneNumber.Text).Equals("") ||
-               !removeFirstAndLastSpacesFromText(textBoxMobileNumber.Text).Equals("") || !removeFirstAndLastSpacesFromText(textBoxFaxNumber.Text).Equals(""))
+            if (!textBoxMail.Text.Contains(" ") && !textBoxPhoneNumber.Text.Contains(" ") &&
+                !textBoxMobileNumber.Text.Contains(" ") && !textBoxFaxNumber.Text.Contains(" "))
             {
-                aCustomer.Kontakt.E_Mail = removeFirstAndLastSpacesFromText(textBoxMail.Text);
-                aCustomer.Kontakt.Telefonnummer = removeFirstAndLastSpacesFromText(textBoxPhoneNumber.Text);
-                aCustomer.Kontakt.Mobilnummer = removeFirstAndLastSpacesFromText(textBoxMobileNumber.Text);
-                aCustomer.Kontakt.Faxnummer = removeFirstAndLastSpacesFromText(textBoxFaxNumber.Text);
+                if (!textBoxMail.Text.Equals("") || !textBoxPhoneNumber.Text.Equals("") ||
+                   !textBoxMobileNumber.Text.Equals("") || !textBoxFaxNumber.Text.Equals(""))
+                {
+                    aCustomer.Kontakt.E_Mail = textBoxMail.Text;
+                    aCustomer.Kontakt.Telefonnummer = textBoxPhoneNumber.Text;
+                    aCustomer.Kontakt.Mobilnummer = textBoxMobileNumber.Text;
+                    aCustomer.Kontakt.Faxnummer = textBoxFaxNumber.Text;
+                }
+                else
+                {
+                    errorMessage += "Contact";
+                }
             }
             else
             {
-                errorMessage += "Contact";               
+                textHasSpace = true;
+                MessageBox.Show("In Ihren Kontaktdaten dürfen keine Leerzeichen enthalten sein.");
             }
 
-            switch(errorMessage)
+            switch (errorMessage)
             {
                 case "CustomerAddressContact":                
                 {
@@ -178,10 +213,10 @@ namespace CarRental
                 {
                     MessageBox.Show("Bitte füllen Sie die Kontaktdaten korrekt aus.");
                 }
-                break;                
+                break;               
             }
 
-            if(errorMessage == null)
+            if(errorMessage == null && textHasSpace == false)
             {
                 var result = MessageBox.Show("Möchten Sie die Kundendaten speichern?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -311,8 +346,7 @@ namespace CarRental
         }   
 
         private bool isTextInputGreaterThenOneHundred(string text)
-        {
-            text = removeAllSpacesFromText(text);
+        {            
             int number; Int32.TryParse(text, out number);
             bool status;
 
@@ -325,16 +359,6 @@ namespace CarRental
                 status = false;
             }
             return status;
-        }
-
-        private string removeFirstAndLastSpacesFromText(string text)
-        {
-            return text.Trim();
-        }
-
-        private string removeAllSpacesFromText(string text)
-        {
-            return string.Join("", text.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
-        }
+        }       
     }
 }
