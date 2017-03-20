@@ -59,7 +59,7 @@ namespace CarRental
 
             if(textBoxId.Text.Contains(" ") || passwordBoxPassword.Password.Contains(" ") || textBoxUsername.Text.Contains(" "))
             {
-                MessageBox.Show("In Ihren Eingaben dürfen keine Leerzeichen enthalten sein");              
+                MessageBox.Show("In Ihren Eingaben dürfen keine Leerzeichen enthalten sein.");              
             }
             else
             {
@@ -77,7 +77,7 @@ namespace CarRental
                     {
                         if (passwordBoxPassword.Password.Length < 6)
                         {
-                            MessageBox.Show("Das Password muss mindestens 6 Zeichen lang sein");
+                            MessageBox.Show("Das Password muss mindestens 6 Zeichen lang sein.");
                         }
                         else
                         {
