@@ -1,5 +1,7 @@
-﻿//using CarRental.CarRentalServiceReference;
-using CarRental.CarRentalSchoolServiceReference;
+﻿using CarRental.CarRentalServiceReference;
+//using CarRental.CarRentalSchoolServiceReference;
+//using CarRental.CarRentalEbertsonServiceReference;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

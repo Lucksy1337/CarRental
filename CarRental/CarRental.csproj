@@ -73,6 +73,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GUI_AccountManagement.xaml.cs">
+      <DependentUpon>GUI_AccountManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI_CustomerCreation.xaml.cs">
       <DependentUpon>GUI_CustomerCreation.xaml</DependentUpon>
     </Compile>
@@ -81,6 +84,11 @@
     </Compile>
     <Compile Include="GUI_VehicleManagement.xaml.cs">
       <DependentUpon>GUI_VehicleManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\CarRentalEbertsonServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.datasvcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\CarRentalSchoolServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -92,6 +100,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.datasvcmap</DependentUpon>
     </Compile>
+    <Page Include="GUI_AccountManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI_CustomerCreation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -177,6 +189,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\CarRentalEbertsonServiceReference\service.edmx" />
     <None Include="Service References\CarRentalSchoolServiceReference\service.edmx" />
     <None Include="Service References\CarRentalServiceReference\service.edmx" />
   </ItemGroup>
@@ -187,6 +200,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ServiceReferenceMetadataStorage Include="Service References\CarRentalEbertsonServiceReference\">
+      <Type>datasvcmap</Type>
+    </ServiceReferenceMetadataStorage>
     <ServiceReferenceMetadataStorage Include="Service References\CarRentalSchoolServiceReference\">
       <Type>datasvcmap</Type>
     </ServiceReferenceMetadataStorage>
@@ -202,6 +218,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\CarRentalSchoolServiceReference\Reference.datasvcmap">
+      <Generator>DataServicesCoreClientGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CarRentalEbertsonServiceReference\Reference.datasvcmap">
       <Generator>DataServicesCoreClientGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

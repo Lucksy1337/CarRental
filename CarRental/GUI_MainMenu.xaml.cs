@@ -1,5 +1,6 @@
-﻿//using CarRental.CarRentalServiceReference;
-using CarRental.CarRentalSchoolServiceReference;
+﻿using CarRental.CarRentalServiceReference;
+//using CarRental.CarRentalSchoolServiceReference;
+//using CarRental.CarRentalEbertsonServiceReference;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -517,6 +518,11 @@ namespace CarRental
                     closingMessage += ":" + text;
                 }
             }   
+        }
+
+        private void buttonAccountManagement_Click(object sender, RoutedEventArgs e)
+        {
+            new GUI_AccountManagement(labelActiveUsername.Content.ToString());
         }
     }    
 }

@@ -1,5 +1,6 @@
-﻿//using CarRental.CarRentalServiceReference;
-using CarRental.CarRentalSchoolServiceReference;
+﻿using CarRental.CarRentalServiceReference;
+//using CarRental.CarRentalSchoolServiceReference;
+//using CarRental.CarRentalEbertsonServiceReference;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,15 +40,10 @@ namespace CarRental
                     comboBoxUserType.Items.Add(aUserType.Bezeichnung);
                 }
             }
-            //if(listobject.UserList != null)
-            //{
-            //    foreach (Benutzer aUser in listobject.UserList)
-            //    {
-            //        listBoxRegistratedUsers.Items.Add(aUser.Benutzernamen);
-            //    }
-            //}          
+
             listBoxRegistratedUsers.DisplayMemberPath = "Benutzernamen";
             listBoxRegistratedUsers.ItemsSource = listobject.UserList;
+            listBoxRegistratedUsers.SelectedIndex = 0;
         }
 
         private void verifyInput()
@@ -150,6 +146,10 @@ namespace CarRental
                 listobject.addToUserList(newUser);
                 clearFields();
 
+                if (listBoxRegistratedUsers.Items.Count > 0)
+                {
+                    buttonDelete.IsEnabled = true;
+                }
                 MessageBox.Show("Benutzer erfolgreich angelegt.");
 
             }
@@ -178,6 +178,10 @@ namespace CarRental
                 listobject.UserList.Remove(deletingUser);
                 listobject.LoginList.Remove(deletingLogin);
 
+                if(listBoxRegistratedUsers.Items.Count == 0)
+                {
+                    buttonDelete.IsEnabled = false;
+                }
                 MessageBox.Show("Benutzer erfolgreich gelöscht.");
             }
         }

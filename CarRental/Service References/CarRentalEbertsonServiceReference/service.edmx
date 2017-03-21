@@ -1,0 +1,268 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="CarRentalEbertsonService" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+      <EntityType Name="Adresse">
+        <Key>
+          <PropertyRef Name="AdresseID" />
+        </Key>
+        <Property Name="AdresseID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Strasse" Type="Edm.String" />
+        <Property Name="Hausnummer" Type="Edm.String" />
+        <Property Name="PLZ" Type="Edm.String" />
+        <Property Name="Ort" Type="Edm.String" />
+        <NavigationProperty Name="Kunde" Relationship="CarRentalEbertsonService.Adresse_Kunde" ToRole="Kunde" FromRole="Adresse" />
+      </EntityType>
+      <EntityType Name="Anmeldung">
+        <Key>
+          <PropertyRef Name="AnmeldungID" />
+        </Key>
+        <Property Name="AnmeldungID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Benutzername" Type="Edm.String" />
+        <Property Name="Passwort" Type="Edm.String" />
+        <NavigationProperty Name="Benutzer" Relationship="CarRentalEbertsonService.Anmeldung_Benutzer" ToRole="Benutzer" FromRole="Anmeldung" />
+      </EntityType>
+      <EntityType Name="Auftrag">
+        <Key>
+          <PropertyRef Name="AuftragID" />
+        </Key>
+        <Property Name="AuftragID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="KundeID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="FahrzeugID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Auftragsdatum" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Rückgabedatum" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Gesamtpreis" Type="Edm.Double" Nullable="false" />
+        <NavigationProperty Name="Fahrzeug" Relationship="CarRentalEbertsonService.Auftrag_Fahrzeug" ToRole="Fahrzeug" FromRole="Auftrag" />
+        <NavigationProperty Name="Kunde" Relationship="CarRentalEbertsonService.Auftrag_Kunde" ToRole="Kunde" FromRole="Auftrag" />
+      </EntityType>
+      <EntityType Name="Benutzer">
+        <Key>
+          <PropertyRef Name="BenutzerID" />
+        </Key>
+        <Property Name="BenutzerID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AnmeldeID" Type="Edm.Int32" />
+        <Property Name="BenutzerartID" Type="Edm.Int32" />
+        <Property Name="Benutzernamen" Type="Edm.String" />
+        <NavigationProperty Name="Anmeldung" Relationship="CarRentalEbertsonService.Benutzer_Anmeldung" ToRole="Anmeldung" FromRole="Benutzer" />
+        <NavigationProperty Name="Benutzerart" Relationship="CarRentalEbertsonService.Benutzer_Benutzerart" ToRole="Benutzerart" FromRole="Benutzer" />
+      </EntityType>
+      <EntityType Name="Benutzerart">
+        <Key>
+          <PropertyRef Name="BenutzerartID" />
+        </Key>
+        <Property Name="BenutzerartID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Bezeichnung" Type="Edm.String" />
+        <NavigationProperty Name="Benutzer" Relationship="CarRentalEbertsonService.Benutzerart_Benutzer" ToRole="Benutzer" FromRole="Benutzerart" />
+      </EntityType>
+      <EntityType Name="Fahrzeug">
+        <Key>
+          <PropertyRef Name="FahrzeugID" />
+        </Key>
+        <Property Name="FahrzeugID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="FahrzeugtypID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="VersicherungspaketID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Bezeichnung" Type="Edm.String" />
+        <Property Name="Marke" Type="Edm.String" />
+        <Property Name="Baujahr" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Kilometerstand" Type="Edm.Double" Nullable="false" />
+        <Property Name="Schaltung" Type="Edm.String" />
+        <Property Name="Sitze" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Türe" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Naviagationssystem" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Klimaanlage" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="MietpreisProTag" Type="Edm.Double" Nullable="false" />
+        <Property Name="Verfügbar" Type="Edm.Boolean" Nullable="false" />
+        <NavigationProperty Name="Auftrag" Relationship="CarRentalEbertsonService.Fahrzeug_Auftrag" ToRole="Auftrag" FromRole="Fahrzeug" />
+        <NavigationProperty Name="Fahrzeugtyp" Relationship="CarRentalEbertsonService.Fahrzeug_Fahrzeugtyp" ToRole="Fahrzeugtyp" FromRole="Fahrzeug" />
+        <NavigationProperty Name="Versicherungspaket" Relationship="CarRentalEbertsonService.Fahrzeug_Versicherungspaket" ToRole="Versicherungspaket" FromRole="Fahrzeug" />
+      </EntityType>
+      <EntityType Name="Fahrzeugtyp">
+        <Key>
+          <PropertyRef Name="FahrzeugtypID" />
+        </Key>
+        <Property Name="FahrzeugtypID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Bezeichnung" Type="Edm.String" />
+        <NavigationProperty Name="Fahrzeug" Relationship="CarRentalEbertsonService.Fahrzeugtyp_Fahrzeug" ToRole="Fahrzeug" FromRole="Fahrzeugtyp" />
+      </EntityType>
+      <EntityType Name="Kontakt">
+        <Key>
+          <PropertyRef Name="KontaktID" />
+        </Key>
+        <Property Name="KontaktID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="E_Mail" Type="Edm.String" />
+        <Property Name="Telefonnummer" Type="Edm.String" />
+        <Property Name="Mobilnummer" Type="Edm.String" />
+        <Property Name="Faxnummer" Type="Edm.String" />
+        <NavigationProperty Name="Kunde" Relationship="CarRentalEbertsonService.Kontakt_Kunde" ToRole="Kunde" FromRole="Kontakt" />
+      </EntityType>
+      <EntityType Name="Kunde">
+        <Key>
+          <PropertyRef Name="KundeID" />
+        </Key>
+        <Property Name="KundeID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="KontaktID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AdresseID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Vornamen" Type="Edm.String" />
+        <Property Name="Nachnamen" Type="Edm.String" />
+        <Property Name="Alter" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Geschlecht" Type="Edm.String" />
+        <Property Name="Kundennummer" Type="Edm.String" />
+        <NavigationProperty Name="Adresse" Relationship="CarRentalEbertsonService.Kunde_Adresse" ToRole="Adresse" FromRole="Kunde" />
+        <NavigationProperty Name="Auftrag" Relationship="CarRentalEbertsonService.Kunde_Auftrag" ToRole="Auftrag" FromRole="Kunde" />
+        <NavigationProperty Name="Kontakt" Relationship="CarRentalEbertsonService.Kunde_Kontakt" ToRole="Kontakt" FromRole="Kunde" />
+      </EntityType>
+      <EntityType Name="Versicherungspaket">
+        <Key>
+          <PropertyRef Name="VersicherungspaketID" />
+        </Key>
+        <Property Name="VersicherungspaketID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Bezeichnung" Type="Edm.String" />
+        <Property Name="Insassenunfallschutzversicherung" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Haftpflichtversicherung" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Feuerversicherung" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Haftungsbegrenzung" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Diebstahlschutz" Type="Edm.Boolean" Nullable="false" />
+        <NavigationProperty Name="Fahrzeug" Relationship="CarRentalEbertsonService.Versicherungspaket_Fahrzeug" ToRole="Fahrzeug" FromRole="Versicherungspaket" />
+      </EntityType>
+      <Association Name="Adresse_Kunde">
+        <End Type="CarRentalEbertsonService.Kunde" Role="Kunde" Multiplicity="*" />
+        <End Type="CarRentalEbertsonService.Adresse" Role="Adresse" Multiplicity="*" />
+      </Association>
+      <Association Name="Anmeldung_Benutzer">
+        <End Type="CarRentalEbertsonService.Benutzer" Role="Benutzer" Multiplicity="*" />
+        <End Type="CarRentalEbertsonService.Anmeldung" Role="Anmeldung" Multiplicity="*" />
+      </Association>
+      <Association Name="Auftrag_Fahrzeug">
+        <End Type="CarRentalEbertsonService.Fahrzeug" Role="Fahrzeug" Multiplicity="0..1" />
+        <End Type="CarRentalEbertsonService.Auftrag" Role="Auftrag" Multiplicity="*" />
+      </Association>
+      <Association Name="Auftrag_Kunde">
+        <End Type="CarRentalEbertsonService.Kunde" Role="Kunde" Multiplicity="0..1" />
+        <End Type="CarRentalEbertsonService.Auftrag" Role="Auftrag" Multiplicity="*" />
+      </Association>
+      <Association Name="Benutzer_Anmeldung">
+        <End Type="CarRentalEbertsonService.Benutzer" Role="Benutzer" Multiplicity="*" />
+        <End Type="CarRentalEbertsonService.Anmeldung" Role="Anmeldung" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Benutzer_Benutzerart">
+        <End Type="CarRentalEbertsonService.Benutzerart" Role="Benutzerart" Multiplicity="0..1" />
+        <End Type="CarRentalEbertsonService.Benutzer" Role="Benutzer" Multiplicity="*" />
+      </Association>
+      <Association Name="Benutzerart_Benutzer">
+        <End Type="CarRentalEbertsonService.Benutzerart" Role="Benutzerart" Multiplicity="*" />
+        <End Type="CarRentalEbertsonService.Benutzer" Role="Benutzer" Multiplicity="*" />
+      </Association>
+      <Association Name="Fahrzeug_Auftrag">
+        <End Type="CarRentalEbertsonService.Fahrzeug" Role="Fahrzeug" Multiplicity="*" />
+        <End Type="CarRentalEbertsonService.Auftrag" Role="Auftrag" Multiplicity="*" />
+      </Association>
+      <Association Name="Fahrzeug_Fahrzeugtyp">
+        <End Type="CarRentalEbertsonService.Fahrzeugtyp" Role="Fahrzeugtyp" Multiplicity="0..1" />
+        <End Type="CarRentalEbertsonService.Fahrzeug" Role="Fahrzeug" Multiplicity="*" />
+      </Association>
+      <Association Name="Fahrzeug_Versicherungspaket">
+        <End Type="CarRentalEbertsonService.Versicherungspaket" Role="Versicherungspaket" Multiplicity="0..1" />
+        <End Type="CarRentalEbertsonService.Fahrzeug" Role="Fahrzeug" Multiplicity="*" />
+      </Association>
+      <Association Name="Fahrzeugtyp_Fahrzeug">
+        <End Type="CarRentalEbertsonService.Fahrzeugtyp" Role="Fahrzeugtyp" Multiplicity="*" />
+        <End Type="CarRentalEbertsonService.Fahrzeug" Role="Fahrzeug" Multiplicity="*" />
+      </Association>
+      <Association Name="Kontakt_Kunde">
+        <End Type="CarRentalEbertsonService.Kunde" Role="Kunde" Multiplicity="*" />
+        <End Type="CarRentalEbertsonService.Kontakt" Role="Kontakt" Multiplicity="*" />
+      </Association>
+      <Association Name="Kunde_Adresse">
+        <End Type="CarRentalEbertsonService.Kunde" Role="Kunde" Multiplicity="*" />
+        <End Type="CarRentalEbertsonService.Adresse" Role="Adresse" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Kunde_Auftrag">
+        <End Type="CarRentalEbertsonService.Kunde" Role="Kunde" Multiplicity="*" />
+        <End Type="CarRentalEbertsonService.Auftrag" Role="Auftrag" Multiplicity="*" />
+      </Association>
+      <Association Name="Kunde_Kontakt">
+        <End Type="CarRentalEbertsonService.Kunde" Role="Kunde" Multiplicity="*" />
+        <End Type="CarRentalEbertsonService.Kontakt" Role="Kontakt" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Versicherungspaket_Fahrzeug">
+        <End Type="CarRentalEbertsonService.Versicherungspaket" Role="Versicherungspaket" Multiplicity="*" />
+        <End Type="CarRentalEbertsonService.Fahrzeug" Role="Fahrzeug" Multiplicity="*" />
+      </Association>
+      <EntityContainer Name="carRentalEbertsonDBEntities" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="Adresse" EntityType="CarRentalEbertsonService.Adresse" />
+        <EntitySet Name="Anmeldung" EntityType="CarRentalEbertsonService.Anmeldung" />
+        <EntitySet Name="Auftrag" EntityType="CarRentalEbertsonService.Auftrag" />
+        <EntitySet Name="Benutzer" EntityType="CarRentalEbertsonService.Benutzer" />
+        <EntitySet Name="Benutzerart" EntityType="CarRentalEbertsonService.Benutzerart" />
+        <EntitySet Name="Fahrzeug" EntityType="CarRentalEbertsonService.Fahrzeug" />
+        <EntitySet Name="Fahrzeugtyp" EntityType="CarRentalEbertsonService.Fahrzeugtyp" />
+        <EntitySet Name="Kontakt" EntityType="CarRentalEbertsonService.Kontakt" />
+        <EntitySet Name="Kunde" EntityType="CarRentalEbertsonService.Kunde" />
+        <EntitySet Name="Versicherungspaket" EntityType="CarRentalEbertsonService.Versicherungspaket" />
+        <AssociationSet Name="Adresse_Kunde" Association="CarRentalEbertsonService.Adresse_Kunde">
+          <End Role="Adresse" EntitySet="Adresse" />
+          <End Role="Kunde" EntitySet="Kunde" />
+        </AssociationSet>
+        <AssociationSet Name="Anmeldung_Benutzer" Association="CarRentalEbertsonService.Anmeldung_Benutzer">
+          <End Role="Anmeldung" EntitySet="Anmeldung" />
+          <End Role="Benutzer" EntitySet="Benutzer" />
+        </AssociationSet>
+        <AssociationSet Name="Auftrag_Fahrzeug" Association="CarRentalEbertsonService.Auftrag_Fahrzeug">
+          <End Role="Auftrag" EntitySet="Auftrag" />
+          <End Role="Fahrzeug" EntitySet="Fahrzeug" />
+        </AssociationSet>
+        <AssociationSet Name="Auftrag_Kunde" Association="CarRentalEbertsonService.Auftrag_Kunde">
+          <End Role="Auftrag" EntitySet="Auftrag" />
+          <End Role="Kunde" EntitySet="Kunde" />
+        </AssociationSet>
+        <AssociationSet Name="Benutzer_Anmeldung" Association="CarRentalEbertsonService.Benutzer_Anmeldung">
+          <End Role="Benutzer" EntitySet="Benutzer" />
+          <End Role="Anmeldung" EntitySet="Anmeldung" />
+        </AssociationSet>
+        <AssociationSet Name="Benutzer_Benutzerart" Association="CarRentalEbertsonService.Benutzer_Benutzerart">
+          <End Role="Benutzer" EntitySet="Benutzer" />
+          <End Role="Benutzerart" EntitySet="Benutzerart" />
+        </AssociationSet>
+        <AssociationSet Name="Benutzerart_Benutzer" Association="CarRentalEbertsonService.Benutzerart_Benutzer">
+          <End Role="Benutzerart" EntitySet="Benutzerart" />
+          <End Role="Benutzer" EntitySet="Benutzer" />
+        </AssociationSet>
+        <AssociationSet Name="Fahrzeug_Auftrag" Association="CarRentalEbertsonService.Fahrzeug_Auftrag">
+          <End Role="Fahrzeug" EntitySet="Fahrzeug" />
+          <End Role="Auftrag" EntitySet="Auftrag" />
+        </AssociationSet>
+        <AssociationSet Name="Fahrzeug_Fahrzeugtyp" Association="CarRentalEbertsonService.Fahrzeug_Fahrzeugtyp">
+          <End Role="Fahrzeug" EntitySet="Fahrzeug" />
+          <End Role="Fahrzeugtyp" EntitySet="Fahrzeugtyp" />
+        </AssociationSet>
+        <AssociationSet Name="Fahrzeug_Versicherungspaket" Association="CarRentalEbertsonService.Fahrzeug_Versicherungspaket">
+          <End Role="Fahrzeug" EntitySet="Fahrzeug" />
+          <End Role="Versicherungspaket" EntitySet="Versicherungspaket" />
+        </AssociationSet>
+        <AssociationSet Name="Fahrzeugtyp_Fahrzeug" Association="CarRentalEbertsonService.Fahrzeugtyp_Fahrzeug">
+          <End Role="Fahrzeugtyp" EntitySet="Fahrzeugtyp" />
+          <End Role="Fahrzeug" EntitySet="Fahrzeug" />
+        </AssociationSet>
+        <AssociationSet Name="Kontakt_Kunde" Association="CarRentalEbertsonService.Kontakt_Kunde">
+          <End Role="Kontakt" EntitySet="Kontakt" />
+          <End Role="Kunde" EntitySet="Kunde" />
+        </AssociationSet>
+        <AssociationSet Name="Kunde_Adresse" Association="CarRentalEbertsonService.Kunde_Adresse">
+          <End Role="Kunde" EntitySet="Kunde" />
+          <End Role="Adresse" EntitySet="Adresse" />
+        </AssociationSet>
+        <AssociationSet Name="Kunde_Auftrag" Association="CarRentalEbertsonService.Kunde_Auftrag">
+          <End Role="Kunde" EntitySet="Kunde" />
+          <End Role="Auftrag" EntitySet="Auftrag" />
+        </AssociationSet>
+        <AssociationSet Name="Kunde_Kontakt" Association="CarRentalEbertsonService.Kunde_Kontakt">
+          <End Role="Kunde" EntitySet="Kunde" />
+          <End Role="Kontakt" EntitySet="Kontakt" />
+        </AssociationSet>
+        <AssociationSet Name="Versicherungspaket_Fahrzeug" Association="CarRentalEbertsonService.Versicherungspaket_Fahrzeug">
+          <End Role="Versicherungspaket" EntitySet="Versicherungspaket" />
+          <End Role="Fahrzeug" EntitySet="Fahrzeug" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
