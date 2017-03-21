@@ -12,7 +12,7 @@
                 <Label x:Name="labelCustomerNumberSearch" Content="Kundennummer:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,18,0,0" Width="117" FontSize="14"/>
                 <TextBox x:Name="textBoxCustomerNumberSearch" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" Margin="127,21,0,0"/>
                 <Button x:Name="buttonSearch" Content="Suchen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="266,21,0,0" Height="23" FontSize="14" Click="buttonSearch_Click"/>
-                <Button x:Name="buttonSave" Content="Speichern" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="394,21,0,0" Height="23" FontSize="14" IsEnabled="False" Click="buttonSave_Click"/>
+                <Button x:Name="buttonSaveCustomer" Content="Kunde ändern" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="394,21,0,0" Height="23" FontSize="14" IsEnabled="False" Click="buttonSaveCustomer_Click"/>
             </Grid>
             <Expander x:Name="expanderPersonal" Header="Kunde" IsExpanded="True" FontSize="14">
                 <Grid Background="#FFE5E5E5" Height="120" Margin="0,0,-21,0">
@@ -71,11 +71,22 @@
                     <Label x:Name="labelTotalPrice" Content="Gesamtpreis:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,70,0,0" Width="98" FontSize="14" Grid.ColumnSpan="2"/>
                     <Label x:Name="labelOrderDate" Content="Auftragsdatum:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="218,42,0,0" Width="129" FontSize="14" Grid.Column="1"/>
                     <Label x:Name="labelReturnDate" Content="Rückgabedatum:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="218,70,0,0" Width="129" FontSize="14" Grid.Column="1"/>
-                    <TextBox x:Name="textBoxVehicleDescription" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="73,39,0,0" Grid.Column="1" IsEnabled="False"/>                    
-                    <TextBox x:Name="textBoxTotalPrice" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="73,71,0,0" Grid.Column="1" IsEnabled="False"/>
-                    <DatePicker x:Name="datePickerOrderDate" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="337,38,0,0" Width="131" FontSize="12" IsEnabled="False"/>
-                    <DatePicker x:Name="datePickerReturnDate" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="337,70,0,0" Width="131" FontSize="12" IsEnabled="False"/>
-
+                    <TextBox x:Name="textBoxVehicleDescription" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="73,39,0,0" Grid.Column="1" IsReadOnly="True" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                    <TextBox x:Name="textBoxTotalPrice" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="73,71,0,0" Grid.Column="1" IsReadOnly="True" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                    <DatePicker x:Name="datePickerOrderDate" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="337,38,0,0" Width="131" FontSize="12" IsEnabled="true" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}">
+                        <DatePicker.Resources>
+                            <Style TargetType="DatePickerTextBox">
+                                <Setter Property="IsReadOnly" Value="True"/>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
+                    <DatePicker x:Name="datePickerReturnDate" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="337,70,0,0" Width="131" FontSize="12" IsEnabled="true" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}">
+                        <DatePicker.Resources>
+                            <Style TargetType="DatePickerTextBox">
+                                <Setter Property="IsReadOnly" Value="True"/>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
                     <Button x:Name="buttonCancelOrder" Content="Auftrag stornieren" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="36,-21,0,0" Grid.Column="1" IsEnabled="False" Click="buttonCancelOrder_Click"/>
                 </Grid>
             </Expander>

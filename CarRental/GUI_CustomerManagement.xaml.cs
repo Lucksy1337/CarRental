@@ -1,5 +1,5 @@
-﻿using CarRental.CarRentalServiceReference;
-//using CarRental.CarRentalSchoolServiceReference;
+﻿//using CarRental.CarRentalServiceReference;
+using CarRental.CarRentalSchoolServiceReference;
 //using CarRental.CarRentalEbertsonServiceReference;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,8 @@ namespace CarRental
         Kunde aCustomer;
         Auftrag aOrder;
         bool customerExists;
-        string aCustomerNumber;
+        string customerNumber;
+        string existingCustomerNumber;
         string errorMessage;
 
         public GUI_CustomerManagement()
@@ -40,7 +41,8 @@ namespace CarRental
             aCustomer = null;
             aOrder = null;
             customerExists = false;
-            aCustomerNumber = null;
+            customerNumber = null;
+            existingCustomerNumber = null;
             errorMessage = null;            
         }
 
@@ -48,11 +50,11 @@ namespace CarRental
         {
             if (!textBoxCustomerNumberSearch.Text.Contains(" "))
             {
-                aCustomerNumber = textBoxCustomerNumberSearch.Text;
+                customerNumber = textBoxCustomerNumberSearch.Text;
 
                 foreach (Kunde customer in list.CustomerList)
                 {
-                    if (customer.Kundennummer.Equals(aCustomerNumber))
+                    if (customer.Kundennummer.Equals(customerNumber))
                     {
                         aCustomer = customer;
                         customerExists = true;
@@ -66,6 +68,7 @@ namespace CarRental
 
             if (customerExists)
             {
+                existingCustomerNumber = customerNumber;
                 list.OrderSortedByCustomerList.Clear();
                 foreach (Auftrag aOrder in list.OrderList)
                 {
@@ -99,14 +102,19 @@ namespace CarRental
                 textBoxFaxNumber.Text = aCustomer.Kontakt.Faxnummer;
 
                 enableComponents();
+                customerExists = false;
             }
-            else if(!aCustomerNumber.Equals(""))
+            else if (!textBoxCustomerNumberSearch.Text.Contains(" ") && !textBoxCustomerNumberSearch.Text.Equals(""))
             {
-                MessageBox.Show("Kunde mit der Kundennummer " + aCustomerNumber + " wurde nicht gefunden.");
+                if(customerNumber != null)
+                {
+                    textBoxCustomerNumberSearch.Text = existingCustomerNumber;
+                }
+                MessageBox.Show("Kunde mit der Kundennummer " + customerNumber + " wurde nicht gefunden.");
             }
         }
 
-        private void buttonSave_Click(object sender, RoutedEventArgs e)
+        private void buttonSaveCustomer_Click(object sender, RoutedEventArgs e)
         {
             errorMessage = null;
             bool textHasSpace = false;
@@ -249,7 +257,7 @@ namespace CarRental
                     aOrder = (Auftrag)comboBoxOrder.SelectedItem;
                     if(aOrder!=null)
                     {
-                        textBoxVehicleDescription.Text = Convert.ToString(aOrder.Fahrzeug);
+                        textBoxVehicleDescription.Text = aOrder.Fahrzeug.Bezeichnung;
                         textBoxTotalPrice.Text = aOrder.Gesamtpreis.ToString("C");
                         datePickerOrderDate.SelectedDate = aOrder.Auftragsdatum;
                         datePickerReturnDate.SelectedDate = aOrder.Rückgabedatum;
@@ -271,6 +279,7 @@ namespace CarRental
             if(result == MessageBoxResult.Yes)
             {
                 aOrder = (Auftrag)comboBoxOrder.SelectedItem;
+                aOrder.Fahrzeug.Verfügbar = true;
                 list.OrderSortedByCustomerList.Remove(aOrder);
                 list.OrderList.Remove(aOrder);
                                 
@@ -293,7 +302,7 @@ namespace CarRental
 
         private void enableComponents()
         {
-            buttonSave.IsEnabled = true;
+            buttonSaveCustomer.IsEnabled = true;
             textBoxFirstName.IsEnabled = true;
             textBoxLastName.IsEnabled = true;
             textBoxGender.IsEnabled = true;
@@ -313,6 +322,10 @@ namespace CarRental
             {
                 buttonCancelOrder.IsEnabled = true;
                 comboBoxOrder.IsEnabled = true;
+                textBoxVehicleDescription.IsEnabled = true;
+                textBoxTotalPrice.IsEnabled = true;
+                datePickerOrderDate.IsEnabled = true;
+                datePickerReturnDate.IsEnabled = true;
             }
             else
             {
@@ -344,7 +357,7 @@ namespace CarRental
             int number;
 
             return int.TryParse(text, out number);
-        }   
+        }
 
         private bool isTextInputGreaterThenOneHundred(string text)
         {            

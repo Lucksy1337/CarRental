@@ -1,5 +1,5 @@
-﻿using CarRental.CarRentalServiceReference;
-//using CarRental.CarRentalSchoolServiceReference;
+﻿//using CarRental.CarRentalServiceReference;
+using CarRental.CarRentalSchoolServiceReference;
 //using CarRental.CarRentalEbertsonServiceReference;
 using System;
 using System.Collections.Generic;
@@ -16,10 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace CarRental
-{
-    /// <summary>
-    /// Interaction logic for GUI_AccountManagement.xaml
-    /// </summary>
+{   
     public partial class GUI_AccountManagement : Window
     {
         private DM_DBConnection databaseConnection;

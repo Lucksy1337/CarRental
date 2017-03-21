@@ -1317,7 +1317,7 @@ namespace CarRental.CarRentalServiceReference
     {
         public override string ToString()
         {
-            return Bezeichnung;
+            return "BEZEICHNUNG: " + Bezeichnung + " || BAUJAHR: " + Baujahr + " || VERFÜGBAR: " + Verfügbar;
         }
 
         /// <summary>
@@ -2014,6 +2014,11 @@ namespace CarRental.CarRentalServiceReference
     [global::System.Data.Services.Common.DataServiceKeyAttribute("KundeID")]
     public partial class Kunde : global::System.ComponentModel.INotifyPropertyChanged
     {
+        public override string ToString()
+        {
+            return Kundennummer + " : " + Vornamen + " : " + Nachnamen; 
+        }
+
         /// <summary>
         /// Erstellt ein neues Kunde-Objekt.
         /// </summary>

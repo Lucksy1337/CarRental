@@ -11,8 +11,7 @@ namespace CarRental
         //Attributes
         private int orderID;
         private int customerID;
-        private int vehicleID;
-        private string orderNumber;
+        private int vehicleID;        
         private DateTime orderDate;
         private DateTime returnDate;
         private double totalPrice;
@@ -33,12 +32,7 @@ namespace CarRental
         {
             get { return vehicleID; }
             set { vehicleID = value; }
-        }
-        public string OrderNumber
-        {
-            get { return orderNumber; }
-            set { orderNumber = value; }
-        }
+        }       
         public DateTime OrderDate
         {
             get { return orderDate; }

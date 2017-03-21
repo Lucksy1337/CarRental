@@ -1,5 +1,5 @@
-﻿using CarRental.CarRentalServiceReference;
-//using CarRental.CarRentalSchoolServiceReference;
+﻿//using CarRental.CarRentalServiceReference;
+using CarRental.CarRentalSchoolServiceReference;
 //using CarRental.CarRentalEbertsonServiceReference;
 
 using System;
@@ -21,13 +21,13 @@ namespace CarRental
 
         //Entitie
         //Home Wesley
-        peterson_infrastrukturDBEntities _carRentalEntities;
+        //peterson_infrastrukturDBEntities _carRentalEntities;
 
         //Home Noah
         //carRentalEbertsonDBEntities _carRentalEntities;
 
         //School
-        //Fi12_peterson_infrastrukturDBEntities _carRentalEntities;
+        Fi12_peterson_infrastrukturDBEntities _carRentalEntities;
 
 
         //Lists
@@ -49,18 +49,18 @@ namespace CarRental
         {
             aList = CL_List.Instance;
             //Home Wesley
-            _carRentalEntities = new peterson_infrastrukturDBEntities(
+            //_carRentalEntities = new peterson_infrastrukturDBEntities(
             //Home Noah
             //_carRentalEntities = new carRentalEbertsonDBEntities(
             //School
-            // _carRentalEntities = new Fi12_peterson_infrastrukturDBEntities(
+             _carRentalEntities = new Fi12_peterson_infrastrukturDBEntities(
 
             //Home Wesley
-            new Uri("http://localhost:9938/WcfCarRentalDataService.svc"));
+            //new Uri("http://localhost:9938/WcfCarRentalDataService.svc"));
             //home Noah
             //new Uri("http://localhost:50292/WcfCarRentalEbertsonDataService.svc"));
             //School
-            //new Uri("http://localhost:5202/WcfCarRentalSchoolDataService.svc"));
+            new Uri("http://localhost:5202/WcfCarRentalSchoolDataService.svc"));
 
             DataServiceQuery <Adresse> queryAddress = _carRentalEntities.Adresse;
             addressListEnumerable = queryAddress.Execute();

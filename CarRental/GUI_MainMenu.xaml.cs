@@ -1,5 +1,5 @@
-﻿using CarRental.CarRentalServiceReference;
-//using CarRental.CarRentalSchoolServiceReference;
+﻿//using CarRental.CarRentalServiceReference;
+using CarRental.CarRentalSchoolServiceReference;
 //using CarRental.CarRentalEbertsonServiceReference;
 using System;
 using System.Collections.Generic;
@@ -23,6 +23,7 @@ namespace CarRental
         private GUI_OrderManagement formOrderManagement;
         private GUI_UserManagement formUserManagement;
         private GUI_VehicleManagement formVehicleManagement;
+        private GUI_AccountManagement formAccountManagement;
         private string closingMessage;        
 
         private DM_DBConnection databaseConnection;
@@ -160,6 +161,28 @@ namespace CarRental
                         }
                     }
                 }
+                else if (closingMessage.Split(':').Contains("Account"))
+                {
+                    if (formAccountManagement.IsLoaded)
+                    {
+                        MessageBox.Show("Sie müssen zuerst alle anderen Fenster schließen.");
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        var result = MessageBox.Show("Möchten Sie das Auswahlfenster schließen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            formAccountManagement.Close();
+                            e.Cancel = false;
+                        }
+                        else
+                        {
+                            e.Cancel = true;
+                        }
+                    }
+                }
             }
             else
             {
@@ -202,6 +225,13 @@ namespace CarRental
             buildClosingMessage("Vehicle");
             formVehicleManagement = new GUI_VehicleManagement();
             formVehicleManagement.Show();
+        }
+
+        private void buttonAccountManagement_Click(object sender, RoutedEventArgs e)
+        {
+            buildClosingMessage("Account");
+            formAccountManagement = new GUI_AccountManagement(labelActiveUsername.Content.ToString());
+            formAccountManagement.Show();
         }
 
         private void buttonSaveToDb_Click(object sender, RoutedEventArgs e)
@@ -506,7 +536,8 @@ namespace CarRental
         private void buildClosingMessage(string text)
         {
             if (Convert.ToInt32(closingMessage.Split(':').Contains("Customer")) < 1 || Convert.ToInt32(closingMessage.Split(':').Contains("Order")) < 1 ||
-                Convert.ToInt32(closingMessage.Split(':').Contains("User")) < 1 || Convert.ToInt32(closingMessage.Split(':').Contains("Vehicle")) < 1)
+                Convert.ToInt32(closingMessage.Split(':').Contains("User")) < 1 || Convert.ToInt32(closingMessage.Split(':').Contains("Vehicle")) < 1 ||
+                Convert.ToInt32(closingMessage.Split(':').Contains("Account")) < 1)
             {
                 if (closingMessage.Contains("?"))
                 {
@@ -518,11 +549,6 @@ namespace CarRental
                     closingMessage += ":" + text;
                 }
             }   
-        }
-
-        private void buttonAccountManagement_Click(object sender, RoutedEventArgs e)
-        {
-            new GUI_AccountManagement(labelActiveUsername.Content.ToString());
-        }
+        }        
     }    
 }
