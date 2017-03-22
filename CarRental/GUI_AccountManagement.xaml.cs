@@ -21,8 +21,9 @@ namespace CarRental
     {
         private DM_DBConnection databaseConnection;
         private CL_List listobject;
-        private String aktiverNutzer;
+        private String activeUser;
 
+        #region Konstruktoren
         public GUI_AccountManagement()
         {
             InitializeComponent();
@@ -31,17 +32,19 @@ namespace CarRental
         public GUI_AccountManagement(String username)
         {
             InitializeComponent();
-            initialize(username);
+            Initialize(username);
         }
+        #endregion
 
-        private void initialize(String username)
+        private void Initialize(String username)
         {
             databaseConnection = DM_DBConnection.Instance;
             listobject = CL_List.Instance;
-            aktiverNutzer = username;
-            labelActiveUser.Content = aktiverNutzer;
+            activeUser = username;
+            labelActiveUser.Content = activeUser;
         }
 
+        #region Logik
         private void changePassword()
         {
             if(listobject.UserList != null)
@@ -49,30 +52,38 @@ namespace CarRental
                 Anmeldung aLogin = new Anmeldung();
                 Benutzer aUser = new Benutzer();
 
-                foreach (Benutzer User in listobject.UserList)
+                if(listobject.UserList != null || listobject.LoginList != null)
                 {
-                    if (aUser.Benutzernamen.Equals(aktiverNutzer))
+                    aUser = listobject.UserList.Where(user => user.Benutzernamen.Equals(activeUser)).First(); ;
+                    aLogin = listobject.LoginList.Where(login => login.AnmeldungID.Equals(aUser.AnmeldeID)).First();
+
+                    if(aLogin.Passwort.Equals(passwordBoxOldPassword.Password))
                     {
-                        aUser = User;
-                        aLogin = User.Anmeldung;
-                        break;
+                        aLogin.Passwort = passwordBoxNewPassword.Password;
+
+                        var result = MessageBox.Show("Möchten Sie die Kundendaten speichern?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+
+                            Anmeldung oldLogin = listobject.LoginList.Where(login => login.AnmeldungID.Equals(aUser.AnmeldeID)).First();
+                            listobject.LoginList.Remove(oldLogin);
+                            listobject.addToLoginList(aLogin);
+                        }
+
+                        clearFields();
+                        MessageBox.Show("Passwort erfolgreich abgeändert.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Das von Ihnen angegebene alte Passwort entspricht nicht ihrem aktuellen Passwort.");
                     }
                 }
-
-                aLogin.Passwort = passwordBoxNewPassword.Password;
-
-                var result = MessageBox.Show("Möchten Sie die Kundendaten speichern?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                if (result == MessageBoxResult.Yes)
+                else
                 {
-
-                    Anmeldung oldLogin = listobject.LoginList.Where(login => login.AnmeldungID.Equals(aUser.AnmeldeID)).First();
-                    listobject.LoginList.Remove(oldLogin);
-                    listobject.addToLoginList(aLogin);
-                }
-
-                clearFields();
-                MessageBox.Show("Passwort erfolgreich abgeändert.");
+                    MessageBox.Show("Fehler beim überprüfen der Benutzerdaten");
+                }               
+                
             }
         }
 
@@ -121,6 +132,8 @@ namespace CarRental
                 changePassword();
             }
         }
+        #endregion
+
 
         private void clearFields()
         {
@@ -128,9 +141,11 @@ namespace CarRental
             passwordBoxOldPassword.Password = null;
         }
 
+        #region Events
         private void buttonConfirmNewPassword_Click(object sender, RoutedEventArgs e)
         {
             verifyInput();
         }
+        #endregion
     }
 }
