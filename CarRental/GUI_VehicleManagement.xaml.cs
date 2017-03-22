@@ -99,6 +99,7 @@ namespace CarRental
             buttonModifyVehicle.IsEnabled = false;
             buttonCreateVehicle.IsEnabled = true;
             clearComponents();
+            checkBoxAvailability.IsChecked = true;
         }
 
         private void buttonModifyVehicle_Click(object sender, RoutedEventArgs e)
@@ -116,7 +117,7 @@ namespace CarRental
                     aVehicle.Bezeichnung = textBoxDescription.Text;
                     aVehicle.Marke = textBoxBrand.Text;
                     aVehicle.Baujahr = Convert.ToInt32(textBoxVintage.Text);
-                    aVehicle.Kilometerstand = Convert.ToDouble(textBoxMileage.Text);
+                    aVehicle.Kilometerstand = Convert.ToInt32(textBoxMileage.Text);
                     aVehicle.Schaltung = textBoxGearChange.Text;
                     aVehicle.Sitze = Convert.ToInt32(textBoxSeats.Text);
                     aVehicle.Türe = Convert.ToInt32(textBoxDoors.Text);
@@ -333,7 +334,7 @@ namespace CarRental
             checkBoxNavigation.IsEnabled = status;
             checkBoxAirConditioning.IsEnabled = status;
             textBoxRentPerDay.IsEnabled = status;
-            checkBoxAvailability.IsEnabled = status;
+            //checkBoxAvailability.IsEnabled = status;
         }
 
         private void clearComponents()

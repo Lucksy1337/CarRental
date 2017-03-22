@@ -216,7 +216,7 @@ namespace CarRental
         private void buttonUserManagement_Click(object sender, RoutedEventArgs e)
         {
             buildClosingMessage("User");
-            formUserManagement = new GUI_UserManagement();
+            formUserManagement = new GUI_UserManagement(labelActiveUsername.Content.ToString());
             formUserManagement.Show();
         }
 

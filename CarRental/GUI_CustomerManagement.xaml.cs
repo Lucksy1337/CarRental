@@ -43,7 +43,8 @@ namespace CarRental
             customerExists = false;
             customerNumber = null;
             existingCustomerNumber = null;
-            errorMessage = null;            
+            errorMessage = null;
+            comboBoxGender.ItemsSource = new List<string> { "Männlich", "Weiblich" };
         }
 
         private void buttonSearch_Click(object sender, RoutedEventArgs e)
@@ -88,7 +89,7 @@ namespace CarRental
                 textBoxCustomerNumber.Text = aCustomer.Kundennummer;
                 textBoxFirstName.Text = aCustomer.Vornamen;
                 textBoxLastName.Text = aCustomer.Nachnamen;
-                textBoxGender.Text = aCustomer.Geschlecht;
+                comboBoxGender.Text = aCustomer.Geschlecht;
                 textBoxAge.Text = Convert.ToString(aCustomer.Alter);
 
                 textBoxStreet.Text = aCustomer.Adresse.Strasse;
@@ -120,14 +121,14 @@ namespace CarRental
             bool textHasSpace = false;
 
             if (!textBoxCustomerNumber.Text.Contains(" ") && !textBoxFirstName.Text.Contains(" ") && !(textBoxLastName.Text).Contains(" ") &&
-                !textBoxGender.Text.Contains(" ") && !textBoxAge.Text.Contains(" "))
+                !comboBoxGender.Text.Contains(" ") && !textBoxAge.Text.Contains(" "))
             {
                 if (!textBoxCustomerNumber.Text.Equals("") && !textBoxFirstName.Text.Equals("") && !(textBoxLastName.Text).Equals("") &&
-                   !textBoxGender.Text.Equals("") && !textBoxAge.Text.Equals("") && !isTextInputGreaterThenOneHundred(textBoxAge.Text))
+                   !comboBoxGender.Text.Equals("") && !textBoxAge.Text.Equals("") && !isTextInputGreaterThenOneHundred(textBoxAge.Text))
                 {
                     aCustomer.Vornamen = textBoxFirstName.Text;
                     aCustomer.Nachnamen = textBoxLastName.Text;
-                    aCustomer.Geschlecht = textBoxGender.Text;
+                    aCustomer.Geschlecht = comboBoxGender.Text;
                     aCustomer.Alter = Convert.ToInt32(textBoxAge.Text);
                 }
                 else
@@ -305,7 +306,7 @@ namespace CarRental
             buttonSaveCustomer.IsEnabled = true;
             textBoxFirstName.IsEnabled = true;
             textBoxLastName.IsEnabled = true;
-            textBoxGender.IsEnabled = true;
+            comboBoxGender.IsEnabled = true;
             textBoxAge.IsEnabled = true;
 
             textBoxStreet.IsEnabled = true;
@@ -322,10 +323,10 @@ namespace CarRental
             {
                 buttonCancelOrder.IsEnabled = true;
                 comboBoxOrder.IsEnabled = true;
-                textBoxVehicleDescription.IsEnabled = true;
-                textBoxTotalPrice.IsEnabled = true;
-                datePickerOrderDate.IsEnabled = true;
-                datePickerReturnDate.IsEnabled = true;
+                //textBoxVehicleDescription.IsEnabled = true;
+                //textBoxTotalPrice.IsEnabled = true;
+                //datePickerOrderDate.IsEnabled = true;
+                //datePickerReturnDate.IsEnabled = true;
             }
             else
             {

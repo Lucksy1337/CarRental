@@ -28,7 +28,7 @@
                     <TextBox x:Name="textBoxCustomerNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="125,13,0,0" IsReadOnly="True" IsEnabled="False" Grid.ColumnSpan="2"/>
                     <TextBox x:Name="textBoxFirstName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="125,49,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Grid.ColumnSpan="2"/>
                     <TextBox x:Name="textBoxLastName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="125,77,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="textBoxGender" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="249,49,0,0" SpellCheck.IsEnabled="True" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Grid.Column="1"/>
+                    <ComboBox x:Name="comboBoxGender" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="249,50,0,0" Grid.Column="1" IsEnabled="False" Text="Geschlecht wählen"/>
                     <TextBox x:Name="textBoxAge" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="249,80,0,0" SpellCheck.IsEnabled="True" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Grid.Column="1" PreviewTextInput="textBoxAge_PreviewTextInput"/>
                     <Button x:Name="buttonNewCustomer" Content="Neuer Kunde" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Margin="83,-21,0,0" Grid.ColumnSpan="2" Click="buttonNewCustomer_Click"/>
                 </Grid>
@@ -71,22 +71,10 @@
                     <Label x:Name="labelTotalPrice" Content="Gesamtpreis:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,70,0,0" Width="98" FontSize="14" Grid.ColumnSpan="2"/>
                     <Label x:Name="labelOrderDate" Content="Auftragsdatum:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="218,42,0,0" Width="129" FontSize="14" Grid.Column="1"/>
                     <Label x:Name="labelReturnDate" Content="Rückgabedatum:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="218,70,0,0" Width="129" FontSize="14" Grid.Column="1"/>
-                    <TextBox x:Name="textBoxVehicleDescription" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="73,39,0,0" Grid.Column="1" IsReadOnly="True" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
-                    <TextBox x:Name="textBoxTotalPrice" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="73,71,0,0" Grid.Column="1" IsReadOnly="True" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
-                    <DatePicker x:Name="datePickerOrderDate" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="337,38,0,0" Width="131" FontSize="12" IsEnabled="true" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}">
-                        <DatePicker.Resources>
-                            <Style TargetType="DatePickerTextBox">
-                                <Setter Property="IsReadOnly" Value="True"/>
-                            </Style>
-                        </DatePicker.Resources>
-                    </DatePicker>
-                    <DatePicker x:Name="datePickerReturnDate" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="337,70,0,0" Width="131" FontSize="12" IsEnabled="true" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}">
-                        <DatePicker.Resources>
-                            <Style TargetType="DatePickerTextBox">
-                                <Setter Property="IsReadOnly" Value="True"/>
-                            </Style>
-                        </DatePicker.Resources>
-                    </DatePicker>
+                    <TextBox x:Name="textBoxVehicleDescription" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="73,39,0,0" Grid.Column="1" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                    <TextBox x:Name="textBoxTotalPrice" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="73,71,0,0" Grid.Column="1" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                    <DatePicker x:Name="datePickerOrderDate" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="337,38,0,0" Width="131" FontSize="12" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"></DatePicker>
+                    <DatePicker x:Name="datePickerReturnDate" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="337,70,0,0" Width="131" FontSize="12" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"></DatePicker>
                     <Button x:Name="buttonCancelOrder" Content="Auftrag stornieren" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="36,-21,0,0" Grid.Column="1" IsEnabled="False" Click="buttonCancelOrder_Click"/>
                 </Grid>
             </Expander>

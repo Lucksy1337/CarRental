@@ -21,17 +21,24 @@ namespace CarRental
     {
         private DM_DBConnection databaseConnection;
         private CL_List listobject;
+        private String activeUser;
 
         public GUI_UserManagement()
         {
-            InitializeComponent();
-            Initialize();
+            InitializeComponent();            
         }
 
-        private void Initialize()
+        public GUI_UserManagement(String username)
+        {
+            InitializeComponent();
+            Initialize(username);
+        }
+
+        private void Initialize(String username)
         {
             databaseConnection = DM_DBConnection.Instance;
             listobject = CL_List.Instance;
+            activeUser = username;
 
             if (listobject.UserTypeList != null)
             {
@@ -161,28 +168,40 @@ namespace CarRental
 
             if (result == MessageBoxResult.Yes)
             {
-                Benutzer deletingUser = new Benutzer();
-                Anmeldung deletingLogin = new Anmeldung();
-
+                Anmeldung deletingLogin;
+                Benutzer deletingUser;
                 if (listobject.UserList != null && listobject.LoginList != null)
                 {
-                    deletingUser = listobject.UserList.ElementAt(listBoxRegistratedUsers.SelectedIndex);
-                    foreach (Anmeldung aLogin in listobject.LoginList)
-                    {
-                        if (aLogin == deletingUser.Anmeldung)
-                        {
-                            deletingLogin = aLogin;
-                        }
-                    }
-                }
-                listobject.UserList.Remove(deletingUser);
-                listobject.LoginList.Remove(deletingLogin);
+                   // deletingUser = listobject.UserList.ElementAt(listBoxRegistratedUsers.SelectedIndex);
+                    deletingUser = (Benutzer)listBoxRegistratedUsers.SelectedItem;
 
-                if(listBoxRegistratedUsers.Items.Count == 0)
-                {
-                    buttonDelete.IsEnabled = false;
+                    if(deletingUser.Benutzernamen != activeUser)
+                    {
+                        deletingLogin = listobject.LoginList.Where(login => login.AnmeldungID.Equals(deletingUser.AnmeldeID)).First();
+                        
+                        listobject.UserList.Remove(deletingUser);
+                        listobject.LoginList.Remove(deletingLogin);
+
+                        if (listBoxRegistratedUsers.Items.Count == 0)
+                        {
+                            buttonDelete.IsEnabled = false;
+                        }
+                        else
+                        {
+                            listBoxRegistratedUsers.SelectedItem = 0;
+                        }
+                        MessageBox.Show("Benutzer erfolgreich gelöscht.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sie können sich nicht selber löschen.");
+                    }                   
                 }
-                MessageBox.Show("Benutzer erfolgreich gelöscht.");
+                else
+                {
+                    MessageBox.Show("Fehler beim Löschen des Benutzers");
+                }
+                
             }
         }
 

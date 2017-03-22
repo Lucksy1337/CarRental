@@ -842,6 +842,10 @@ namespace CarRental.CarRentalSchoolServiceReference
     [global::System.Data.Services.Common.DataServiceKeyAttribute("AuftragID")]
     public partial class Auftrag : global::System.ComponentModel.INotifyPropertyChanged
     {
+        public override string ToString()
+        {
+            return "Auftrag: "+AuftragID;
+        }
         /// <summary>
         /// Erstellt ein neues Auftrag-Objekt.
         /// </summary>
@@ -2003,6 +2007,10 @@ namespace CarRental.CarRentalSchoolServiceReference
     [global::System.Data.Services.Common.DataServiceKeyAttribute("KundeID")]
     public partial class Kunde : global::System.ComponentModel.INotifyPropertyChanged
     {
+        public override string ToString()
+        {
+            return Kundennummer + " : " + Vornamen + " : " + Nachnamen;
+        }
         /// <summary>
         /// Erstellt ein neues Kunde-Objekt.
         /// </summary>
