@@ -116,7 +116,7 @@ namespace CarRental
                     aVehicle.Bezeichnung = textBoxDescription.Text;
                     aVehicle.Marke = textBoxBrand.Text;
                     aVehicle.Baujahr = Convert.ToInt32(textBoxVintage.Text);
-                    aVehicle.Kilometerstand = Convert.ToDouble(textBoxMileage.Text);
+                    aVehicle.Kilometerstand = Convert.ToInt32(textBoxMileage.Text);
                     aVehicle.Schaltung = textBoxGearChange.Text;
                     aVehicle.Sitze = Convert.ToInt32(textBoxSeats.Text);
                     aVehicle.Türe = Convert.ToInt32(textBoxDoors.Text);
@@ -215,7 +215,7 @@ namespace CarRental
         {
             Fahrzeug deletingVehicle = (Fahrzeug)listBoxCreatedVehicles.SelectedItem;
 
-            if (!deletingVehicle.Verfügbar)
+            if (deletingVehicle.Verfügbar)
             {
                 var result = MessageBox.Show("Möchten Sie das ausgewählten Fahrzeug entfernen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
