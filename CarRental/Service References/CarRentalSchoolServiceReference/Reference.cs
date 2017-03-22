@@ -1312,7 +1312,7 @@ namespace CarRental.CarRentalSchoolServiceReference
     {
         public override string ToString()
         {
-            return Bezeichnung;
+            return "Bezeichnung: "+Bezeichnung + " : Kilometerstand: " + Kilometerstand + " : Verfügbar: " + Verfügbar;
         }
         /// <summary>
         /// Erstellt ein neues Fahrzeug-Objekt.
