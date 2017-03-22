@@ -30,8 +30,8 @@
         <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,15,10,0" Width="298" Height="104" >
             <Button x:Name="buttonCustomerManagement" Content="Kundenverwaltung" VerticalAlignment="Top" Margin="10,10,0,0" Height="39" FontSize="14" HorizontalAlignment="Left" Width="130" Click="buttonCustomerManagement_Click"/>
             <Button x:Name="buttonOrderManagement" Content="Auftragsverwaltung" VerticalAlignment="Top" Margin="158,10,0,0" Height="39" FontSize="14" Click="buttonOrderManagement_Click" HorizontalAlignment="Left" Width="130"/>
-            <Button x:Name="buttonVehicleManagement" Content="Fahrzeugverwaltung" VerticalAlignment="Top" Margin="158,53,0,0" Height="38" FontSize="14" Click="buttonVehicleManagement_Click" HorizontalAlignment="Left" Width="130"/>
-            <Button x:Name="buttonUserManagement" Content="Benutzerverwaltung" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Margin="10,53,0,0" Height="39" FontSize="14" Click="buttonUserManagement_Click"/>
+            <Button x:Name="buttonVehicleManagement" Content="Fahrzeugverwaltung" VerticalAlignment="Top" Margin="158,53,0,0" Height="38" FontSize="14" Click="buttonVehicleManagement_Click" HorizontalAlignment="Left" Width="130" IsEnabled="False"/>
+            <Button x:Name="buttonUserManagement" Content="Benutzerverwaltung" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Margin="10,53,0,0" Height="39" FontSize="14" Click="buttonUserManagement_Click" IsEnabled="False"/>
         </Grid>
     </Grid>
 </Window>
