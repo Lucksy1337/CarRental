@@ -18,7 +18,6 @@ namespace CarRental
         private static volatile DM_DBConnection instance;
         private static object syncRoot = new Object();
 
-
         //Entitie
         //Home Wesley
         //peterson_infrastrukturDBEntities _carRentalEntities;
@@ -28,7 +27,6 @@ namespace CarRental
 
         //School
         Fi12_peterson_infrastrukturDBEntities _carRentalEntities;
-
 
         //Lists
         CL_List aList;

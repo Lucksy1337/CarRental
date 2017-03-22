@@ -49,7 +49,8 @@ namespace CarRental
             newContact = false;
             customerNumberAvailable = false;
             loadComboBoxAddress();
-            loadComboBoxContact();            
+            loadComboBoxContact();
+            comboBoxGender.ItemsSource = new List<string>{ "Männlich", "Weiblich" };    
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -119,10 +120,10 @@ namespace CarRental
         private void buttonCreateCustomer_Click(object sender, RoutedEventArgs e)
         {
             if (!textBoxCustomerNumber.Text.Contains(" ") && !textBoxFirstName.Text.Contains(" ") && !textBoxLastName.Text.Contains(" ") &&
-                !textBoxGender.Text.Contains(" ") && !textBoxAge.Text.Contains(" "))
+                !comboBoxGender.Text.Contains(" ") && !textBoxAge.Text.Contains(" "))
             {
                 if (!textBoxCustomerNumber.Text.Equals("") && !textBoxFirstName.Text.Equals("") && !textBoxLastName.Text.Equals("") &&
-                    !textBoxGender.Text.Equals("") && !textBoxAge.Text.Equals("") && !isTextInputGreaterThenOneHundred(textBoxAge.Text))
+                    !comboBoxGender.Text.Equals("") && !textBoxAge.Text.Equals("") && !isTextInputGreaterThenOneHundred(textBoxAge.Text))
                 {
                     if (newAddress)
                     {
@@ -213,7 +214,7 @@ namespace CarRental
                                 newCustomer.Kundennummer = textBoxCustomerNumber.Text;
                                 newCustomer.Vornamen = textBoxFirstName.Text;
                                 newCustomer.Nachnamen = textBoxLastName.Text;
-                                newCustomer.Geschlecht = textBoxGender.Text;
+                                newCustomer.Geschlecht = comboBoxGender.Text;
                                 newCustomer.Alter = Convert.ToInt32(textBoxAge.Text);
                                 newCustomer.Adresse = aAddress;
                                 newCustomer.AdresseID = aAddress.AdresseID;
@@ -331,7 +332,7 @@ namespace CarRental
             textBoxCustomerNumber.Text = null;
             textBoxFirstName.Text = null;
             textBoxLastName.Text = null;
-            textBoxGender.Text = null;
+            comboBoxGender.Text = null;
             textBoxAge.Text = null;
         }
 
