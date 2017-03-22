@@ -17,8 +17,8 @@
                 <Label x:Name="labelAge" Content="Alter:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="265,79,0,0" Width="77" FontSize="14"/>
                 <TextBox x:Name="textBoxCustomerNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="128,18,0,0"/>
                 <TextBox x:Name="textBoxFirstName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="128,54,0,0"/>
-                <TextBox x:Name="textBoxLastName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="128,82,0,0"/>
                 <ComboBox x:Name="comboBoxGender" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="386,52,0,0" Text="Geschlecht wählen"/>
+                <TextBox x:Name="textBoxLastName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="128,82,0,0"/>
                 <TextBox x:Name="textBoxAge" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="386,82,0,0" PreviewTextInput="textBoxAge_PreviewTextInput"/>
                 <Label x:Name="labelAddress" Content="Adresse:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,120,0,0" Width="98" FontSize="14"/>
                 <Label x:Name="labelStreet" Content="Strasse:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,154,0,0" Width="98" FontSize="14"/>
@@ -27,8 +27,8 @@
                 <Label x:Name="labelCity" Content="Ort:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="265,182,0,0" Width="77" FontSize="14"/>
                 <ComboBox x:Name="comboBoxAddress" HorizontalAlignment="Left" VerticalAlignment="Top" Width="175" Margin="128,127,0,0" SelectionChanged="comboBoxAddress_SelectionChanged" PreviewMouseLeftButtonDown="comboBoxAddress_PreviewMouseLeftButtonDown"/>
                 <TextBox x:Name="textBoxStreet" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="128,154,0,0" IsEnabled="False"/>
-                <TextBox x:Name="textBoxZipCode" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="128,182,0,0" IsEnabled="False"/>
                 <TextBox x:Name="textBoxHouseNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="386,154,0,0" IsEnabled="False"/>
+                <TextBox x:Name="textBoxZipCode" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="128,182,0,0" IsEnabled="False"/>
                 <TextBox x:Name="textBoxCity" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="386,182,0,0" IsEnabled="False"/>
 
                 <Label x:Name="labelContact" Content="Kontakt:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,222,0,0" Width="98" FontSize="14"/>
@@ -38,8 +38,8 @@
                 <Label x:Name="labelFaxNumber" Content="Faxnummer:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="260,284,0,0" Width="106" FontSize="14"/>
                 <ComboBox x:Name="comboBoxContact" HorizontalAlignment="Left" VerticalAlignment="Top" Width="175" Margin="128,229,0,0" SelectionChanged="comboBoxContact_SelectionChanged" PreviewMouseLeftButtonDown="comboBoxContact_PreviewMouseLeftButtonDown"/>
                 <TextBox x:Name="textBoxMail" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="128,256,0,0" IsEnabled="False"/>
-                <TextBox x:Name="textBoxMobileNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="128,284,0,0" IsEnabled="False"/>
                 <TextBox x:Name="textBoxPhoneNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="386,256,0,0" IsEnabled="False"/>
+                <TextBox x:Name="textBoxMobileNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="128,284,0,0" IsEnabled="False"/>
                 <TextBox x:Name="textBoxFaxNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="386,284,0,0" IsEnabled="False"/>
                 <Button x:Name="buttonCreateCustomer" Content="Kunden anlegen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Margin="179,331,0,0" Height="41" FontSize="14" Click="buttonCreateCustomer_Click"/>
             </Grid>
