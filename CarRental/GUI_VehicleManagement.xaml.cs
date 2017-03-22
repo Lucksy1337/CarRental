@@ -215,7 +215,7 @@ namespace CarRental
         {
             Fahrzeug deletingVehicle = (Fahrzeug)listBoxCreatedVehicles.SelectedItem;
 
-            if (!deletingVehicle.Verfügbar)
+            if (deletingVehicle.Verfügbar)
             {
                 var result = MessageBox.Show("Möchten Sie das ausgewählten Fahrzeug entfernen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -223,7 +223,6 @@ namespace CarRental
                 {
                     if (list.VehicleList != null && list.VehicleSortedByTypeList != null)
                     {
-
                         list.VehicleList.Remove(deletingVehicle);
                         loadListBoxCreatedVehicles();
 

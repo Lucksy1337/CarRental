@@ -367,6 +367,10 @@ namespace CarRental
                     }
                 }
 
+                MessageBox.Show(("" + vehicleAddList.Count));
+                MessageBox.Show(("" + vehicleDeleteList.Count));
+
+
                 if (vehicleAddList.Count != 0)
                 {
                     databaseConnection.addVehicle(vehicleAddList);
