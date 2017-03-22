@@ -224,7 +224,6 @@ namespace CarRental
                 {
                     if (list.VehicleList != null && list.VehicleSortedByTypeList != null)
                     {
-
                         list.VehicleList.Remove(deletingVehicle);
                         loadListBoxCreatedVehicles();
 

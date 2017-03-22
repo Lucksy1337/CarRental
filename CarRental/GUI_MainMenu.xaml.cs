@@ -249,7 +249,12 @@ namespace CarRental
 
         private List<Adresse> databaseUpdateAddress()
         {
-            List<Adresse> addressAddList = new List<Adresse>();
+            List<Adresse> addressAddList = null;
+
+            if (addressAddList == null)
+            {
+                addressAddList = new List<Adresse>();
+            }
 
             if (!list.AddressList.Equals(list.AddressComparisonList))
             {
@@ -278,7 +283,12 @@ namespace CarRental
 
         private List<Kontakt> databaseUpdateContact()
         {
-            List<Kontakt> contactAddList = new List<Kontakt>();
+            List<Kontakt> contactAddList = null;
+
+            if (contactAddList == null)
+            {
+                contactAddList = new List<Kontakt>();
+            }
 
             if (!list.ContactList.Equals(list.ContactComparisonList))
             {
@@ -306,7 +316,12 @@ namespace CarRental
 
         private void databaseUpdateCustomer(List<Adresse> addressAddList, List<Kontakt> contactAddList)
         {
-            List<Kunde> customerAddList = new List<Kunde>();
+            List<Kunde> customerAddList = null;
+
+            if (customerAddList == null)
+            {
+                customerAddList = new List<Kunde>();
+            }
 
             if (!list.CustomerList.Equals(list.CustomerComparisonList))
             {
@@ -346,8 +361,19 @@ namespace CarRental
 
         private void databaseUpdateVehicle()
         {
-            List<Fahrzeug> vehicleAddList = new List<Fahrzeug>();
-            List<Fahrzeug> vehicleDeleteList = new List<Fahrzeug>();
+            List<Fahrzeug> vehicleAddList = null;
+            List<Fahrzeug> vehicleDeleteList = null;
+
+            if (vehicleAddList == null)
+            {
+                vehicleAddList = new List<Fahrzeug>();
+            }
+
+            if (vehicleDeleteList == null)
+            {
+                vehicleDeleteList = new List<Fahrzeug>();
+            }
+
 
             if (!list.VehicleList.Equals(list.VehicleComparisonList))
             {
@@ -366,6 +392,10 @@ namespace CarRental
                         vehicleDeleteList.Add(vehicle);
                     }
                 }
+
+                MessageBox.Show(("" + vehicleAddList.Count));
+                MessageBox.Show(("" + vehicleDeleteList.Count));
+
 
                 if (vehicleAddList.Count != 0)
                 {
@@ -392,8 +422,18 @@ namespace CarRental
 
         private void databaseUpdateOrder()
         {
-            List<Auftrag> orderDeleteList = new List<Auftrag>();
-            List<Auftrag> orderAddList = new List<Auftrag>();
+            List<Auftrag> orderAddList = null;
+            List<Auftrag> orderDeleteList = null;
+           
+            if (orderAddList == null)
+            {
+                orderAddList = new List<Auftrag>();
+            }
+
+            if (orderDeleteList == null)
+            {
+                orderDeleteList = new List<Auftrag>();
+            }            
 
             if (!list.OrderList.Equals(list.OrderComparisonList))
             {
@@ -434,8 +474,18 @@ namespace CarRental
 
         private List<Anmeldung> databaseUpdateLogin()
         {
-            List<Anmeldung> loginAddList = new List<Anmeldung>();
-            List<Anmeldung> loginDeleteList = new List<Anmeldung>();
+            List<Anmeldung> loginAddList = null;
+            List<Anmeldung> loginDeleteList = null;
+
+            if (loginAddList == null)
+            {
+                loginAddList = new List<Anmeldung>();
+            }
+
+            if (loginDeleteList == null)
+            {
+                loginDeleteList = new List<Anmeldung>();
+            }
 
             if (!list.LoginList.Equals(list.LoginComparisonList))
             {
@@ -482,8 +532,18 @@ namespace CarRental
 
         private void databaseUpdateUser(List<Anmeldung> loginAddList)
         {
-            List<Benutzer> userAddList = new List<Benutzer>();
-            List<Benutzer> userDeleteList = new List<Benutzer>();
+            List<Benutzer> userAddList = null;
+            List<Benutzer> userDeleteList = null;
+
+            if (userAddList == null)
+            {
+                userAddList = new List<Benutzer>();
+            }
+
+            if (userDeleteList == null)
+            {
+                userDeleteList = new List<Benutzer>();
+            }
 
             if (!list.UserList.Equals(list.UserComparisonList))
             {
