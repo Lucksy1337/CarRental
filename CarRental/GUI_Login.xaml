@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarRental"
         mc:Ignorable="d"
-        Title="Anmeldefenster" Height="150.228" Width="246.113" ResizeMode="NoResize">
+        Title="Anmeldefenster" Height="154.228" Width="259.161" ResizeMode="NoResize">
     <Grid>
         <Button x:Name="buttonLogin" Content="Anmelden" HorizontalAlignment="Left" Margin="60,89,0,0" VerticalAlignment="Top" Width="122" FontSize="14" Click="buttonLogin_Click"/>
         <TextBox x:Name="textBoxUsername" HorizontalAlignment="Left" Height="23" Margin="114,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112"/>
