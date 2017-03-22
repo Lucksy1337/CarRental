@@ -5,21 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarRental"
         mc:Ignorable="d"
-        Title="Auftragsverwaltung" Height="424.183" Width="326.686" ResizeMode="NoResize">
-    <Grid>
+        Title="Auftragsverwaltung" Height="439.629" Width="396.79" ResizeMode="NoResize">
+    <Grid Margin="0,0,-17,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="17*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Label x:Name="labelVehicleType" Content="Fahrzeugtyp:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="132" FontSize="14"/>
         <Label x:Name="labelCustomer" Content="Kunde:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,178,0,0" Width="132" FontSize="14"/>
         <Label x:Name="labelOrderDate" Content="Auftragsdatum:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,214,0,0" Width="132" FontSize="14"/>
         <Label x:Name="labelReturnDate" Content="Rückgabedatum:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,248,0,0" Width="132" FontSize="14"/>
         <Label x:Name="labelPeriodOfTime" Content="Zeitspanne:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,280,0,0" Width="132" FontSize="14"/>
         <Label x:Name="labelTotalPrice" Content="Gesamtpreis:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,311,0,0" Width="132" FontSize="14"/>
-        <ComboBox x:Name="comboBoxVehicleType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="138" Margin="171,10,0,0" Height="26" SelectionChanged="comboBoxVehicleType_SelectionChanged" FontSize="14"/>
-        <ComboBox x:Name="comboBoxCustomer" HorizontalAlignment="Left" VerticalAlignment="Top" Width="138" Margin="171,178,0,0" Height="26" FontSize="14"/>
-        <DatePicker x:Name="datePickerOrderDate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="171,214,0,0" Height="26" Width="138" SelectedDateChanged="datePickerOrderDate_SelectedDateChanged" IsEnabled="False"/>
-        <DatePicker x:Name="datePickerReturnDate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="171,249,0,0" Height="26" Width="138" SelectedDateChanged="datePickerReturnDate_SelectedDateChanged" IsEnabled="False"/>
-        <TextBox x:Name="textBoxPeriotOfTime" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" Margin="171,280,0,0" IsEnabled="False"/>
-        <TextBox x:Name="textBoxTotalPrice" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" Margin="171,311,0,0" IsEnabled="False"/>
-        <ListBox x:Name="listBoxVehicleInformation" HorizontalAlignment="Left" Height="132" VerticalAlignment="Top" Width="299" Margin="10,41,0,0"/>
-        <Button x:Name="buttonBookVehicle" Content="Fahrzeug buchen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" Margin="98,354,0,0" Height="30" FontSize="14" Click="buttonBookVehicle_Click"/>
+        <ComboBox x:Name="comboBoxVehicleType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="196" Margin="171,10,0,0" Height="26" SelectionChanged="comboBoxVehicleType_SelectionChanged" FontSize="14"/>
+        <ComboBox x:Name="comboBoxCustomer" HorizontalAlignment="Left" VerticalAlignment="Top" Width="196" Margin="171,178,0,0" Height="26" FontSize="14"/>
+        <DatePicker x:Name="datePickerOrderDate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="171,214,0,0" Height="26" Width="196" SelectedDateChanged="datePickerOrderDate_SelectedDateChanged" IsEnabled="False"/>
+        <DatePicker x:Name="datePickerReturnDate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="171,249,0,0" Height="26" Width="196" SelectedDateChanged="datePickerReturnDate_SelectedDateChanged" IsEnabled="False"/>
+        <TextBox x:Name="textBoxPeriotOfTime" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" Margin="171,280,0,0" IsEnabled="False"/>
+        <TextBox x:Name="textBoxTotalPrice" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" Margin="171,311,0,0" IsEnabled="False"/>
+        <ListBox x:Name="listBoxVehicleInformation" HorizontalAlignment="Left" Height="132" VerticalAlignment="Top" Width="357" Margin="10,41,0,0"/>
+        <Button x:Name="buttonBookVehicle" Content="Fahrzeug buchen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="172" Margin="98,354,0,0" Height="30" FontSize="14" Click="buttonBookVehicle_Click" Grid.RowSpan="2"/>
     </Grid>
 </Window>

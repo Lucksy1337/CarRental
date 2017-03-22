@@ -18,7 +18,7 @@
                 <TextBox x:Name="textBoxCustomerNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="128,18,0,0"/>
                 <TextBox x:Name="textBoxFirstName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="128,54,0,0"/>
                 <TextBox x:Name="textBoxLastName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="128,82,0,0"/>
-                <TextBox x:Name="textBoxGender" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="386,54,0,0"/>
+                <ComboBox x:Name="comboBoxGender" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="386,52,0,0" Text="Geschlecht wählen"/>
                 <TextBox x:Name="textBoxAge" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="386,82,0,0" PreviewTextInput="textBoxAge_PreviewTextInput"/>
                 <Label x:Name="labelAddress" Content="Adresse:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,120,0,0" Width="98" FontSize="14"/>
                 <Label x:Name="labelStreet" Content="Strasse:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,154,0,0" Width="98" FontSize="14"/>

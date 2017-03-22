@@ -99,6 +99,7 @@ namespace CarRental
             buttonModifyVehicle.IsEnabled = false;
             buttonCreateVehicle.IsEnabled = true;
             clearComponents();
+            checkBoxAvailability.IsChecked = true;
         }
 
         private void buttonModifyVehicle_Click(object sender, RoutedEventArgs e)
@@ -334,7 +335,7 @@ namespace CarRental
             checkBoxNavigation.IsEnabled = status;
             checkBoxAirConditioning.IsEnabled = status;
             textBoxRentPerDay.IsEnabled = status;
-            checkBoxAvailability.IsEnabled = status;
+            //checkBoxAvailability.IsEnabled = status;
         }
 
         private void clearComponents()
