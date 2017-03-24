@@ -42,11 +42,12 @@ namespace CarRental
 
         private void verifyLogin(String id, String pw)
         {
-
+            bool verify = false;
             foreach (Anmeldung aSignIn in listobject.LoginList)
             {
                 if (aSignIn.Benutzername.Equals(id) && aSignIn.Passwort.Equals(pw))
                 {
+                    verify = true;
                     signInId = aSignIn.AnmeldungID;
                     foreach (Benutzer aUser in listobject.UserList)
                     {
@@ -59,6 +60,7 @@ namespace CarRental
                                 if (aUsertype.BenutzerartID.Equals(usertypeId))
                                 {
                                     usertype = aUsertype.Bezeichnung;
+                                    
                                 }
                             }
                         }
@@ -67,6 +69,10 @@ namespace CarRental
                     new GUI_MainMenu(usertype, username).Show();
                     this.Close();
                 }
+             }
+                if(verify == false)
+            {
+                MessageBox.Show("Daten falsch. Erneute Eingabe erforderlich.");
             }
         }
 
