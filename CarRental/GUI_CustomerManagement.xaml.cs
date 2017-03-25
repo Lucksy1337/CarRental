@@ -1,6 +1,7 @@
-﻿//using CarRental.CarRentalServiceReference;
-using CarRental.CarRentalSchoolServiceReference;
+﻿using CarRental.CarRentalServiceReference;
+//using CarRental.CarRentalSchoolServiceReference;
 //using CarRental.CarRentalEbertsonServiceReference;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace CarRental
 {   
     public partial class GUI_CustomerManagement : Window
     {
+        #region Variables
+
         DM_DBConnection databaseConnection;
         CL_List list;
         Kunde aCustomer;
@@ -27,12 +30,18 @@ namespace CarRental
         string customerNumber;
         string existingCustomerNumber;
         string errorMessage;
+        #endregion
+
+        #region Constructor
 
         public GUI_CustomerManagement()
         {
             InitializeComponent();
             Initialize();         
         }
+        #endregion
+
+        #region Logic
 
         public void Initialize()
         {            
@@ -47,18 +56,21 @@ namespace CarRental
             comboBoxGender.ItemsSource = new List<string> { "Männlich", "Weiblich" };
         }
 
-        private void buttonSearch_Click(object sender, RoutedEventArgs e)
+        private void UpdateCustomerAddressContactOrderTextBoxes()
         {
             if (!textBoxCustomerNumberSearch.Text.Contains(" "))
             {
-                customerNumber = textBoxCustomerNumberSearch.Text;
-
-                foreach (Kunde customer in list.CustomerList)
+                if (!textBoxCustomerNumberSearch.Text.Equals(""))
                 {
-                    if (customer.Kundennummer.Equals(customerNumber))
+                    customerNumber = textBoxCustomerNumberSearch.Text;
+
+                    foreach (Kunde customer in list.CustomerList)
                     {
-                        aCustomer = customer;
-                        customerExists = true;
+                        if (customer.Kundennummer.Equals(customerNumber))
+                        {
+                            aCustomer = customer;
+                            customerExists = true;
+                        }
                     }
                 }
             }
@@ -84,7 +96,7 @@ namespace CarRental
                 {
                     comboBoxOrder.Items.Add(order);
                 }
-                comboBoxOrder.SelectedIndex = 0;                
+                comboBoxOrder.SelectedIndex = 0;
 
                 textBoxCustomerNumber.Text = aCustomer.Kundennummer;
                 textBoxFirstName.Text = aCustomer.Vornamen;
@@ -102,12 +114,12 @@ namespace CarRental
                 textBoxMobileNumber.Text = aCustomer.Kontakt.Mobilnummer;
                 textBoxFaxNumber.Text = aCustomer.Kontakt.Faxnummer;
 
-                enableComponents();
+                EnableComponents();
                 customerExists = false;
             }
             else if (!textBoxCustomerNumberSearch.Text.Contains(" ") && !textBoxCustomerNumberSearch.Text.Equals(""))
             {
-                if(customerNumber != null)
+                if (customerNumber != null)
                 {
                     textBoxCustomerNumberSearch.Text = existingCustomerNumber;
                 }
@@ -115,7 +127,25 @@ namespace CarRental
             }
         }
 
-        private void buttonSaveCustomer_Click(object sender, RoutedEventArgs e)
+        private void UpdateOrderTextBoxes()
+        {
+            if (list.OrderSortedByCustomerList.Count != 0)
+            {
+                if (aCustomer.Auftrag != null)
+                {
+                    aOrder = (Auftrag)comboBoxOrder.SelectedItem;
+                    if (aOrder != null)
+                    {
+                        textBoxVehicleDescription.Text = aOrder.Fahrzeug.Bezeichnung;
+                        textBoxTotalPrice.Text = aOrder.Gesamtpreis.ToString("C");
+                        datePickerOrderDate.SelectedDate = aOrder.Auftragsdatum;
+                        datePickerReturnDate.SelectedDate = aOrder.Rückgabedatum;
+                    }
+                }
+            }
+        }    
+
+        private void ModifyCustomer()
         {
             errorMessage = null;
             bool textHasSpace = false;
@@ -124,7 +154,7 @@ namespace CarRental
                 !comboBoxGender.Text.Contains(" ") && !textBoxAge.Text.Contains(" "))
             {
                 if (!textBoxCustomerNumber.Text.Equals("") && !textBoxFirstName.Text.Equals("") && !(textBoxLastName.Text).Equals("") &&
-                   !comboBoxGender.Text.Equals("") && !textBoxAge.Text.Equals("") && !isTextInputGreaterThenOneHundred(textBoxAge.Text))
+                   !comboBoxGender.Text.Equals("") && !textBoxAge.Text.Equals("") && !IsTextInputGreaterThenOneHundred(textBoxAge.Text))
                 {
                     aCustomer.Vornamen = textBoxFirstName.Text;
                     aCustomer.Nachnamen = textBoxLastName.Text;
@@ -189,46 +219,46 @@ namespace CarRental
 
             switch (errorMessage)
             {
-                case "CustomerAddressContact":                
-                {
-                    MessageBox.Show("Bitte füllen Sie die persönlichen Kunden-, Adress- und Kontaktdaten korrekt aus.");
-                }
-                break;
+                case "CustomerAddressContact":
+                    {
+                        MessageBox.Show("Bitte füllen Sie die persönlichen Kunden-, Adress- und Kontaktdaten korrekt aus.");
+                    }
+                    break;
                 case "CustomerAddress":
-                {
-                    MessageBox.Show("Bitte füllen Sie die persönlichen Kunden- und Adressdaten korrekt aus.");
-                }
-                break;
+                    {
+                        MessageBox.Show("Bitte füllen Sie die persönlichen Kunden- und Adressdaten korrekt aus.");
+                    }
+                    break;
                 case "CustomerContact":
-                {
-                    MessageBox.Show("Bitte füllen Sie die persönlichen Kunden- und Kontaktdaten korrekt aus.");
-                }
-                break;
+                    {
+                        MessageBox.Show("Bitte füllen Sie die persönlichen Kunden- und Kontaktdaten korrekt aus.");
+                    }
+                    break;
                 case "Customer":
-                {
-                    MessageBox.Show("Bitte füllen Sie die persönlichen Kundendaten korrekt aus.");
-                }
-                break;
+                    {
+                        MessageBox.Show("Bitte füllen Sie die persönlichen Kundendaten korrekt aus.");
+                    }
+                    break;
                 case "AddressContact":
-                {
-                    MessageBox.Show("Bitte füllen Sie die Adress- und Kontaktdaten korrekt aus.");
-                }
-                break;
+                    {
+                        MessageBox.Show("Bitte füllen Sie die Adress- und Kontaktdaten korrekt aus.");
+                    }
+                    break;
                 case "Address":
-                {
-                    MessageBox.Show("Bitte füllen Sie die Adressdaten korrekt aus.");
-                }
-                break;
+                    {
+                        MessageBox.Show("Bitte füllen Sie die Adressdaten korrekt aus.");
+                    }
+                    break;
                 case "Contact":
-                {
-                    MessageBox.Show("Bitte füllen Sie die Kontaktdaten korrekt aus.");
-                }
-                break;               
+                    {
+                        MessageBox.Show("Bitte füllen Sie die Kontaktdaten korrekt aus.");
+                    }
+                    break;
             }
 
-            if(errorMessage == null && textHasSpace == false)
+            if (errorMessage == null && textHasSpace == false)
             {
-                var result = MessageBox.Show("Möchten Sie die Kundendaten speichern?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                var result = MessageBox.Show("Möchten Sie die Kundendaten speichern?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -245,63 +275,45 @@ namespace CarRental
                     list.addToContactList(aCustomer.Kontakt);
 
                     MessageBox.Show("Kundendaten wurden erfolgreich gespeichert.");
-                }           
-            }
-        }
-
-        private void comboBoxOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(list.OrderSortedByCustomerList.Count != 0)
-            {
-                if(aCustomer.Auftrag != null)
-                {
-                    aOrder = (Auftrag)comboBoxOrder.SelectedItem;
-                    if(aOrder!=null)
-                    {
-                        textBoxVehicleDescription.Text = aOrder.Fahrzeug.Bezeichnung;
-                        textBoxTotalPrice.Text = aOrder.Gesamtpreis.ToString("C");
-                        datePickerOrderDate.SelectedDate = aOrder.Auftragsdatum;
-                        datePickerReturnDate.SelectedDate = aOrder.Rückgabedatum;
-                    }                   
                 }
             }
-        } 
-
-        private void buttonNewCustomer_Click(object sender, RoutedEventArgs e)
-        {
-            GUI_CustomerCreation formCustomerCreation = new GUI_CustomerCreation();
-            formCustomerCreation.Show();
         }
 
-        private void buttonCancelOrder_Click(object sender, RoutedEventArgs e)
+        private void CancelOrder()
         {
-            var result = MessageBox.Show("Möchten Sie den ausgewählten Auftrag stornieren?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show("Möchten Sie den ausgewählten Auftrag stornieren?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if(result == MessageBoxResult.Yes)
+            if (result == MessageBoxResult.Yes)
             {
                 aOrder = (Auftrag)comboBoxOrder.SelectedItem;
                 aOrder.Fahrzeug.Verfügbar = true;
                 list.OrderSortedByCustomerList.Remove(aOrder);
                 list.OrderList.Remove(aOrder);
-                                
+
                 MessageBox.Show("Der ausgewählte Auftrag wurde storniert.");
 
-                loadComboBoxOrder();
-                enableComponents();
+                LoadComboBoxOrder();
+                EnableComponents();
             }
         }
 
-        private void loadComboBoxOrder()
+        private void LoadComboBoxOrder()
         {
             comboBoxOrder.Items.Clear();
-            foreach(Auftrag order in list.OrderSortedByCustomerList)
+            foreach (Auftrag order in list.OrderSortedByCustomerList)
             {
                 comboBoxOrder.Items.Add(order);
             }
             comboBoxOrder.SelectedIndex = 0;
         }
 
-        private void enableComponents()
+        private void OpenNewFormForCustomerCreation()
+        {
+            GUI_CustomerCreation formCustomerCreation = new GUI_CustomerCreation();
+            formCustomerCreation.Show();
+        }
+
+        private void EnableComponents()
         {
             buttonSaveCustomer.IsEnabled = true;
             textBoxFirstName.IsEnabled = true;
@@ -322,21 +334,17 @@ namespace CarRental
             if (list.OrderSortedByCustomerList.Count != 0)
             {
                 buttonCancelOrder.IsEnabled = true;
-                comboBoxOrder.IsEnabled = true;
-                //textBoxVehicleDescription.IsEnabled = true;
-                //textBoxTotalPrice.IsEnabled = true;
-                //datePickerOrderDate.IsEnabled = true;
-                //datePickerReturnDate.IsEnabled = true;
+                comboBoxOrder.IsEnabled = true;                
             }
             else
             {
                 buttonCancelOrder.IsEnabled = false;
                 comboBoxOrder.IsEnabled = false;
-                clearOrderComponents();
+                ClearOrderComponents();
             }
         }
 
-        private void clearOrderComponents()
+        private void ClearOrderComponents()
         {
             comboBoxOrder.Items.Clear();
             textBoxVehicleDescription.Text = null;
@@ -345,22 +353,14 @@ namespace CarRental
             datePickerReturnDate.SelectedDate = null;
         }
 
-        private void textBoxAge_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if(!isTextInputTypeOfInteger(e.Text))
-            {               
-                e.Handled = true;
-            }            
-        }
-
-        private bool isTextInputTypeOfInteger(string text)
+        private bool IsTextInputTypeOfInteger(string text)
         {
             int number;
 
             return int.TryParse(text, out number);
         }
 
-        private bool isTextInputGreaterThenOneHundred(string text)
+        private bool IsTextInputGreaterThenOneHundred(string text)
         {            
             int number; Int32.TryParse(text, out number);
             bool status;
@@ -374,6 +374,43 @@ namespace CarRental
                 status = false;
             }
             return status;
-        }       
+        }
+        #endregion
+
+        #region Events
+
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateCustomerAddressContactOrderTextBoxes();
+        }
+
+        private void ButtonModifyCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            ModifyCustomer();
+        }        
+
+        private void ButtonCancelOrder_Click(object sender, RoutedEventArgs e)
+        {
+            CancelOrder();
+        }
+
+        private void ComboBoxOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateOrderTextBoxes();
+        }
+
+        private void TextBoxAge_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsTextInputTypeOfInteger(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void ButtonNewCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            OpenNewFormForCustomerCreation();
+        }
+        #endregion
     }
 }

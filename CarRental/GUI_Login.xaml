@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarRental"
         mc:Ignorable="d"
-        Title="Anmeldefenster" Height="154.228" Width="259.161" ResizeMode="NoResize">
+        Title="Anmeldefenster" Height="166.176" Width="270.022" ResizeMode="NoResize">
     <Grid>
-        <Label x:Name="labelUsername" Content="Benutzername" HorizontalAlignment="Left" Margin="13,11,0,0" VerticalAlignment="Top" Width="100" FontSize="14"/>
-        <Label x:Name="labelPassword" Content="Passwort" HorizontalAlignment="Left" Margin="13,49,0,0" VerticalAlignment="Top" Width="91" FontSize="14"/>
-        <TextBox x:Name="textBoxUsername" HorizontalAlignment="Left" Height="23" Margin="114,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112"/>        
-        <PasswordBox x:Name="passwordBoxPassword" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="114,52,0,0" Width="112" Background="White" Height="23"/>
-        <Button x:Name="buttonLogin" Content="Anmelden" HorizontalAlignment="Left" Margin="60,89,0,0" VerticalAlignment="Top" Width="122" FontSize="14" Click="buttonLogin_Click"/>
+        <Label x:Name="labelUsername" Content="Benutzername:" HorizontalAlignment="Left" Margin="14,21,0,0" VerticalAlignment="Top" Width="108" FontSize="14"/>
+        <Label x:Name="labelPassword" Content="Passwort:" HorizontalAlignment="Left" Margin="14,55,0,0" VerticalAlignment="Top" Width="91" FontSize="14"/>
+        <TextBox x:Name="textBoxUsername" HorizontalAlignment="Left" Height="23" Margin="127,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" FontSize="14"/>
+        <PasswordBox x:Name="passwordBoxPassword" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,55,0,0" Width="112" Background="White" Height="23" FontSize="14"/>
+        <Button x:Name="buttonLogin" Content="Anmelden" HorizontalAlignment="Left" Margin="69,89,0,0" VerticalAlignment="Top" Width="122" FontSize="14" Click="ButtonLogin_Click"/>
     </Grid>
 </Window>

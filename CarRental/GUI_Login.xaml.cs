@@ -1,6 +1,7 @@
-﻿//using CarRental.CarRentalServiceReference;
-using CarRental.CarRentalSchoolServiceReference;
+﻿using CarRental.CarRentalServiceReference;
+//using CarRental.CarRentalSchoolServiceReference;
 //using CarRental.CarRentalEbertsonServiceReference;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace CarRental
 { 
     public partial class MainWindow : Window
     {
+        #region Variables
+
         private String usertype;
         private String username;
         private int signInId;
@@ -27,12 +30,18 @@ namespace CarRental
 
         private DM_DBConnection databaseConnection;
         private CL_List listobject;
+        #endregion
+
+        #region Constructor
 
         public MainWindow()
         {
             InitializeComponent();
             Initialize();            
         }
+        #endregion
+
+        #region Logic
 
         private void Initialize()
         {
@@ -40,7 +49,7 @@ namespace CarRental
             listobject = CL_List.Instance;
         }
 
-        private void verifyLogin(String id, String pw)
+        private void VerifyLogin(String id, String pw)
         {
 
             foreach (Anmeldung aSignIn in listobject.LoginList)
@@ -69,11 +78,14 @@ namespace CarRental
                 }
             }
         }
+        #endregion
 
-    
-        private void buttonLogin_Click(object sender, RoutedEventArgs e)
+        #region Events
+
+        private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
-            verifyLogin(textBoxUsername.Text, passwordBoxPassword.Password);
+            VerifyLogin(textBoxUsername.Text, passwordBoxPassword.Password);
         }
+        #endregion
     }
 }

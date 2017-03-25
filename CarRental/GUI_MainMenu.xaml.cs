@@ -1,8 +1,10 @@
-﻿//using CarRental.CarRentalServiceReference;
-using CarRental.CarRentalSchoolServiceReference;
+﻿using CarRental.CarRentalServiceReference;
+//using CarRental.CarRentalSchoolServiceReference;
 //using CarRental.CarRentalEbertsonServiceReference;
+
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,26 +21,28 @@ namespace CarRental
 { 
     public partial class GUI_MainMenu : Window
     {
+        #region Variables
+
         private GUI_CustomerManagement formCustomerManagement;
         private GUI_OrderManagement formOrderManagement;
         private GUI_UserManagement formUserManagement;
         private GUI_VehicleManagement formVehicleManagement;
-        private GUI_AccountManagement formAccountManagement;
-        private string closingMessage;        
-
+        private GUI_AccountManagement formAccountManagement;     
+        private string closingMessage;  
         private DM_DBConnection databaseConnection;
-        private CL_List list;        
+        private CL_List list;
+        private bool customerManagementFormOpen;
+        private bool orderManagementFormOpen;
+        private bool userManagementFormOpen;
+        private bool vehicleManagementFormOpen;
+        private bool accountManagementFormOpen;
+        #endregion
+
+        #region Constructor
 
         public GUI_MainMenu()
         {
             InitializeComponent();
-
-            //only for tests
-            //Begin
-            databaseConnection = DM_DBConnection.Instance;
-            list = CL_List.Instance;
-            closingMessage = "?";                 
-            //End
         }
 
         public GUI_MainMenu(string usertype, string username)
@@ -46,16 +50,23 @@ namespace CarRental
             InitializeComponent();
             Initialize(usertype, username);
         }
+        #endregion
+
+        #region Logic
 
         public void Initialize(string usertype, string username)
         {
             databaseConnection = DM_DBConnection.Instance;
             list = CL_List.Instance;
             closingMessage = "?";
-            setGuiValues(usertype, username);                      
+            SetGuiValues(usertype, username);
+            customerManagementFormOpen = false;
+            orderManagementFormOpen = false;
+            vehicleManagementFormOpen = false;
+            accountManagementFormOpen = false;                           
         }
 
-        private void setGuiValues(String usertype, String username)
+        private void SetGuiValues(String usertype, String username)
         {
             labelActiveUsername.Content = username;
             labelActiveUsertype.Content = usertype;
@@ -67,193 +78,65 @@ namespace CarRental
                     buttonVehicleManagement.IsEnabled = true;
                     break;                                        
             }               
-        }    
+        }       
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void OpenCustomerManagementForm()
         {
-            if (!closingMessage.Contains("?"))
-            {
-                if (closingMessage.Split(':').Contains("Customer"))
-                {
-                    if (formCustomerManagement.IsLoaded)
-                    {
-                        MessageBox.Show("Sie müssen zuerst alle anderen Fenster schließen.");
-                        e.Cancel = true;
-                    }
-                    else
-                    {
-                        var result = MessageBox.Show("Möchten Sie das Auswahlfenster schließen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            formCustomerManagement.Close();
-                            e.Cancel = false;
-                        }
-                        else
-                        {
-                            e.Cancel = true;
-                        }
-                    }
-                }
-                else if (closingMessage.Split(':').Contains("Order"))
-                {
-                    if (formOrderManagement.IsLoaded)
-                    {
-                        MessageBox.Show("Sie müssen zuerst alle anderen Fenster schließen.");
-                        e.Cancel = true;
-                    }
-                    else
-                    {
-                        var result = MessageBox.Show("Möchten Sie das Auswahlfenster schließen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            formOrderManagement.Close();
-                            e.Cancel = false;
-                        }
-                        else
-                        {
-                            e.Cancel = true;
-                        }
-                    }
-                }
-                else if (closingMessage.Split(':').Contains("User"))
-                {
-                    if (formUserManagement.IsLoaded)
-                    {
-                        MessageBox.Show("Sie müssen zuerst alle anderen Fenster schließen.");
-                        e.Cancel = true;
-                    }
-                    else
-                    {
-                        var result = MessageBox.Show("Möchten Sie das Auswahlfenster schließen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            formUserManagement.Close();
-                            e.Cancel = false;
-                        }
-                        else
-                        {
-                            e.Cancel = true;
-                        }
-                    }
-                }
-                else if (closingMessage.Split(':').Contains("Vehicle"))
-                {
-                    if (formVehicleManagement.IsLoaded)
-                    {
-                        MessageBox.Show("Sie müssen zuerst alle anderen Fenster schließen.");
-                        e.Cancel = true;
-                    }
-                    else
-                    {
-                        var result = MessageBox.Show("Möchten Sie das Auswahlfenster schließen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            formVehicleManagement.Close();
-                            e.Cancel = false;
-                        }
-                        else
-                        {
-                            e.Cancel = true;
-                        }
-                    }
-                }
-                else if (closingMessage.Split(':').Contains("Account"))
-                {
-                    if (formAccountManagement.IsLoaded)
-                    {
-                        MessageBox.Show("Sie müssen zuerst alle anderen Fenster schließen.");
-                        e.Cancel = true;
-                    }
-                    else
-                    {
-                        var result = MessageBox.Show("Möchten Sie das Auswahlfenster schließen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            formAccountManagement.Close();
-                            e.Cancel = false;
-                        }
-                        else
-                        {
-                            e.Cancel = true;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                var result = MessageBox.Show("Möchten Sie das Auswahlfenster schließen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                if (result == MessageBoxResult.Yes)
-                {                    
-                    e.Cancel = false;
-                }
-                else
-                {
-                    e.Cancel = true;
-                }
-            }
-        } 
-
-        private void buttonCustomerManagement_Click(object sender, RoutedEventArgs e)
-        {
-            buildClosingMessage("Customer");
+            BuildClosingMessage("Customer");
             formCustomerManagement = new GUI_CustomerManagement();
             formCustomerManagement.Show();
         }
 
-        private void buttonOrderManagement_Click(object sender, RoutedEventArgs e)
+        private void OpenOrderManagementForm()
         {
-            buildClosingMessage("Order");
+            BuildClosingMessage("Order");
             formOrderManagement = new GUI_OrderManagement();
             formOrderManagement.Show();
-        }
+        }     
 
-        private void buttonUserManagement_Click(object sender, RoutedEventArgs e)
+        private void OpenUserManagementForm()
         {
-            buildClosingMessage("User");
+            BuildClosingMessage("User");
             formUserManagement = new GUI_UserManagement(labelActiveUsername.Content.ToString());
             formUserManagement.Show();
         }
-
-        private void buttonVehicleManagement_Click(object sender, RoutedEventArgs e)
+        
+        private void OpenVehicleManagementForm()
         {
-            buildClosingMessage("Vehicle");
+            BuildClosingMessage("Vehicle");
             formVehicleManagement = new GUI_VehicleManagement();
             formVehicleManagement.Show();
         }
 
-        private void buttonAccountManagement_Click(object sender, RoutedEventArgs e)
+        private void OpenAccountManagementForm()
         {
-            buildClosingMessage("Account");
+            BuildClosingMessage("Account");
             formAccountManagement = new GUI_AccountManagement(labelActiveUsername.Content.ToString());
             formAccountManagement.Show();
-        }
+        }     
 
-        private void buttonSaveToDb_Click(object sender, RoutedEventArgs e)
-        {
-            List<Adresse> addressList = databaseUpdateAddress();
-            List<Kontakt> contactList = databaseUpdateContact();
-            databaseUpdateCustomer(addressList, contactList);
-            databaseUpdateVehicle();
-            databaseUpdateOrder();
-            List<Anmeldung> loginList = databaseUpdateLogin();
-            databaseUpdateUser(loginList);
+        private void UpdateDatabase()
+        {           
+            DatabaseUpdateAddress();
+            DatabaseUpdateContact();
+            DatabaseUpdateCustomer();
+            DatabaseUpdateVehicle();
+            DatabaseUpdateOrder();
+            DatabaseUpdateLogin();
+            DatabaseUpdateUser();
 
             MessageBox.Show("Datenbank erfolgreich aktualisiert.");
-        } 
+        }
 
-        private List<Adresse> databaseUpdateAddress()
+        private void DatabaseUpdateAddress()
         {
-            List<Adresse> addressAddList = null;
-
-            if (addressAddList == null)
+            if (list.AddressAddList == null)
             {
-                addressAddList = new List<Adresse>();
+                list.AddressAddList = new List<Adresse>();
+            }
+            else
+            {
+                list.AddressAddList.Clear();
             }
 
             if (!list.AddressList.Equals(list.AddressComparisonList))
@@ -263,31 +146,29 @@ namespace CarRental
                 {
                     if (!list.AddressComparisonList.Contains(address))
                     {
-                        addressAddList.Add(address);
+                        list.AddressAddList.Add(address);
                     }
                 }
 
-                if (addressAddList.Count != 0)
+                if (list.AddressAddList.Count != 0)
                 {
-                    databaseConnection.addAddress(addressAddList);
-                    databaseConnection.updateAddress(list.AddressList);
+                    databaseConnection.addAddress(list.AddressAddList);                    
                 }
-                else
-                {
-                    databaseConnection.updateAddress(list.AddressList);
-                }
+                                
+                databaseConnection.updateAddress(list.AddressList);
+                list.AddressComparisonList = list.AddressList;
             }
-
-            return addressAddList;
         }
 
-        private List<Kontakt> databaseUpdateContact()
+        private void DatabaseUpdateContact()
         {
-            List<Kontakt> contactAddList = null;
-
-            if (contactAddList == null)
+            if (list.ContactAddList == null)
             {
-                contactAddList = new List<Kontakt>();
+                list.ContactAddList = new List<Kontakt>();
+            }
+            else
+            {
+                list.ContactAddList.Clear();
             }
 
             if (!list.ContactList.Equals(list.ContactComparisonList))
@@ -296,31 +177,29 @@ namespace CarRental
                 {
                     if (!list.ContactComparisonList.Contains(contact))
                     {
-                        contactAddList.Add(contact);
+                        list.ContactAddList.Add(contact);
                     }
                 }
 
-                if (contactAddList.Count != 0)
+                if (list.ContactAddList.Count != 0)
                 {
-                    databaseConnection.addContact(contactAddList);
-                    databaseConnection.updateContact(list.ContactList);
+                    databaseConnection.addContact(list.ContactAddList);                    
                 }
-                else
-                {
-                    databaseConnection.updateContact(list.ContactList);
-                }
+                               
+                databaseConnection.updateContact(list.ContactList);
+                list.ContactComparisonList = list.ContactList;
             }
-
-            return contactAddList;
         }
 
-        private void databaseUpdateCustomer(List<Adresse> addressAddList, List<Kontakt> contactAddList)
-        {
-            List<Kunde> customerAddList = null;
-
-            if (customerAddList == null)
+        private void DatabaseUpdateCustomer()
+        {  
+            if (list.CustomerAddList == null)
             {
-                customerAddList = new List<Kunde>();
+                list.CustomerAddList = new List<Kunde>();
+            }
+            else
+            {
+                list.CustomerAddList.Clear();
             }
 
             if (!list.CustomerList.Equals(list.CustomerComparisonList))
@@ -329,51 +208,53 @@ namespace CarRental
                 {
                     if (!list.CustomerComparisonList.Contains(customer))
                     {
-                        customerAddList.Add(customer);
+                        list.CustomerAddList.Add(customer);
                     }
                 }
 
                 int addressIndex = 0;
-                foreach (Adresse address in addressAddList)
+                foreach (Adresse address in list.AddressAddList)
                 {
-                    customerAddList[addressIndex].AdresseID = address.AdresseID;
+                    list.CustomerAddList[addressIndex].AdresseID = address.AdresseID;
                     addressIndex++;
                 }
 
                 int contactIndex = 0;
-                foreach (Kontakt contact in contactAddList)
+                foreach (Kontakt contact in list.ContactAddList)
                 {
-                    customerAddList[contactIndex].KontaktID = contact.KontaktID;
+                    list.CustomerAddList[contactIndex].KontaktID = contact.KontaktID;
                     contactIndex++;
                 }
 
-                if (customerAddList.Count != 0)
+                if (list.CustomerAddList.Count != 0)
                 {
-                    databaseConnection.addCustomer(customerAddList);
-                    databaseConnection.updateCustomer(list.CustomerList);
+                    databaseConnection.addCustomer(list.CustomerAddList);
                 }
-                else
-                {
-                    databaseConnection.updateCustomer(list.CustomerList);
-                }
+                                
+                databaseConnection.updateCustomer(list.CustomerList);
+                list.CustomerComparisonList = list.CustomerList;
             }
         }
 
-        private void databaseUpdateVehicle()
+        private void DatabaseUpdateVehicle()
         {
-            List<Fahrzeug> vehicleAddList = null;
-            List<Fahrzeug> vehicleDeleteList = null;
-
-            if (vehicleAddList == null)
+            if (list.VehicleAddList == null)
             {
-                vehicleAddList = new List<Fahrzeug>();
+                list.VehicleAddList = new List<Fahrzeug>();
+            }
+            else
+            {
+                list.VehicleAddList.Clear();
             }
 
-            if (vehicleDeleteList == null)
+            if (list.VehicleDeleteList == null)
             {
-                vehicleDeleteList = new List<Fahrzeug>();
+                list.VehicleDeleteList = new List<Fahrzeug>();
             }
-
+            else
+            {
+                list.VehicleDeleteList.Clear();
+            }
 
             if (!list.VehicleList.Equals(list.VehicleComparisonList))
             {
@@ -381,7 +262,7 @@ namespace CarRental
                 {
                     if (!list.VehicleComparisonList.Contains(vehicle))
                     {
-                        vehicleAddList.Add(vehicle);
+                        list.VehicleAddList.Add(vehicle);
                     }
                 }
 
@@ -389,47 +270,39 @@ namespace CarRental
                 {
                     if (!list.VehicleList.Contains(vehicle))
                     {
-                        vehicleDeleteList.Add(vehicle);
+                        list.VehicleDeleteList.Add(vehicle);
                     }
                 }
 
-                if (vehicleAddList.Count != 0)
+                if (list.VehicleAddList.Count != 0)
                 {
-                    databaseConnection.addVehicle(vehicleAddList);
-
-                    if (vehicleDeleteList.Count != 0)
-                    {
-                        databaseConnection.deleteVehicle(vehicleDeleteList);
-                    }
-
-                    databaseConnection.updateVehicle(list.VehicleList);
-                }
-                else
-                {
-                    if (vehicleDeleteList.Count != 0)
-                    {
-                        databaseConnection.deleteVehicle(vehicleDeleteList);
-                    }
-
-                    databaseConnection.updateVehicle(list.VehicleList);
-                }
+                    databaseConnection.addVehicle(list.VehicleAddList);
+                }                
+                                   
+                list.VehicleComparisonList = list.VehicleList;
+                databaseConnection.updateVehicle(list.VehicleList);
             }
         }
 
-        private void databaseUpdateOrder()
+        private void DatabaseUpdateOrder()
         {
-            List<Auftrag> orderAddList = null;
-            List<Auftrag> orderDeleteList = null;
-           
-            if (orderAddList == null)
+            if (list.OrderAddList == null)
             {
-                orderAddList = new List<Auftrag>();
+                list.OrderAddList = new List<Auftrag>();
+            }
+            else
+            {
+                list.OrderAddList.Clear();
             }
 
-            if (orderDeleteList == null)
+            if (list.OrderDeleteList == null)
             {
-                orderDeleteList = new List<Auftrag>();
-            }            
+                list.OrderDeleteList = new List<Auftrag>();
+            }
+            else
+            {
+                list.OrderDeleteList.Clear();
+            }
 
             if (!list.OrderList.Equals(list.OrderComparisonList))
             {
@@ -437,7 +310,7 @@ namespace CarRental
                 {
                     if (!list.OrderComparisonList.Contains(order))
                     {
-                        orderAddList.Add(order);
+                        list.OrderAddList.Add(order);
                     }
                 }               
 
@@ -445,42 +318,72 @@ namespace CarRental
                 {
                     if (!list.OrderList.Contains(order))
                     {
-                        orderDeleteList.Add(order);
+                        list.OrderDeleteList.Add(order);
                     }
                 }
 
-                if (orderAddList.Count != 0)
+                foreach (Auftrag order in list.OrderAddList)
                 {
-                    databaseConnection.addOrder(orderAddList);
+                    foreach (Kunde customer in list.CustomerAddList)
+                    {
+                        if (customer.Equals(order.Kunde))
+                        {
+                            order.Kunde = customer;
+                            order.KundeID = customer.KundeID;
+                        }
+                    }
+                }
 
-                    if (orderDeleteList.Count != 0)
-                    {
-                        databaseConnection.deleteOrder(orderDeleteList);
-                    }
-                }
-                else
+                foreach (Auftrag order in list.OrderAddList)
                 {
-                    if (orderDeleteList.Count != 0)
+                    foreach (Fahrzeug vehicle in list.VehicleAddList)
                     {
-                        databaseConnection.deleteOrder(orderDeleteList);
+                        if (vehicle.Equals(order.Fahrzeug))
+                        {
+                            order.Fahrzeug = vehicle;
+                            order.FahrzeugID = vehicle.FahrzeugID;
+                        }
                     }
                 }
+
+                if (list.OrderAddList.Count != 0)
+                {
+                    databaseConnection.addOrder(list.OrderAddList);
+                }
+
+                if (list.OrderDeleteList.Count != 0)
+                {
+                    databaseConnection.deleteOrder(list.OrderDeleteList);
+                }
+
+                if (list.VehicleDeleteList.Count != 0)
+                {
+                    databaseConnection.deleteVehicle(list.VehicleDeleteList);
+                }
+
+                databaseConnection.updateOrder(list.OrderList);
+                list.OrderComparisonList = list.OrderList;
             }
         }
 
-        private List<Anmeldung> databaseUpdateLogin()
+        private void DatabaseUpdateLogin()
         {
-            List<Anmeldung> loginAddList = null;
-            List<Anmeldung> loginDeleteList = null;
-
-            if (loginAddList == null)
+            if (list.LoginAddList == null)
             {
-                loginAddList = new List<Anmeldung>();
+                list.LoginAddList = new List<Anmeldung>();
+            }
+            else
+            {
+                list.LoginAddList.Clear();
             }
 
-            if (loginDeleteList == null)
+            if (list.LoginDeleteList == null)
             {
-                loginDeleteList = new List<Anmeldung>();
+                list.LoginDeleteList = new List<Anmeldung>();
+            }
+            else
+            {
+                list.LoginDeleteList.Clear();
             }
 
             if (!list.LoginList.Equals(list.LoginComparisonList))
@@ -489,7 +392,7 @@ namespace CarRental
                 {
                     if (!list.LoginComparisonList.Contains(login))
                     {
-                        loginAddList.Add(login);
+                        list.LoginAddList.Add(login);
                     }
                 }
 
@@ -497,48 +400,38 @@ namespace CarRental
                 {
                     if (!list.LoginList.Contains(login))
                     {
-                        loginDeleteList.Add(login);
+                        list.LoginDeleteList.Add(login);
                     }
                 }
 
-                if (loginAddList.Count != 0)
+                if (list.LoginAddList.Count != 0)
                 {
-                    databaseConnection.addLogin(loginAddList);
-
-                    if (loginDeleteList.Count != 0)
-                    {
-                        databaseConnection.deleteLogin(loginDeleteList);
-                    }
-
-                    databaseConnection.updateLogin(list.LoginList);
-                }
-                else
-                {
-                    if (loginDeleteList.Count != 0)
-                    {
-                        databaseConnection.deleteLogin(loginDeleteList);
-                    }
-
-                    databaseConnection.updateLogin(list.LoginList);
-                }
+                    databaseConnection.addLogin(list.LoginAddList);
+                }               
+                                
+                databaseConnection.updateLogin(list.LoginList);
+                list.LoginComparisonList = list.LoginList;
             }
-
-            return loginAddList;
         }
 
-        private void databaseUpdateUser(List<Anmeldung> loginAddList)
+        private void DatabaseUpdateUser()
         {
-            List<Benutzer> userAddList = null;
-            List<Benutzer> userDeleteList = null;
-
-            if (userAddList == null)
+            if (list.UserAddList == null)
             {
-                userAddList = new List<Benutzer>();
+                list.UserAddList = new List<Benutzer>();
+            }
+            else
+            {
+                list.UserAddList.Clear();
             }
 
-            if (userDeleteList == null)
+            if (list.UserDeleteList == null)
             {
-                userDeleteList = new List<Benutzer>();
+                list.UserDeleteList = new List<Benutzer>();
+            }
+            else
+            {
+                list.UserDeleteList.Clear();
             }
 
             if (!list.UserList.Equals(list.UserComparisonList))
@@ -547,14 +440,14 @@ namespace CarRental
                 {
                     if (!list.UserComparisonList.Contains(user))
                     {
-                        userAddList.Add(user);
+                        list.UserAddList.Add(user);
                     }
                 }
 
                 int loginIndex = 0;
-                foreach (Anmeldung login in loginAddList)
+                foreach (Anmeldung login in list.LoginAddList)
                 {
-                    userAddList[loginIndex].AnmeldeID = login.AnmeldungID;
+                    list.UserAddList[loginIndex].AnmeldeID = login.AnmeldungID;
                     loginIndex++;
                 }
 
@@ -562,34 +455,139 @@ namespace CarRental
                 {
                     if (!list.UserList.Contains(user))
                     {
-                        userDeleteList.Add(user);
+                        list.UserDeleteList.Add(user);
                     }
                 }
 
-                if (userAddList.Count != 0)
+                if (list.UserAddList.Count != 0)
                 {
-                    databaseConnection.addUser(userAddList);
+                    databaseConnection.addUser(list.UserAddList);
+                }                
 
-                    if (userDeleteList.Count != 0)
-                    {
-                        databaseConnection.deleteUser(userDeleteList);
-                    }
-
-                    databaseConnection.updateUser(list.UserList);
-                }
-                else
+                if (list.UserDeleteList.Count != 0)
                 {
-                    if (userDeleteList.Count != 0)
-                    {
-                        databaseConnection.deleteUser(userDeleteList);
-                    }
-
-                    databaseConnection.updateUser(list.UserList);
+                    databaseConnection.deleteUser(list.UserDeleteList);
                 }
+
+                if (list.LoginDeleteList.Count != 0)
+                {
+                    databaseConnection.deleteLogin(list.LoginDeleteList);
+                }
+
+                databaseConnection.updateUser(list.UserList);
+                list.UserComparisonList = list.UserList;
             }
         }
 
-        private void buildClosingMessage(string text)
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            if (!closingMessage.Contains("?"))
+            {
+                if (closingMessage.Split(':').Contains("Customer"))
+                {
+                    if (formCustomerManagement.IsLoaded)
+                    {
+                        e.Cancel = true;
+                        customerManagementFormOpen = true;                   
+                    }
+                    else
+                    {
+                        formCustomerManagement.Close();
+                        customerManagementFormOpen = false;                  
+                    }
+                }
+
+                if (closingMessage.Split(':').Contains("Order"))
+                {
+                    if (formOrderManagement.IsLoaded)
+                    {                        
+                        e.Cancel = true;
+                        orderManagementFormOpen = true;
+                    }
+                    else
+                    {
+                        formOrderManagement.Close();
+                        orderManagementFormOpen = false;                   
+                    }
+                }
+
+                if (closingMessage.Split(':').Contains("User"))
+                {
+                    if (formUserManagement.IsLoaded)
+                    {                        
+                        e.Cancel = true;
+                        userManagementFormOpen = true;
+                    }
+                    else
+                    {
+                        userManagementFormOpen = false;
+                        formUserManagement.Close();                  
+                    }
+                }
+
+                if (closingMessage.Split(':').Contains("Vehicle"))
+                {
+                    if (formVehicleManagement.IsLoaded)
+                    {                        
+                        e.Cancel = true;
+                        vehicleManagementFormOpen = true;
+                    }
+                    else
+                    {
+                        vehicleManagementFormOpen = false;
+                        formVehicleManagement.Close();                       
+                    }
+                }
+
+                if (closingMessage.Split(':').Contains("Account"))
+                {
+                    if (formAccountManagement.IsLoaded)
+                    {                       
+                        e.Cancel = true;
+                        accountManagementFormOpen = true;
+                    }
+                    else
+                    {
+                        accountManagementFormOpen = false;
+                        formAccountManagement.Close();                        
+                    }
+                }
+
+                if (!customerManagementFormOpen && !orderManagementFormOpen && !userManagementFormOpen &&
+                    !vehicleManagementFormOpen && !accountManagementFormOpen)
+                {
+                    var result = MessageBox.Show("    Möchten Sie das Auswahlfenster schließen?" + Environment.NewLine + Environment.NewLine + "                              Warnung! " + Environment.NewLine + Environment.NewLine + "Nicht gespeicherte Änderungen gehen verloren.", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        e.Cancel = false;
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Sie müssen zuerst alle anderen Fenster schließen.");
+                }
+            }
+            else
+            {
+                var result = MessageBox.Show("    Möchten Sie das Auswahlfenster schließen?" + Environment.NewLine + Environment.NewLine + "                              Warnung! " + Environment.NewLine + Environment.NewLine + "Nicht gespeicherte Änderungen gehen verloren.", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    e.Cancel = false;
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }           
+        }
+
+        private void BuildClosingMessage(string text)
         {
             if (Convert.ToInt32(closingMessage.Split(':').Contains("Customer")) < 1 || Convert.ToInt32(closingMessage.Split(':').Contains("Order")) < 1 ||
                 Convert.ToInt32(closingMessage.Split(':').Contains("User")) < 1 || Convert.ToInt32(closingMessage.Split(':').Contains("Vehicle")) < 1 ||
@@ -605,6 +603,40 @@ namespace CarRental
                     closingMessage += ":" + text;
                 }
             }   
-        }        
-    }    
+        }
+        #endregion
+
+        #region Events
+
+        private void ButtonSaveToDatabase_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateDatabase();
+        }
+
+        private void ButtonCustomerManagement_Click(object sender, RoutedEventArgs e)
+        {
+            OpenCustomerManagementForm();
+        }
+
+        private void ButtonOrderManagement_Click(object sender, RoutedEventArgs e)
+        {
+            OpenOrderManagementForm();
+        }
+
+        private void ButtonUserManagement_Click(object sender, RoutedEventArgs e)
+        {
+            OpenUserManagementForm();
+        }
+
+        private void ButtonVehicleManagement_Click(object sender, RoutedEventArgs e)
+        {
+            OpenVehicleManagementForm();
+        }
+
+        private void ButtonAccountManagement_Click(object sender, RoutedEventArgs e)
+        {
+            OpenAccountManagementForm();
+        }       
+        #endregion
+    }
 }

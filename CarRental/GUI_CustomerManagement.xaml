@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="Kundenverwaltung" Height="620.493" Width="530.732" ResizeMode="NoResize">
     <Grid>
-        <StackPanel HorizontalAlignment="Left" Height="646" VerticalAlignment="Top" Width="525" Margin="0,10,0,0">
+        <StackPanel HorizontalAlignment="Left" Height="581" VerticalAlignment="Top" Width="525" Margin="0,10,0,0">
             <Grid Height="66" Margin="0,0,-10,0">
                 <Label x:Name="labelCustomerNumberSearch" Content="Kundennummer:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,18,0,0" Width="117" FontSize="14"/>
-                <TextBox x:Name="textBoxCustomerNumberSearch" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" Margin="127,21,0,0"/>
-                <Button x:Name="buttonSearch" Content="Suchen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="266,21,0,0" Height="23" FontSize="14" Click="buttonSearch_Click"/>
-                <Button x:Name="buttonSaveCustomer" Content="Kunde ändern" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="394,21,0,0" Height="23" FontSize="14" IsEnabled="False" Click="buttonSaveCustomer_Click"/>
+                <TextBox x:Name="textBoxCustomerNumberSearch" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" Margin="127,21,0,0" FontSize="14"/>
+                <Button x:Name="buttonSearch" Content="Suchen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="266,21,0,0" Height="23" FontSize="14" Click="ButtonSearch_Click"/>
+                <Button x:Name="buttonSaveCustomer" Content="Kunde ändern" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="394,21,0,0" Height="23" FontSize="14" IsEnabled="False" Click="ButtonModifyCustomer_Click"/>
             </Grid>
             <Expander x:Name="expanderPersonal" Header="Kunde" IsExpanded="True" FontSize="14">
                 <Grid Background="#FFE5E5E5" Height="120" Margin="0,0,-21,0">
@@ -25,12 +25,12 @@
                     <Label x:Name="labelLastName" Content="Nachname:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,74,0,0" Width="98" FontSize="14" RenderTransformOrigin="0.526,0.362"/>
                     <Label x:Name="labelGender" Content="Geschlecht:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="128,49,0,0" Width="86" FontSize="14" Grid.Column="1"/>
                     <Label x:Name="labelAge" Content="Alter:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="128,74,0,0" Width="77" FontSize="14" Grid.Column="1"/>
+                    <Button x:Name="buttonNewCustomer" Content="Neuer Kunde" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Margin="83,-21,0,0" Grid.ColumnSpan="2" Click="ButtonNewCustomer_Click"/>
                     <TextBox x:Name="textBoxCustomerNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="125,13,0,0" IsReadOnly="True" IsEnabled="False" Grid.ColumnSpan="2"/>
                     <TextBox x:Name="textBoxFirstName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="125,49,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="textBoxLastName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="125,77,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Grid.ColumnSpan="2"/>
                     <ComboBox x:Name="comboBoxGender" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="249,50,0,0" Grid.Column="1" IsEnabled="False" Text="Geschlecht wählen"/>
-                    <TextBox x:Name="textBoxAge" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="249,80,0,0" SpellCheck.IsEnabled="True" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Grid.Column="1" PreviewTextInput="textBoxAge_PreviewTextInput"/>
-                    <Button x:Name="buttonNewCustomer" Content="Neuer Kunde" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Margin="83,-21,0,0" Grid.ColumnSpan="2" Click="buttonNewCustomer_Click"/>
+                    <TextBox x:Name="textBoxLastName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="125,77,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="textBoxAge" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="249,80,0,0" SpellCheck.IsEnabled="True" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Grid.Column="1" PreviewTextInput="TextBoxAge_PreviewTextInput"/>
                 </Grid>
             </Expander>
             <Expander x:Name="expanderAddress" Header="Adresse" IsExpanded="True" FontSize="14">
@@ -43,8 +43,8 @@
                     <Label x:Name="labelHouseNumber" Content="Hausnummer:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="262,16,0,0" Width="102" FontSize="14"/>
                     <Label x:Name="labelCity" Content="Ort:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="262,44,0,0" Width="77" FontSize="14"/>
                     <TextBox x:Name="textBoxStreet" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="123,16,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
-                    <TextBox x:Name="textBoxZipCode" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="123,44,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
                     <TextBox x:Name="textBoxHouseNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="383,16,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                    <TextBox x:Name="textBoxZipCode" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="123,44,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
                     <TextBox x:Name="textBoxCity" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="383,44,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
                 </Grid>
             </Expander>
@@ -55,8 +55,8 @@
                     <Label x:Name="labelPhoneNumber" Content="Telefonnummer:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="257,16,0,0" Width="121" FontSize="14"/>
                     <Label x:Name="labelFaxNumber" Content="Faxnummer:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="257,44,0,0" Width="106" FontSize="14"/>
                     <TextBox x:Name="textBoxMail" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="122,16,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
-                    <TextBox x:Name="textBoxMobileNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="122,44,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
                     <TextBox x:Name="textBoxPhoneNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="383,16,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                    <TextBox x:Name="textBoxMobileNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="122,44,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
                     <TextBox x:Name="textBoxFaxNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="383,44,0,0" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
                 </Grid>
             </Expander>
@@ -66,16 +66,16 @@
                         <ColumnDefinition Width="22*"/>
                         <ColumnDefinition Width="229*"/>
                     </Grid.ColumnDefinitions>
-                    <ComboBox x:Name="comboBoxOrder" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Margin="16,10,0,0" Grid.ColumnSpan="2" SelectionChanged="comboBoxOrder_SelectionChanged" IsEnabled="False"/>
+                    <Button x:Name="buttonCancelOrder" Content="Auftrag stornieren" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="36,-21,0,0" Grid.Column="1" IsEnabled="False" Click="ButtonCancelOrder_Click"/>
+                    <ComboBox x:Name="comboBoxOrder" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="16,10,0,0" Grid.ColumnSpan="2" SelectionChanged="ComboBoxOrder_SelectionChanged" IsEnabled="False"/>
                     <Label x:Name="labelVehicleDescription" Content="Fahrzeug:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,42,0,0" Width="106" FontSize="14" Grid.ColumnSpan="2"/>
                     <Label x:Name="labelTotalPrice" Content="Gesamtpreis:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,70,0,0" Width="98" FontSize="14" Grid.ColumnSpan="2"/>
                     <Label x:Name="labelOrderDate" Content="Auftragsdatum:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="218,42,0,0" Width="129" FontSize="14" Grid.Column="1"/>
                     <Label x:Name="labelReturnDate" Content="Rückgabedatum:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="218,70,0,0" Width="129" FontSize="14" Grid.Column="1"/>
-                    <TextBox x:Name="textBoxVehicleDescription" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="73,39,0,0" Grid.Column="1" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
-                    <TextBox x:Name="textBoxTotalPrice" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="73,71,0,0" Grid.Column="1" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
-                    <DatePicker x:Name="datePickerOrderDate" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="337,38,0,0" Width="131" FontSize="12" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"></DatePicker>
-                    <DatePicker x:Name="datePickerReturnDate" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="337,70,0,0" Width="131" FontSize="12" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"></DatePicker>
-                    <Button x:Name="buttonCancelOrder" Content="Auftrag stornieren" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="36,-21,0,0" Grid.Column="1" IsEnabled="False" Click="buttonCancelOrder_Click"/>
+                    <TextBox x:Name="textBoxVehicleDescription" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="73,42,0,0" Grid.Column="1" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                    <DatePicker x:Name="datePickerOrderDate" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="337,42,0,0" Width="131" FontSize="12" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"></DatePicker>
+                    <TextBox x:Name="textBoxTotalPrice" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="73,70,0,0" Grid.Column="1" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                    <DatePicker x:Name="datePickerReturnDate" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="337,71,0,0" Width="131" FontSize="12" IsEnabled="False" ToolTipService.ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"></DatePicker>
                 </Grid>
             </Expander>
         </StackPanel>

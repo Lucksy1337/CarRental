@@ -1,6 +1,7 @@
-﻿//using CarRental.CarRentalServiceReference;
-using CarRental.CarRentalSchoolServiceReference;
+﻿using CarRental.CarRentalServiceReference;
+//using CarRental.CarRentalSchoolServiceReference;
 //using CarRental.CarRentalEbertsonServiceReference;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,14 @@ namespace CarRental
 {   
     public partial class GUI_UserManagement : Window
     {
+        #region Variables
+
         private DM_DBConnection databaseConnection;
         private CL_List listobject;
         private String activeUser;
+        #endregion
+
+        #region Constructor
 
         public GUI_UserManagement()
         {
@@ -33,6 +39,9 @@ namespace CarRental
             InitializeComponent();
             Initialize(username);
         }
+        #endregion
+
+        #region Logic
 
         private void Initialize(String username)
         {
@@ -51,15 +60,112 @@ namespace CarRental
             listBoxRegistratedUsers.DisplayMemberPath = "Benutzernamen";
             listBoxRegistratedUsers.ItemsSource = listobject.UserList;
             listBoxRegistratedUsers.SelectedIndex = 0;
+        }  
+
+        private void createUser()
+        {
+            var result = MessageBox.Show("Möchten Sie einen neuen Benutzer anlegen?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Anmeldung newLogin = new Anmeldung();
+                Benutzer newUser = new Benutzer();
+                Benutzerart newUsertype = new Benutzerart();
+
+                
+                newLogin.AnmeldungID = 0;
+                newLogin.Benutzername = textBoxId.Text;
+                newLogin.Passwort = passwordBoxPassword.Password;               
+
+                listobject.addToLoginList(newLogin);
+                
+                if (listobject.UserTypeList != null)
+                {
+                    foreach (Benutzerart aUserType in listobject.UserTypeList)
+                    {
+                        if (comboBoxUserType.SelectedValue.Equals(aUserType.Bezeichnung))
+                        {
+                            newUsertype = aUserType;
+                        }
+                    }
+                }
+                
+                newUser.BenutzerID = 0;
+                newUser.Benutzernamen = textBoxUsername.Text;                
+
+                if (newLogin != null)
+                {
+                    newUser.Anmeldung = newLogin;
+                    newUser.AnmeldeID = newLogin.AnmeldungID;
+                }
+
+                if (newUsertype != null)
+                {
+                    newUser.Benutzerart = newUsertype;
+                    newUser.BenutzerartID = newUsertype.BenutzerartID;
+                }
+
+                listobject.addToUserList(newUser);
+                clearFields();
+
+                if (listBoxRegistratedUsers.Items.Count > 0)
+                {
+                    buttonDelete.IsEnabled = true;
+                }
+                MessageBox.Show("Benutzer erfolgreich angelegt.");
+
+            }
+        }
+
+        private void exterminateUser()
+        {
+            var result = MessageBox.Show("Möchten Sie den ausgewählten Benutzer wirklich löschen?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Anmeldung deletingLogin;
+                Benutzer deletingUser;
+                if (listobject.UserList != null && listobject.LoginList != null)
+                {                   
+                    deletingUser = (Benutzer)listBoxRegistratedUsers.SelectedItem;
+
+                    if(deletingUser.Benutzernamen != activeUser)
+                    {
+                        deletingLogin = listobject.LoginList.Where(login => login.AnmeldungID.Equals(deletingUser.AnmeldeID)).First();
+                        
+                        listobject.UserList.Remove(deletingUser);
+                        listobject.LoginList.Remove(deletingLogin);
+
+                        if (listBoxRegistratedUsers.Items.Count == 0)
+                        {
+                            buttonDelete.IsEnabled = false;
+                        }
+                        else
+                        {
+                            listBoxRegistratedUsers.SelectedItem = 0;
+                        }
+                        MessageBox.Show("Benutzer erfolgreich gelöscht.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sie können sich nicht selber löschen.");
+                    }                   
+                }
+                else
+                {
+                    MessageBox.Show("Fehler beim Löschen des Benutzers");
+                }
+                
+            }
         }
 
         private void verifyInput()
         {
             Boolean valid = false;
 
-            if(textBoxId.Text.Contains(" ") || passwordBoxPassword.Password.Contains(" ") || textBoxUsername.Text.Contains(" "))
+            if (textBoxId.Text.Contains(" ") || passwordBoxPassword.Password.Contains(" ") || textBoxUsername.Text.Contains(" "))
             {
-                MessageBox.Show("In Ihren Eingaben dürfen keine Leerzeichen enthalten sein.");              
+                MessageBox.Show("In Ihren Eingaben dürfen keine Leerzeichen enthalten sein.");
             }
             else
             {
@@ -99,109 +205,10 @@ namespace CarRental
                 }
             }
 
-           
+
             if (valid == true)
             {
                 createUser();
-            }
-        }
-
-        private void createUser()
-        {
-            var result = MessageBox.Show("Möchten Sie einen neuen Benutzer anlegen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                Anmeldung newLogin = new Anmeldung();
-                Benutzer newUser = new Benutzer();
-                Benutzerart newUsertype = new Benutzerart();
-
-                //Anmeldung
-                newLogin.AnmeldungID = 0;
-                newLogin.Benutzername = textBoxId.Text;
-                newLogin.Passwort = passwordBoxPassword.Password;
-                listobject.addToLoginList(newLogin);
-
-                //Benutzerart
-                if (listobject.UserTypeList != null)
-                {
-                    foreach (Benutzerart aUserType in listobject.UserTypeList)
-                    {
-                        if (comboBoxUserType.SelectedValue.Equals(aUserType.Bezeichnung))
-                        {
-                            newUsertype = aUserType;
-                        }
-                    }
-                }
-
-                //Benutzer
-                newUser.BenutzerID = 0;
-                newUser.Benutzernamen = textBoxUsername.Text;
-
-                if (newLogin != null)
-                {
-                    newUser.Anmeldung = newLogin;
-                    newUser.AnmeldeID = newLogin.AnmeldungID;
-                }
-
-                if (newUsertype != null)
-                {
-                    newUser.Benutzerart = newUsertype;
-                    newUser.BenutzerartID = newUsertype.BenutzerartID;
-                }
-
-                listobject.addToUserList(newUser);
-                clearFields();
-
-                if (listBoxRegistratedUsers.Items.Count > 0)
-                {
-                    buttonDelete.IsEnabled = true;
-                }
-                MessageBox.Show("Benutzer erfolgreich angelegt.");
-
-            }
-        }
-
-        private void exterminateUser()
-        {
-            var result = MessageBox.Show("Möchten Sie den ausgewählten Benutzer wirklich löschen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                Anmeldung deletingLogin;
-                Benutzer deletingUser;
-                if (listobject.UserList != null && listobject.LoginList != null)
-                {
-                   // deletingUser = listobject.UserList.ElementAt(listBoxRegistratedUsers.SelectedIndex);
-                    deletingUser = (Benutzer)listBoxRegistratedUsers.SelectedItem;
-
-                    if(deletingUser.Benutzernamen != activeUser)
-                    {
-                        deletingLogin = listobject.LoginList.Where(login => login.AnmeldungID.Equals(deletingUser.AnmeldeID)).First();
-                        
-                        listobject.UserList.Remove(deletingUser);
-                        listobject.LoginList.Remove(deletingLogin);
-
-                        if (listBoxRegistratedUsers.Items.Count == 0)
-                        {
-                            buttonDelete.IsEnabled = false;
-                        }
-                        else
-                        {
-                            listBoxRegistratedUsers.SelectedItem = 0;
-                        }
-                        MessageBox.Show("Benutzer erfolgreich gelöscht.");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Sie können sich nicht selber löschen.");
-                    }                   
-                }
-                else
-                {
-                    MessageBox.Show("Fehler beim Löschen des Benutzers");
-                }
-                
             }
         }
 
@@ -211,9 +218,10 @@ namespace CarRental
             textBoxId.Text = null;
             textBoxUsername.Text = null;
             passwordBoxPassword.Password = null;
-
         }
+        #endregion
 
+        #region Events
 
         private void buttonRegistration_Click(object sender, RoutedEventArgs e)
         {
@@ -224,5 +232,6 @@ namespace CarRental
         {
             exterminateUser();
         }
+        #endregion
     }
 }

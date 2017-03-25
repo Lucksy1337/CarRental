@@ -5,30 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarRental"
         mc:Ignorable="d"
-        Title="Kontoverwaltung" Height="269.319" Width="300">
+        Title="Kontoverwaltung" Height="270.266" Width="315.172" ResizeMode="NoResize">
     <Grid>
         <Label Content="Aktiver Nutzer:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.005,0.462" Width="90"/>
         <Label x:Name="labelActiveUser" Content="" HorizontalAlignment="Left" Margin="133,10,0,0" VerticalAlignment="Top"/>
-        <GroupBox x:Name="groupBoxOptions" Header="Mögliche Optionen" HorizontalAlignment="Left" Margin="10,61,0,13" Width="272">
+        <GroupBox x:Name="groupBoxOptions" Header="Mögliche Optionen" HorizontalAlignment="Left" Margin="10,61,0,10" Width="279">
             <StackPanel Orientation="Vertical">
-
                 <Grid>
                     <Expander x:Name="expanderPasswordChange" Header="Passwort ändern" IsExpanded="True" FontSize="14">
-                        <Grid Background="#FFE5E5E5" Height="118" Margin="0,0,0,0">
+                        <Grid Background="#FFE5E5E5" Height="118" Margin="0,0,-2,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="Neues Passwort:" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top"/>
-                            <PasswordBox x:Name="passwordBoxNewPassword" HorizontalAlignment="Left" Margin="125,48,0,0" VerticalAlignment="Top" Width="123"/>
-                            <Button x:Name="buttonConfirmNewPassword" Content="Bestätige" HorizontalAlignment="Left" Margin="73,0,0,7" Width="98" Height="23" VerticalAlignment="Bottom" Click="buttonConfirmNewPassword_Click"/>
-                            <Label  Content="Altes Passwort:" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top"/>
                             <PasswordBox x:Name="passwordBoxOldPassword" HorizontalAlignment="Left" Margin="125,14,0,0" VerticalAlignment="Top" Width="123"/>
+                            <PasswordBox x:Name="passwordBoxNewPassword" HorizontalAlignment="Left" Margin="125,48,0,0" VerticalAlignment="Top" Width="123"/>
+                            <Button x:Name="buttonConfirmNewPassword" Content="Bestätige" HorizontalAlignment="Left" Margin="73,0,0,7" Width="98" Height="23" VerticalAlignment="Bottom" Click="ButtonConfirmNewPassword_Click"/>
+                            <Label Content="Neues Passwort:" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top"/>
+                            <Label  Content="Altes Passwort:" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top"/>                          
                         </Grid>
                     </Expander>
-
                 </Grid>
             </StackPanel>
         </GroupBox>
-
     </Grid>
 </Window>

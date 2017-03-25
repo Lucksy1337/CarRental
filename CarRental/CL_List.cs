@@ -1,5 +1,5 @@
-﻿//using CarRental.CarRentalServiceReference;
-using CarRental.CarRentalSchoolServiceReference;
+﻿using CarRental.CarRentalServiceReference;
+//using CarRental.CarRentalSchoolServiceReference;
 //using CarRental.CarRentalEbertsonServiceReference;
 
 using System;
@@ -12,12 +12,11 @@ using System.Threading.Tasks;
 namespace CarRental
 {
     public class CL_List
-    {
+    {       
         // Singleton
         private static volatile CL_List instance;
         private static object syncRoot = new Object();
-        //COMMIT
-
+        
 
         //Main lists
         private ObservableCollection<Adresse> addressList;
@@ -42,6 +41,23 @@ namespace CarRental
         private ObservableCollection<Fahrzeug> vehicleComparisonList;
         private ObservableCollection<Kontakt> contactComparisonList;
         private ObservableCollection<Kunde> customerComparisonList;
+
+
+        //Add lists       
+        private List<Adresse> addressAddList;
+        private List<Kontakt> contactAddList;
+        private List<Kunde> customerAddList;
+        private List<Fahrzeug> vehicleAddList;        
+        private List<Auftrag> orderAddList;    
+        private List<Anmeldung> loginAddList;    
+        private List<Benutzer> userAddList;
+    
+
+        //Delete lists
+        private List<Fahrzeug> vehicleDeleteList;
+        private List<Auftrag> orderDeleteList;
+        private List<Anmeldung> loginDeleteList;
+        private List<Benutzer> userDeleteList;
 
 
         //Getter and Setter Main lists
@@ -144,6 +160,63 @@ namespace CarRental
             set { customerComparisonList = value; }
         }
 
+        //Getter and Setter Update/Delete lists
+        public List<Adresse> AddressAddList
+        {
+            get { return addressAddList; }
+            set { addressAddList = value; }
+        }
+        public List<Kontakt> ContactAddList
+        {
+            get { return contactAddList; }
+            set { contactAddList = value; }
+        }
+        public List<Kunde> CustomerAddList
+        {
+            get { return customerAddList; }
+            set { customerAddList = value; }
+        }
+        public List<Fahrzeug> VehicleAddList
+        {
+            get { return vehicleAddList; }
+            set { vehicleAddList = value; }
+        }
+        public List<Auftrag> OrderAddList
+        {
+            get { return orderAddList; }
+            set { orderAddList = value; }
+        }
+        public List<Anmeldung> LoginAddList
+        {
+            get { return loginAddList; }
+            set { loginAddList = value; }
+        }
+        public List<Benutzer> UserAddList
+        {
+            get { return userAddList; }
+            set { userAddList = value; }
+        }
+        public List<Fahrzeug> VehicleDeleteList
+        {
+            get { return vehicleDeleteList; }
+            set { vehicleDeleteList = value; }
+        }
+        public List<Auftrag> OrderDeleteList
+        {
+            get { return orderDeleteList; }
+            set { orderDeleteList = value; }
+        }
+        public List<Anmeldung> LoginDeleteList
+        {
+            get { return loginDeleteList; }
+            set { loginDeleteList = value; }
+        }
+        public List<Benutzer> UserDeleteList
+        {
+            get { return userDeleteList; }
+            set { userDeleteList = value; }
+        }
+
 
         //Instantiation of CL_List
         public static CL_List Instance
@@ -162,7 +235,7 @@ namespace CarRental
             }
         }
 
-
+       
         //Methods
         public void addToAddressList(Adresse newAddress)
         {

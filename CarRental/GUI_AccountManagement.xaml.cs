@@ -1,6 +1,7 @@
-﻿//using CarRental.CarRentalServiceReference;
-using CarRental.CarRentalSchoolServiceReference;
+﻿using CarRental.CarRentalServiceReference;
+//using CarRental.CarRentalSchoolServiceReference;
 //using CarRental.CarRentalEbertsonServiceReference;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +20,13 @@ namespace CarRental
 {   
     public partial class GUI_AccountManagement : Window
     {
+        #region Variables
         private DM_DBConnection databaseConnection;
         private CL_List listobject;
         private String activeUser;
+        #endregion
 
-        #region Konstruktoren
+        #region Constructor
         public GUI_AccountManagement()
         {
             InitializeComponent();
@@ -36,6 +39,8 @@ namespace CarRental
         }
         #endregion
 
+        #region Logic
+
         private void Initialize(String username)
         {
             databaseConnection = DM_DBConnection.Instance;
@@ -43,9 +48,8 @@ namespace CarRental
             activeUser = username;
             labelActiveUser.Content = activeUser;
         }
-
-        #region Logik
-        private void changePassword()
+        
+        private void ChangePassword()
         {
             if(listobject.UserList != null)
             {
@@ -61,7 +65,7 @@ namespace CarRental
                     {
                         aLogin.Passwort = passwordBoxNewPassword.Password;
 
-                        var result = MessageBox.Show("Möchten Sie die Kundendaten speichern?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        var result = MessageBox.Show("Möchten Sie die Kundendaten speichern?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                         if (result == MessageBoxResult.Yes)
                         {
@@ -71,7 +75,7 @@ namespace CarRental
                             listobject.addToLoginList(aLogin);
                         }
 
-                        clearFields();
+                        ClearFields();
                         MessageBox.Show("Passwort erfolgreich abgeändert.");
                     }
                     else
@@ -87,7 +91,7 @@ namespace CarRental
             }
         }
 
-        private void verifyInput()
+        private void VerifyInput()
         {
             Boolean valid = false;
 
@@ -120,31 +124,28 @@ namespace CarRental
                         {
                             valid = true;
                         }
-
                     }
-
                 }
             }
 
             
             if (valid == true)
             {
-                changePassword();
+                ChangePassword();
             }
-        }
-        #endregion
+        } 
 
-
-        private void clearFields()
+        private void ClearFields()
         {
             passwordBoxNewPassword.Password = null;
             passwordBoxOldPassword.Password = null;
         }
+        #endregion
 
         #region Events
-        private void buttonConfirmNewPassword_Click(object sender, RoutedEventArgs e)
+        private void ButtonConfirmNewPassword_Click(object sender, RoutedEventArgs e)
         {
-            verifyInput();
+            VerifyInput();
         }
         #endregion
     }

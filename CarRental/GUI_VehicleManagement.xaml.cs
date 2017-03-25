@@ -1,6 +1,7 @@
-﻿//using CarRental.CarRentalServiceReference;
-using CarRental.CarRentalSchoolServiceReference;
+﻿using CarRental.CarRentalServiceReference;
+//using CarRental.CarRentalSchoolServiceReference;
 //using CarRental.CarRentalEbertsonServiceReference;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,24 +20,31 @@ namespace CarRental
 {
     public partial class GUI_VehicleManagement : Window
     {
+        #region Variables
+
         private DM_DBConnection databaseConnection;
         private CL_List list;
+        #endregion
 
+        #region Constructor
         public GUI_VehicleManagement()
         {
             InitializeComponent();
             Initialize();
         }
+        #endregion
+
+        #region Logic
 
         private void Initialize()
         {
             databaseConnection = DM_DBConnection.Instance;
             list = CL_List.Instance;
-            loadComboBoxVehicleType();
-            loadComboBoxInsurancePackage();
+            LoadComboBoxVehicleType();
+            LoadComboBoxInsurancePackage();
         }
 
-        private void loadComboBoxVehicleType()
+        private void LoadComboBoxVehicleType()
         {
             comboBoxVehicleType.Items.Clear();
             foreach (Fahrzeugtyp vehicleType in list.VehicleTypeList)
@@ -45,7 +53,7 @@ namespace CarRental
             }
         }
 
-        private void loadComboBoxInsurancePackage()
+        private void LoadComboBoxInsurancePackage()
         {
             comboBoxInsurancePackage.Items.Clear();
             foreach (Versicherungspaket insurancePackage in list.InsurancePackageList)
@@ -54,7 +62,7 @@ namespace CarRental
             }
         }
 
-        private void loadListBoxCreatedVehicles()
+        private void LoadListBoxCreatedVehicles()
         {
             Fahrzeugtyp aVehicleType = (Fahrzeugtyp)comboBoxVehicleType.SelectedItem;
 
@@ -82,78 +90,7 @@ namespace CarRental
             }
         }
 
-        private void comboBoxVehicleType_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            loadListBoxCreatedVehicles();
-        }
-
-        private void listBoxCreatedVehicles_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            updateTextBoxes((Fahrzeug)listBoxCreatedVehicles.SelectedItem);
-        }
-
-        private void buttonNewVehicle_Click(object sender, RoutedEventArgs e)
-        {
-            enableVehicleComponents(true);
-            buttonDeleteVehicle.IsEnabled = false;
-            buttonModifyVehicle.IsEnabled = false;
-            buttonCreateVehicle.IsEnabled = true;
-            clearComponents();
-            checkBoxAvailability.IsChecked = true;
-        }
-
-        private void buttonModifyVehicle_Click(object sender, RoutedEventArgs e)
-        {
-            Fahrzeug aVehicle = (Fahrzeug)listBoxCreatedVehicles.SelectedItem;
-            bool textHasSpace = false;
-            bool textWrongInput = false;
-
-            if (!textBoxDescription.Text.Contains(" ") && !textBoxBrand.Text.Contains(" ") && !textBoxVintage.Text.Contains(" ") && !textBoxMileage.Text.Contains(" ") &&
-                !textBoxGearChange.Text.Contains(" ") && !textBoxSeats.Text.Contains(" ") && !textBoxDoors.Text.Contains(" ") && !textBoxRentPerDay.Text.Contains(" "))
-            {
-                if (!textBoxDescription.Text.Equals("") && !textBoxBrand.Text.Equals("") && !textBoxVintage.Text.Equals("") && !textBoxMileage.Text.Equals("") &&
-                !textBoxGearChange.Text.Equals("") && !textBoxSeats.Text.Equals("") && !textBoxDoors.Text.Equals("") && !textBoxRentPerDay.Text.Equals("") && !hasTextInputOnlyCommas(textBoxRentPerDay.Text))
-                {
-                    aVehicle.Bezeichnung = textBoxDescription.Text;
-                    aVehicle.Marke = textBoxBrand.Text;
-                    aVehicle.Baujahr = Convert.ToInt32(textBoxVintage.Text);
-                    aVehicle.Kilometerstand = Convert.ToInt32(textBoxMileage.Text);
-                    aVehicle.Schaltung = textBoxGearChange.Text;
-                    aVehicle.Sitze = Convert.ToInt32(textBoxSeats.Text);
-                    aVehicle.Türe = Convert.ToInt32(textBoxDoors.Text);
-                    aVehicle.Naviagationssystem = Convert.ToBoolean(checkBoxNavigation.IsChecked);
-                    aVehicle.Klimaanlage = Convert.ToBoolean(checkBoxAirConditioning.IsChecked);
-                    aVehicle.MietpreisProTag = Convert.ToDouble(textBoxRentPerDay.Text);
-                    aVehicle.Verfügbar = Convert.ToBoolean(checkBoxAvailability.IsChecked);
-                }
-                else
-                {
-                    textWrongInput = true;
-                    MessageBox.Show("Bitte füllen Sie die Fahrzeugdaten korrekt aus.");
-                }
-            }
-            else
-            {
-                textHasSpace = true;
-                MessageBox.Show("In Ihren Fahrzeugdaten dürfen keine Leerzeichen enthalten sein.");
-            }
-
-            if (!textWrongInput && !textHasSpace)
-            {
-                var result = MessageBox.Show("Möchten Sie die Fahrzeugdaten speichern?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    list.VehicleList.Remove(aVehicle);
-                    list.addToVehicleList(aVehicle);
-                    loadListBoxCreatedVehicles();
-
-                    MessageBox.Show("Fahrzeugdaten wurden erfolgreich gespeichert.");
-                }
-            }
-        }
-
-        private void buttonCreateVehicle_Click(object sender, RoutedEventArgs e)
+        private void CreateVehicle()
         {
             Fahrzeug newVehicle = null;
             bool textHasSpace = false;
@@ -163,7 +100,7 @@ namespace CarRental
                 !textBoxGearChange.Text.Contains(" ") && !textBoxSeats.Text.Contains(" ") && !textBoxDoors.Text.Contains(" ") && !textBoxRentPerDay.Text.Contains(" "))
             {
                 if (!textBoxDescription.Text.Equals("") && !textBoxBrand.Text.Equals("") && !textBoxVintage.Text.Equals("") && !textBoxMileage.Text.Equals("") && comboBoxVehicleType.SelectedItem != null &&
-                comboBoxInsurancePackage.SelectedItem != null && !textBoxGearChange.Text.Equals("") && !textBoxSeats.Text.Equals("") && !textBoxDoors.Text.Equals("") && !textBoxRentPerDay.Text.Equals("") && !hasTextInputOnlyCommas(textBoxRentPerDay.Text))
+                comboBoxInsurancePackage.SelectedItem != null && !textBoxGearChange.Text.Equals("") && !textBoxSeats.Text.Equals("") && !textBoxDoors.Text.Equals("") && !textBoxRentPerDay.Text.Equals("") && !HasTextInputOnlyCommas(textBoxRentPerDay.Text))
                 {
                     Fahrzeugtyp aVehicleType = (Fahrzeugtyp)comboBoxVehicleType.SelectedItem;
                     Versicherungspaket aInsurancePackage = (Versicherungspaket)comboBoxInsurancePackage.SelectedItem;
@@ -200,32 +137,83 @@ namespace CarRental
 
             if (!textWrongInput && !textHasSpace)
             {
-                var result = MessageBox.Show("Möchten Sie ein neues Fahrzeug anlegen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                var result = MessageBox.Show("Möchten Sie ein neues Fahrzeug anlegen?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    clearComponents();
+                    ClearComponents();
                     list.addToVehicleList(newVehicle);
-                    loadListBoxCreatedVehicles();
+                    LoadListBoxCreatedVehicles();
                     comboBoxVehicleType.SelectedItem = newVehicle.Fahrzeugtyp;
                 }
             }
         }
 
-        private void buttonDeleteVehicle_Click(object sender, RoutedEventArgs e)
+        private void ModifyVehicle()
+        {
+            Fahrzeug aVehicle = (Fahrzeug)listBoxCreatedVehicles.SelectedItem;
+            bool textHasSpace = false;
+            bool textWrongInput = false;
+
+            if (!textBoxDescription.Text.Contains(" ") && !textBoxBrand.Text.Contains(" ") && !textBoxVintage.Text.Contains(" ") && !textBoxMileage.Text.Contains(" ") &&
+                !textBoxGearChange.Text.Contains(" ") && !textBoxSeats.Text.Contains(" ") && !textBoxDoors.Text.Contains(" ") && !textBoxRentPerDay.Text.Contains(" "))
+            {
+                if (!textBoxDescription.Text.Equals("") && !textBoxBrand.Text.Equals("") && !textBoxVintage.Text.Equals("") && !textBoxMileage.Text.Equals("") &&
+                !textBoxGearChange.Text.Equals("") && !textBoxSeats.Text.Equals("") && !textBoxDoors.Text.Equals("") && !textBoxRentPerDay.Text.Equals("") && !HasTextInputOnlyCommas(textBoxRentPerDay.Text))
+                {
+                    aVehicle.Bezeichnung = textBoxDescription.Text;
+                    aVehicle.Marke = textBoxBrand.Text;
+                    aVehicle.Baujahr = Convert.ToInt32(textBoxVintage.Text);
+                    aVehicle.Kilometerstand = Convert.ToInt32(textBoxMileage.Text);
+                    aVehicle.Schaltung = textBoxGearChange.Text;
+                    aVehicle.Sitze = Convert.ToInt32(textBoxSeats.Text);
+                    aVehicle.Türe = Convert.ToInt32(textBoxDoors.Text);
+                    aVehicle.Naviagationssystem = Convert.ToBoolean(checkBoxNavigation.IsChecked);
+                    aVehicle.Klimaanlage = Convert.ToBoolean(checkBoxAirConditioning.IsChecked);
+                    aVehicle.MietpreisProTag = Convert.ToDouble(textBoxRentPerDay.Text);
+                    aVehicle.Verfügbar = Convert.ToBoolean(checkBoxAvailability.IsChecked);
+                }
+                else
+                {
+                    textWrongInput = true;
+                    MessageBox.Show("Bitte füllen Sie die Fahrzeugdaten korrekt aus.");
+                }
+            }
+            else
+            {
+                textHasSpace = true;
+                MessageBox.Show("In Ihren Fahrzeugdaten dürfen keine Leerzeichen enthalten sein.");
+            }
+
+            if (!textWrongInput && !textHasSpace)
+            {
+                var result = MessageBox.Show("Möchten Sie die Fahrzeugdaten speichern?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    list.VehicleList.Remove(aVehicle);
+                    list.addToVehicleList(aVehicle);
+                    LoadListBoxCreatedVehicles();
+
+                    MessageBox.Show("Fahrzeugdaten wurden erfolgreich gespeichert.");
+                }
+            }
+        }
+
+        private void DeleteVehicle()
         {
             Fahrzeug deletingVehicle = (Fahrzeug)listBoxCreatedVehicles.SelectedItem;
 
             if (deletingVehicle.Verfügbar)
             {
-                var result = MessageBox.Show("Möchten Sie das ausgewählten Fahrzeug entfernen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                var result = MessageBox.Show("Möchten Sie das ausgewählten Fahrzeug entfernen?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
                     if (list.VehicleList != null && list.VehicleSortedByTypeList != null)
                     {
                         list.VehicleList.Remove(deletingVehicle);
-                        loadListBoxCreatedVehicles();
+                        LoadListBoxCreatedVehicles();
 
                         MessageBox.Show("Das ausgewählte Fahrzeug wurde entfernt");
                     }
@@ -235,55 +223,15 @@ namespace CarRental
             {
                 MessageBox.Show("Das ausgewählte Fahrzeug kann nicht gelöscht werden, da es verliehen ist.");
             }
-        }
+        }        
 
-        private void textBoxVintage_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!isTextInputTypeOfInteger(e.Text))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void textBoxMileage_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!isTextInputTypeOfInteger(e.Text))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void textBoxSeats_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!isTextInputTypeOfInteger(e.Text))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void textBoxDoors_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!isTextInputTypeOfInteger(e.Text))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void textBoxRentPerDay_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (e.Text != "," && !isTextInputTypeOfInteger(e.Text))
-            {
-                e.Handled = true;
-            }
-        }
-
-        public void updateTextBoxes(Fahrzeug selectedVehicle)
+        public void UpdateTextBoxes(Fahrzeug selectedVehicle)
         {
             bool cancelVehicleCreation = false;
 
             if (buttonCreateVehicle.IsEnabled && listBoxCreatedVehicles.SelectedItem != null)
             {
-                var result = MessageBox.Show("Möchten Sie die Fahrzeugerstellung verlassen?", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                var result = MessageBox.Show("Möchten Sie die Fahrzeugerstellung verlassen?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -308,7 +256,7 @@ namespace CarRental
                     textBoxRentPerDay.Text = Convert.ToString(selectedVehicle.MietpreisProTag);
                     checkBoxAvailability.IsChecked = Convert.ToBoolean(selectedVehicle.Verfügbar);
 
-                    enableVehicleComponents(true);
+                    EnableVehicleComponents(true);
                     buttonDeleteVehicle.IsEnabled = true;
                     buttonModifyVehicle.IsEnabled = true;
                     buttonCreateVehicle.IsEnabled = false;
@@ -318,9 +266,19 @@ namespace CarRental
                     listBoxCreatedVehicles.SelectedItem = null;
                 }
             }
+        }        
+
+        private void PrepareComponentsForNewVehicleCreation()
+        {
+            EnableVehicleComponents(true);
+            buttonDeleteVehicle.IsEnabled = false;
+            buttonModifyVehicle.IsEnabled = false;
+            buttonCreateVehicle.IsEnabled = true;
+            ClearComponents();
+            checkBoxAvailability.IsChecked = true;
         }
 
-        private void enableVehicleComponents(bool status)
+        private void EnableVehicleComponents(bool status)
         {
             comboBoxVehicleType.IsEnabled = status;
             comboBoxInsurancePackage.IsEnabled = status;
@@ -333,11 +291,10 @@ namespace CarRental
             textBoxDoors.IsEnabled = status;
             checkBoxNavigation.IsEnabled = status;
             checkBoxAirConditioning.IsEnabled = status;
-            textBoxRentPerDay.IsEnabled = status;
-            //checkBoxAvailability.IsEnabled = status;
+            textBoxRentPerDay.IsEnabled = status;            
         }
 
-        private void clearComponents()
+        private void ClearComponents()
         {
             listBoxCreatedVehicles.Items.Clear();
             comboBoxVehicleType.SelectedItem = null;
@@ -351,24 +308,23 @@ namespace CarRental
             textBoxDoors.Text = null;
             checkBoxNavigation.IsChecked = false;
             checkBoxAirConditioning.IsChecked = false;
-            textBoxRentPerDay.Text = null;
-            checkBoxAvailability.IsChecked = false;
+            textBoxRentPerDay.Text = null;            
         }
 
-        private bool isTextInputTypeOfInteger(string text)
+        private bool IsTextInputTypeOfInteger(string text)
         {
             int number;
 
             return int.TryParse(text, out number);
         }
 
-        private bool hasTextInputOnlyCommas(string text)
+        private bool HasTextInputOnlyCommas(string text)
         {
             bool status = false;
 
-            foreach (char stringSub in text.ToArray())
+            foreach (char subString in text.ToArray())
             {
-                if (stringSub == ',')
+                if (subString == ',')
                 {
                     status = true;
                 }
@@ -380,5 +336,79 @@ namespace CarRental
 
             return status;
         }
+        #endregion
+
+        #region Events
+
+        private void ButtonNewVehicle_Click(object sender, RoutedEventArgs e)
+        {
+            PrepareComponentsForNewVehicleCreation();
+        }
+
+        private void ButtonModifyVehicle_Click(object sender, RoutedEventArgs e)
+        {
+            ModifyVehicle();
+        }
+
+        private void ButtonCreateVehicle_Click(object sender, RoutedEventArgs e)
+        {
+            CreateVehicle();
+        }
+
+        private void ButtonDeleteVehicle_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteVehicle();
+        }
+
+        private void comboBoxVehicleType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadListBoxCreatedVehicles();
+        }
+
+        private void listBoxCreatedVehicles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateTextBoxes((Fahrzeug)listBoxCreatedVehicles.SelectedItem);
+        }
+
+        private void TextBoxVintage_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsTextInputTypeOfInteger(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBoxMileage_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsTextInputTypeOfInteger(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBoxSeats_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsTextInputTypeOfInteger(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBoxDoors_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsTextInputTypeOfInteger(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBoxRentPerDay_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text != "," && !IsTextInputTypeOfInteger(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+        #endregion
     }
 }

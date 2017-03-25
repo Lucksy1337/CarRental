@@ -844,7 +844,7 @@ namespace CarRental.CarRentalSchoolServiceReference
     {
         public override string ToString()
         {
-            return "Auftrag: "+AuftragID;
+            return "AuftragID: "+AuftragID;
         }
         /// <summary>
         /// Erstellt ein neues Auftrag-Objekt.
@@ -1312,7 +1312,7 @@ namespace CarRental.CarRentalSchoolServiceReference
     {
         public override string ToString()
         {
-            return "Bezeichnung: "+Bezeichnung + " : Kilometerstand: " + Kilometerstand + " : Verfügbar: " + Verfügbar;
+            return "BEZEICHNUNG: " + Bezeichnung + " || BAUJAHR: " + Baujahr + " || VERFÜGBAR: " + Verfügbar;
         }
         /// <summary>
         /// Erstellt ein neues Fahrzeug-Objekt.

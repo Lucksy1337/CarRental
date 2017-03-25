@@ -1,6 +1,7 @@
-﻿//using CarRental.CarRentalServiceReference;
-using CarRental.CarRentalSchoolServiceReference;
+﻿using CarRental.CarRentalServiceReference;
+//using CarRental.CarRentalSchoolServiceReference;
 //using CarRental.CarRentalEbertsonServiceReference;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,7 +23,8 @@ namespace CarRental
         bool deleteLogin(List<Anmeldung> loginList);
 
         //Order
-        bool addOrder(List<Auftrag> orderList);        
+        bool addOrder(List<Auftrag> orderList);
+        bool updateOrder(ObservableCollection<Auftrag> orderList);
         bool deleteOrder(List<Auftrag> orderList);
 
         //User

@@ -255,7 +255,7 @@ namespace CarRental.CarRentalServiceReference
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public void AddToAuftrag(Auftrag auftrag)
-        {
+        {            
             base.AddObject("Auftrag", auftrag);
         }
         /// <summary>
@@ -555,7 +555,7 @@ namespace CarRental.CarRentalServiceReference
 
         public override string ToString()
         {
-            return Ort + " : " + Strasse + " " + Hausnummer + " " +AdresseID;
+            return Ort + " : " + Strasse + " " + Hausnummer;
         }
 
         /// <summary>
