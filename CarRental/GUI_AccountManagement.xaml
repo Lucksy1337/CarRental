@@ -7,13 +7,20 @@
         mc:Ignorable="d"
         Title="Kontoverwaltung" Height="270.266" Width="315.172" ResizeMode="NoResize">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="#02FFFCFC" Offset="1"/>
+                <GradientStop Color="White"/>
+                <GradientStop Color="#FFB3FFF1" Offset="0.007"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Label Content="Aktiver Nutzer:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.005,0.462" Width="90"/>
         <Label x:Name="labelActiveUser" Content="" HorizontalAlignment="Left" Margin="133,10,0,0" VerticalAlignment="Top"/>
         <GroupBox x:Name="groupBoxOptions" Header="Mögliche Optionen" HorizontalAlignment="Left" Margin="10,61,0,10" Width="279">
             <StackPanel Orientation="Vertical">
                 <Grid>
                     <Expander x:Name="expanderPasswordChange" Header="Passwort ändern" IsExpanded="True" FontSize="14">
-                        <Grid Background="#FFE5E5E5" Height="118" Margin="0,0,-2,0">
+                        <Grid Background="#7FE5E5E5" Height="118" Margin="0,0,-2,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>

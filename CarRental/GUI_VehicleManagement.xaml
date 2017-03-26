@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="Fahrzeugverwaltung" Height="544.846" Width="756.093" ResizeMode="NoResize">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="#02FFFCFC" Offset="1"/>
+                <GradientStop Color="White"/>
+                <GradientStop Color="#FFB3FFF1" Offset="0.007"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Label x:Name="labelVehicleType" Content="Fahrzeugtyp:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="132" FontSize="14"/>
         <Label x:Name="labelInsurancePackage" Content="Versicherungspaket:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,63,0,0" Width="140" FontSize="14"/>
         <Label x:Name="labelDescription" Content="Bezeichnung:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0" Width="132" FontSize="14"/>
@@ -21,18 +28,18 @@
         <Label x:Name="labelRentPerDay" Content="Mietpreis/Tag:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,389,0,0" Width="132" FontSize="14"/>
         <Label x:Name="labelAvailability" Content="Verfügbar:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,422,0,0" Width="132" FontSize="14"/>
         <Label x:Name="labelCreatedVehicles" Content="Erstelle Fahrzeuge:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="327,12,0,0" Width="143" FontSize="14"/>
-        <ComboBox x:Name="comboBoxVehicleType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="138" Margin="173,10,0,0" Height="31" SelectionChanged="comboBoxVehicleType_SelectionChanged" FontSize="14"/>
-        <ComboBox x:Name="comboBoxInsurancePackage" HorizontalAlignment="Left" VerticalAlignment="Top" Width="138" Margin="173,61,0,0" Height="31" IsEnabled="False" FontSize="14"/>
-        <TextBox x:Name="textBoxDescription" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" Margin="173,105,0,0" IsEnabled="False" FontSize="14"/>
-        <TextBox x:Name="textBoxBrand" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" Margin="173,136,0,0" IsEnabled="False" FontSize="14"/>
-        <TextBox x:Name="textBoxVintage" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" Margin="173,167,0,0" IsEnabled="False" PreviewTextInput="TextBoxVintage_PreviewTextInput" FontSize="14"/>
-        <TextBox x:Name="textBoxMileage" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" Margin="173,198,0,0" IsEnabled="False" PreviewTextInput="TextBoxMileage_PreviewTextInput" FontSize="14"/>
-        <TextBox x:Name="textBoxGearChange" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" Margin="173,229,0,0" IsEnabled="False" FontSize="14"/>
-        <TextBox x:Name="textBoxSeats" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" Margin="173,260,0,0" IsEnabled="False" PreviewTextInput="TextBoxSeats_PreviewTextInput" FontSize="14"/>
-        <TextBox x:Name="textBoxDoors" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" Margin="173,291,0,0" IsEnabled="False" PreviewTextInput="TextBoxDoors_PreviewTextInput" FontSize="14"/>
+        <ComboBox x:Name="comboBoxVehicleType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="173,10,0,0" Height="31" SelectionChanged="comboBoxVehicleType_SelectionChanged" FontSize="14"/>
+        <ComboBox x:Name="comboBoxInsurancePackage" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="173,61,0,0" Height="31" IsEnabled="False" FontSize="14"/>
+        <TextBox x:Name="textBoxDescription" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="173,108,0,0" IsEnabled="False" FontSize="14"/>
+        <TextBox x:Name="textBoxBrand" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="173,139,0,0" IsEnabled="False" FontSize="14"/>
+        <TextBox x:Name="textBoxVintage" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="173,170,0,0" IsEnabled="False" PreviewTextInput="TextBoxVintage_PreviewTextInput" FontSize="14"/>
+        <TextBox x:Name="textBoxMileage" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="173,201,0,0" IsEnabled="False" PreviewTextInput="TextBoxMileage_PreviewTextInput" FontSize="14"/>
+        <TextBox x:Name="textBoxGearChange" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="173,232,0,0" IsEnabled="False" FontSize="14"/>
+        <TextBox x:Name="textBoxSeats" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="173,263,0,0" IsEnabled="False" PreviewTextInput="TextBoxSeats_PreviewTextInput" FontSize="14"/>
+        <TextBox x:Name="textBoxDoors" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="173,294,0,0" IsEnabled="False" PreviewTextInput="TextBoxDoors_PreviewTextInput" FontSize="14"/>
         <CheckBox x:Name="checkBoxNavigation" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="173,328,0,0" IsEnabled="False"/>
         <CheckBox x:Name="checkBoxAirConditioning" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="173,363,0,0" IsEnabled="False"/>
-        <TextBox x:Name="textBoxRentPerDay" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" Margin="173,389,0,0" IsEnabled="False" PreviewTextInput="TextBoxRentPerDay_PreviewTextInput" FontSize="14"/>
+        <TextBox x:Name="textBoxRentPerDay" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="173,392,0,0" IsEnabled="False" PreviewTextInput="TextBoxRentPerDay_PreviewTextInput" FontSize="14"/>
         <CheckBox x:Name="checkBoxAvailability" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="173,428,0,0" IsEnabled="False"/>
         <Button x:Name="buttonCreateVehicle" Content="Fahrzeug erstellen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="30,470,0,0" Height="30" FontSize="14" IsEnabled="False" Click="ButtonCreateVehicle_Click"/>
         <Button x:Name="buttonModifyVehicle" Content="Fahrzeug ändern" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="173,470,0,0" Height="30" FontSize="14"  IsEnabled="False" Click="ButtonModifyVehicle_Click"/>

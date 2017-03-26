@@ -7,10 +7,17 @@
         mc:Ignorable="d"
         Title="Anmeldefenster" Height="166.176" Width="270.022" ResizeMode="NoResize">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="#02FFFCFC" Offset="1"/>
+                <GradientStop Color="White"/>
+                <GradientStop Color="#FFB3FFF1" Offset="0.007"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Label x:Name="labelUsername" Content="Benutzername:" HorizontalAlignment="Left" Margin="14,21,0,0" VerticalAlignment="Top" Width="108" FontSize="14"/>
         <Label x:Name="labelPassword" Content="Passwort:" HorizontalAlignment="Left" Margin="14,55,0,0" VerticalAlignment="Top" Width="91" FontSize="14"/>
-        <TextBox x:Name="textBoxUsername" HorizontalAlignment="Left" Height="23" Margin="127,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" FontSize="14"/>
-        <PasswordBox x:Name="passwordBoxPassword" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,55,0,0" Width="112" Background="White" Height="23" FontSize="14"/>
-        <Button x:Name="buttonLogin" Content="Anmelden" HorizontalAlignment="Left" Margin="69,89,0,0" VerticalAlignment="Top" Width="122" FontSize="14" Click="ButtonLogin_Click"/>
+        <TextBox x:Name="textBoxUsername" HorizontalAlignment="Left" Height="23" Margin="127,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14"/>
+        <PasswordBox x:Name="passwordBoxPassword" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,55,0,0" Width="120" Background="White" Height="23" FontSize="14"/>
+        <Button x:Name="buttonLogin" Content="Anmelden" HorizontalAlignment="Left" Margin="69,89,0,0" VerticalAlignment="Top" Width="122" FontSize="14" Click="ButtonLogin_Click" Background="#FFDDDDDD"/>
     </Grid>
 </Window>
