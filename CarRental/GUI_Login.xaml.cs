@@ -1,7 +1,4 @@
-﻿using CarRental.CarRentalServiceReference;
-//using CarRental.CarRentalSchoolServiceReference;
-//using CarRental.CarRentalEbertsonServiceReference;
-
+﻿using CarRental.CarRentalSchoolServiceReference;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,7 +76,8 @@ namespace CarRental
                     this.Close();
                 }
              }
-                if(verify == false)
+
+            if (verify == false)
             {
                 MessageBox.Show("Daten falsch. Erneute Eingabe erforderlich.");
             }
@@ -90,7 +88,7 @@ namespace CarRental
 
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
-            VerifyLogin(textBoxUsername.Text, passwordBoxPassword.Password);
+            VerifyLogin(textBoxUsername.Text, passwordBoxPassword.Password);            
         }
         #endregion
     }
